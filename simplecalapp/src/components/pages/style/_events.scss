@@ -1,0 +1,14 @@
+@use 'config';
+
+.events-calendar-btn {
+    border: none;
+    color: config.$text-color;
+    background-color: config.$primary-color;
+    padding: 20px;
+    margin-left: 65vmax;
+
+    &:hover {
+      font-weight: bold;
+      background-color: white;
+    }
+  }

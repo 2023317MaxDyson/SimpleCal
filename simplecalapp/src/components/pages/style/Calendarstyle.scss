@@ -1,0 +1,155 @@
+@use 'config';
+@use 'events';
+
+.cal-background {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.cal-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vmax;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  justify-content: flex-start;
+  text-align: center;
+  opacity: 0.8;
+  background-color: config.$primary-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  
+
+  .material-symbols-outlined {
+    font-weight: bold;
+    color: config.$text-color;
+  }
+
+  .cal-title {
+    color: config.$text-color;
+    font-size: 18px;
+  }
+
+  .cal-events-search-input{
+   margin-left: 30vmax;
+   width:  350pt;
+   padding: 10px;
+   opacity: 0.8;
+   border: 1px solid config.$secondary-color;
+   border-radius: 6px;
+  }
+
+  .cal-events-btn {
+    border: none;
+    color: config.$text-color;
+    background-color: config.$primary-color;
+    padding: 20px;
+    margin-left: 200px;
+
+    &:hover {
+      font-weight: bold;
+      background-color: white;
+    }
+  }
+  
+}
+
+/* Calendar section */
+.cal-main {
+  margin-top: 10vmax;
+
+  .cal-show-events {
+    display: grid;
+    grid: auto/ repeat(4, auto);
+    gap: 100px;
+    margin-left: 100px;
+    width: 500pt;
+    height: 200px;
+  }
+
+.cal-event-image{
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+  
+
+  .cal-monthinyear {
+    color: config.$text-color ;
+    text-align: center;
+  }
+
+  .cal-filter {
+    text-align: center;
+    margin-bottom: 2vmax;
+
+    button {
+      margin: 6px;
+      padding: 10px 20px;
+    }
+  }
+}
+
+.cal-calander{
+  float: right;
+
+/* Toggle buttons */
+.cal-left,
+.cal-right {
+  background-color: config.$secondary-color;
+  border: 1px solid config.$secondary-color;
+  color: config.$text-color;
+  padding: 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+  }
+}
+
+/* Calendar grid */
+.cal-grid {
+  display: grid;
+  grid: 50px / repeat(7, auto);
+  padding: 10px 20px;
+  color: config.$text-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  width: 300px;
+  background-color: config.$secondary-color;
+  border-radius: 20px;
+
+  > div {
+    padding: 20px 0;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .cal-daysofweek {
+    font-weight: bold;
+  }
+
+  .cal-event-dot{
+  width: 6px;
+  height: 6px;
+  background-color: #ff4d4d;
+  border-radius: 50%;
+  display: block;
+  margin: 4px auto 0;
+  }
+
+ }
+}
+
+/* Footer */
+.cal-footer {
+  margin-top: 50vmax;
+  margin-left: 50vmax;
+}
