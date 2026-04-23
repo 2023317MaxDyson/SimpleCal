@@ -25,7 +25,7 @@ function Events() {
     if (!isEditing || !eventId) return;
 
     async function fetchEvent() {
-      const res = await fetch(`http://localhost:5000/events/${eventId}`);
+      const res = await fetch(`https://simplecal-nf6h.onrender.com/events/${eventId}`);
 
       const data = await res.json();
       setFormData(data);
@@ -39,7 +39,7 @@ function Events() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await fetch(`http://localhost:5000/events`, {
+    await fetch(`https://simplecal-nf6h.onrender.com/events`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
@@ -52,7 +52,7 @@ function Events() {
   // EDIT EVENT
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:5000/events/${eventId}`, {
+    await fetch(`https://simplecal-nf6h.onrender.com/events/${eventId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
@@ -64,7 +64,7 @@ function Events() {
   async function handleDelete(e) {
     if (!eventId) return alert("Please enter an event ID to delete");
     e.preventDefault();
-    await fetch(`http://localhost:5000/events/${eventId}`, {
+    await fetch(`https://simplecal-nf6h.onrender.com/events/${eventId}`, {
       method: "DELETE"
     })
     navigate("/");

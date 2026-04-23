@@ -60,7 +60,7 @@ function Calendar() {
   const [events, setEvents] = useState([]);
 
   async function fetchEvents() {
-    const response = await fetch("http://localhost:5000/events");
+    const response = await fetch("https://simplecal-nf6h.onrender.com/events");
     const data = await response.json();
     setEvents(data);
   }
