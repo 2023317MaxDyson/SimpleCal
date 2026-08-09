@@ -1,3 +1,100 @@
+.event-main {
+  background-color: #e6f2ff;
+  width: 150vmax;
+  margin-top: 79px;
+}
+
+.event-deleteorupdate {
+  margin-left: 600px;
+}
+
+.event-form {
+  background-color: white;
+  border-color: gray;
+  border-radius: 30px;
+  margin-top: 20px;
+  padding: 40px;
+  margin-left: 500px;
+  margin-right: 200px;
+  width: 1000px;
+  height: 700px;
+}
+
+.event-form-group1 #title-label {
+  margin-left: 250pt;
+}
+.event-form-group1 #date-label {
+  margin-left: 180pt;
+}
+.event-form-group1 #title {
+  margin-top: 10px;
+  margin-left: 250pt;
+  height: 25px;
+}
+.event-form-group1 #date {
+  margin-top: 10px;
+  margin-left: 80pt;
+  width: 230px;
+  height: 25px;
+}
+
+.event-form-group2 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 250pt;
+  gap: 6px;
+  width: 1000px;
+}
+.event-form-group2 input[type=text],
+.event-form-group2 input[type=time],
+.event-form-group2 select {
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 375pt;
+  height: 23px;
+}
+.event-form-group2 button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px 20px;
+  width: 375pt;
+  height: 60px;
+  font-weight: bold;
+}
+.event-form-group2 .events-submit-btn {
+  background-color: rgb(130, 234, 182);
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+}
+.event-form-group2 .events-submit-btn:hover {
+  font-weight: bold;
+  background-color: rgb(44, 236, 140);
+}
+.event-form-group2 .events-delete-btn {
+  background-color: rgb(255, 127, 127);
+  border-radius: 4px;
+  color: white;
+  border: none;
+}
+.event-form-group2 .events-delete-btn:hover {
+  font-weight: bold;
+  color: white;
+  background-color: red;
+}
+.event-form-group2 .event-toggle-btn {
+  border-radius: 4px;
+  background-color: rgb(227, 223, 223);
+  border: none;
+}
+.event-form-group2 .event-toggle-btn:hover {
+  font-weight: bold;
+  color: white;
+  background-color: gray;
+}
+
 .events-calendar-btn {
   border: none;
   color: navy;
@@ -8,6 +105,78 @@
 .events-calendar-btn:hover {
   font-weight: bold;
   background-color: white;
+}
+
+.login-container {
+  display: flex;
+}
+
+.login-background {
+  background-image: url("http://localhost:3000/img/CalanderPhoto.jpg");
+  width: 1000px;
+  height: 1000px;
+  opacity: 0.7;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px 20px;
+}
+.login-background p {
+  font-size: 70px;
+  color: navy;
+  margin-top: 300pt;
+  margin-left: 250pt;
+  opacity: 1;
+  text-align: center;
+  width: 200pt;
+  height: 100pt;
+}
+
+.login-inputs {
+  margin-left: 320px;
+  margin-top: 150px;
+  padding: 40px 30px;
+}
+.login-inputs .cal-logo-title {
+  display: flex;
+  gap: 20px;
+}
+.login-inputs .cal-logo-title .material-symbols-outlined {
+  color: navy;
+  font-size: 30px;
+}
+.login-inputs .cal-logo-title .cal-title {
+  color: navy;
+  font-size: 20px;
+}
+.login-inputs .login-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  gap: 10px;
+}
+.login-inputs .login-form input[type=text] {
+  width: 200px;
+  height: 30px;
+}
+.login-inputs .login-form button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  color: black;
+  background: white;
+  border: solid 1px #67b5f9;
+}
+.login-inputs .login-form button:hover {
+  background-color: #0088FF;
+}
+.login-inputs .login-noaccount {
+  border: none;
+  background-color: white;
+  color: #0088FF;
+}
+.login-inputs .login-noaccount:hover {
+  color: white;
+  background-color: #0088FF;
 }
 
 .cal-background {
@@ -60,15 +229,57 @@
   font-weight: bold;
   background-color: white;
 }
+.cal-header .cal-login-btn {
+  border: none;
+  color: navy;
+  background-color: #e6f2ff;
+  padding: 20px;
+}
+.cal-header .cal-login-btn:hover {
+  font-weight: bold;
+  background-color: white;
+}
+.cal-header .cal-signup-btn {
+  border: none;
+  color: navy;
+  background-color: #e6f2ff;
+  padding: 20px;
+}
+.cal-header .cal-signup-btn:hover {
+  font-weight: bold;
+  background-color: white;
+}
 
 /* Calendar section */
 .cal-main {
   margin-top: 10vmax;
+  height: 1000px;
+}
+.cal-main .cal-category-select {
+  padding: 12px 16px;
+  background: white;
+  border: 2px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-left: 100px;
+  color: #333;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.cal-main .cal-category-select:hover {
+  border-color: lightskyblue;
+  box-shadow: 0 0 8px rgba(138, 180, 248, 0.5);
+}
+.cal-main .cal-category-select:focus {
+  outline: none;
+  border-color: lightskyblue;
+  box-shadow: 0 0 10px rgba(74, 144, 226, 0.6);
 }
 .cal-main .cal-show-events {
   display: grid;
-  grid: auto/repeat(4, auto);
+  grid: auto/repeat(3, auto);
   gap: 100px;
+  margin-top: 50px;
   margin-left: 100px;
   width: 500pt;
   height: 200px;
@@ -77,6 +288,11 @@
   width: 200px;
   height: 200px;
   border-radius: 10px;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+.cal-main .cal-event-image:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
 }
 .cal-main .cal-monthinyear {
   color: navy;
@@ -110,9 +326,9 @@
   cursor: pointer;
   background-color: whitesmoke;
 }
-
+.cal-calander {
   /* Calendar grid */
-
+}
 .cal-calander .cal-grid {
   display: grid;
   grid: 50px/repeat(7, auto);
@@ -124,9 +340,14 @@
   border-radius: 20px;
 }
 .cal-calander .cal-grid > div {
-  padding: 20px 0;
+  padding: 20px 0px;
   font-size: 16px;
   text-align: center;
+  cursor: pointer;
+}
+.cal-calander .cal-grid > div:hover {
+  border-radius: 10px;
+  background-color: white;
 }
 .cal-calander .cal-grid .cal-daysofweek {
   font-weight: bold;
@@ -140,8 +361,34 @@
   margin: 4px auto 0;
 }
 
+.event-pagination {
+  margin-top: 600px;
+  text-align: center;
+}
+
 /* Footer */
 .cal-footer {
-  margin-top: 50vmax;
-  margin-left: 50vmax;
+  display: flex;
+  gap: 30px;
+  background-color: #e6f2ff;
+  width: 120vmax;
+  height: 150px;
+}
+.cal-footer .footer-left {
+  padding: 30px 20px;
+}
+.cal-footer .footer-left a {
+  color: navy;
+}
+.cal-footer .footer-center {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+}
+.cal-footer .footer-center a {
+  color: navy;
+}
+.cal-footer .footer-right {
+  padding: 30px 30px;
+  margin-left: 200px;
 }/*# sourceMappingURL=Calendarstyle.css.map */

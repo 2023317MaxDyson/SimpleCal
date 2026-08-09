@@ -9,11 +9,6 @@ const EventSchema = new mongoose.Schema({
   image: String,
 });
 
-EventSchema.set("toJSON", {
-  transform: (doc, ret) => {
-    ret._id = ret._id.toString();
-    delete ret.__v;
-  }
-});
+
 
 module.exports = mongoose.model("Event", EventSchema);

@@ -1,5 +1,9 @@
 @use 'config';
+@use "home";
 @use 'events';
+@use "login";
+@use "signup";
+
 
 .cal-background {
   background-color: white;
@@ -24,7 +28,6 @@
   background-color: config.$primary-color;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
   
-
   .material-symbols-outlined {
     font-weight: bold;
     color: config.$text-color;
@@ -56,17 +59,67 @@
       background-color: white;
     }
   }
+
+  .cal-login-btn{
+       border: none;
+    color: config.$text-color;
+    background-color: config.$primary-color;
+    padding: 20px;
+
+    &:hover {
+      font-weight: bold;
+      background-color: white;
+    }
+
+  }
   
+  .cal-signup-btn{
+    border: none;
+    color: config.$text-color;
+    background-color: config.$primary-color;
+    padding: 20px;
+
+    &:hover {
+      font-weight: bold;
+      background-color: white;
+    }
+
+  }
 }
 
 /* Calendar section */
 .cal-main {
   margin-top: 10vmax;
+  height: 1000px;
+
+ .cal-category-select{
+  padding: 12px 16px;
+  background: #ffff;
+  border: 2px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-left: 100px;
+  color: #333;
+  cursor: pointer;
+  transition: 0.25s ease;
+
+  &:hover {
+    border-color: config.$secondary-color;
+    box-shadow: 0 0 8px rgba(138, 180, 248, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: config.$secondary-color;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.6);
+  }
+}
 
   .cal-show-events {
     display: grid;
-    grid: auto/ repeat(4, auto);
+    grid: auto/ repeat(3, auto);
     gap: 100px;
+    margin-top: 50px;
     margin-left: 100px;
     width: 500pt;
     height: 200px;
@@ -76,6 +129,12 @@
     width: 200px;
     height: 200px;
     border-radius: 10px;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
 }
   
 
@@ -127,9 +186,16 @@
   border-radius: 20px;
 
   > div {
-    padding: 20px 0;
+    padding: 20px 0px;
     font-size: 16px;
     text-align: center;
+    cursor: pointer;
+    
+    &:hover{
+      border-radius: 10px;
+      background-color: white;
+    }
+
   }
 
   .cal-daysofweek {
@@ -148,8 +214,39 @@
  }
 }
 
+
+.event-pagination{
+  margin-top: 600px;
+  text-align: center;
+}
+
 /* Footer */
 .cal-footer {
-  margin-top: 50vmax;
-  margin-left: 50vmax;
+  display: flex;
+  gap: 30px;
+  background-color: config.$primary-color;
+  width: 120vmax;
+  height: 150px;
+
+  .footer-left{
+  padding: 30px 20px;
+    a{
+      color: config.$text-color;
+    }
+  }
+
+  .footer-center{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    a{
+      color: config.$text-color;
+    }
+  }
+
+  .footer-right{
+    padding: 30px 30px;
+    margin-left: 200px;
+  }
+  
 }
