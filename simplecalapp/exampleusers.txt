@@ -1,0 +1,42 @@
+
+
+1. **Username:** alex_dev  
+   **Email:** alex.dev01@gmail.com  
+   **Password:** alexalex  
+
+2. **Username:** sunny_day  
+   **Email:** sunny.day22@yahoo.com  
+   **Password:** sunny123  
+
+3. **Username:** techguru  
+   **Email:** techguru.pro@gmail.com  
+   **Password:** gurutech  
+
+4. **Username:** luna_skies  
+   **Email:** luna.skies88@hotmail.com  
+   **Password:** lunaluna  
+
+5. **Username:** hanley_runner  
+   **Email:** hanley.runner33@gmail.com  
+   **Password:** runhanley 
+
+6. **Username:** pixel_artist  
+   **Email:** pixel.artist21@gmail.com  
+   **Password:** pixelart  
+
+7. **Username:** foodie_fan  
+   **Email:** foodie.fan77@gmail.com  
+   **Password:** foodfood  
+
+8. **Username:** travel_bug  
+   **Email:** travel.bug55@gmail.com  
+   **Password:** bugtravel  
+
+9. **Username:** code_master  
+   **Email:** codemaster.dev@gmail.com  
+   **Password:** mastercode  
+
+10. **Username:** nova_star  
+    **Email:** nova.star44@gmail.com  
+    **Password:** novanova  
+

@@ -19,7 +19,13 @@ exports.SignupAccount = async (req, res) => {
                 message: "Username or email is already registered"
             });
         }
-
+        
+         // Check password length
+   if (password.length < 8) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters long"
+     });
+   }
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = new User({

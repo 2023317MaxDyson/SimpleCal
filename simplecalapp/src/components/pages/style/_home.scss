@@ -1,1 +1,197 @@
 @use 'config';
+
+/* ====== GLOBAL ====== */
+.home {
+  font-family: "Inter", sans-serif;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====== HEADER ====== */
+.home-header {
+  width: 100vmax;
+  padding: 20px 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  background: #e6f2ff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.home-logo{
+  display: flex;
+  align-items: center;
+  justify-items: start;
+  color: config.$secondary-color;
+}
+
+.home-header p {
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.home-header button {
+  margin-left: 20px;
+  padding: 10px 18px;
+  background: config.$secondary-color;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.home-header button:hover {
+  background: config.$secondary-color;
+}
+
+/* ====== HERO SECTION ====== */
+.home-herosection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: config.$layer-color ;
+  gap: 200px;
+  width: 200%;
+  max-width: 1610px;
+}
+
+.home-herosection-img {
+  width: 400px;
+  height: 400px;
+  padding: 20px 40px;
+  border-radius: 40px;
+  margin-left: 100px;
+  margin-bottom: 30px;
+}
+
+.home-herosection h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.home-stress {
+  color: config.$secondary-color;
+}
+
+.home-herosection p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.home-herosection button {
+  padding: 14px 26px;
+  background: config.$secondary-color;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.home-herosection button:hover {
+  background: config.$secondary-color;
+  transform: translateY(-10px);
+}
+
+/* ====== FEATURE CARDS ====== */
+.home-featurecards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-top: 100px;
+  margin-left: 160px;
+  max-width: 1600px;
+}
+
+.home-card,
+.home-card2,
+.home-card3 {
+  flex:1;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.25s;
+}
+
+.home-card:hover,
+.home-card2:hover,
+.home-card3:hover {
+  transform: translateY(-6px);
+}
+
+.home-featurecards h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.home-featurecards p {
+  color: #555;
+  font-size: 16px;
+}
+
+.material-symbols-outlined {
+  font-size: 40px;
+  color: config.$secondary-color;
+  margin-bottom: 10px;
+}
+
+/* ====== HOW IT WORKS ====== */
+.how-it-works {
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+  margin-left: 200px;
+
+}
+
+.how-it-works button {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: none;
+  background: #cfcfcf;
+  margin: 0 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.how-it-works button:hover {
+  background: config.$secondary-color;
+}
+
+/* ====== FOOTER ====== */
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items:center; 
+  justify-content:space-around;
+  gap: 150px;
+  width: 100%;
+  margin-top: 100px;
+  padding: 40px;
+  background: #f5f5f5;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 900px) {
+  .home-featurecards {
+    flex-direction: column;
+  }
+
+  .home-herosection h1 {
+    font-size: 32px;
+  }
+}

@@ -30,11 +30,11 @@
   
   .material-symbols-outlined {
     font-weight: bold;
-    color: config.$text-color;
+    color: config.$bold-color;
   }
 
   .cal-title {
-    color: config.$text-color;
+    color: config.$bold-color;
     font-size: 18px;
   }
 
@@ -49,7 +49,7 @@
 
   .cal-events-btn {
     border: none;
-    color: config.$text-color;
+    color: config.$bold-color;
     background-color: config.$primary-color;
     padding: 20px;
     margin-left: 200px;
@@ -61,8 +61,8 @@
   }
 
   .cal-login-btn{
-       border: none;
-    color: config.$text-color;
+    border: none;
+    color: config.$bold-color;
     background-color: config.$primary-color;
     padding: 20px;
 
@@ -75,7 +75,7 @@
   
   .cal-signup-btn{
     border: none;
-    color: config.$text-color;
+    color: config.$bold-color;
     background-color: config.$primary-color;
     padding: 20px;
 
@@ -83,9 +83,20 @@
       font-weight: bold;
       background-color: white;
     }
-
+  }
+   .cal-signout-btn{
+    border: none;
+    color: config.$bold-color;
+     background-color: config.$primary-color;
+     padding: 20px;
+     
+    &:hover {
+      font-weight: bold;
+      background-color: white;
+    }
   }
 }
+
 
 /* Calendar section */
 .cal-main {
@@ -139,7 +150,7 @@
   
 
   .cal-monthinyear {
-    color: config.$text-color ;
+    color: config.$bold-color ;
     text-align: center;
   }
 
@@ -162,7 +173,7 @@
 .cal-right {
   background-color: config.$secondary-color;
   border: 1px solid config.$secondary-color;
-  color: config.$text-color;
+  color: config.$bold-color;
   padding: 20px;
   font-size: 16px;
   border-radius: 6px;
@@ -174,12 +185,12 @@
   }
 }
 
-/* Calendar grid */
+/* Mini Calendar grid */
 .cal-grid {
   display: grid;
   grid: 50px / repeat(7, auto);
   padding: 10px 20px;
-  color: config.$text-color;
+  color: config.$bold-color;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
   width: 300px;
   background-color: config.$secondary-color;
@@ -231,7 +242,7 @@
   .footer-left{
   padding: 30px 20px;
     a{
-      color: config.$text-color;
+      color: config.$bold-color;
     }
   }
 
@@ -240,7 +251,7 @@
     flex-direction: column;
     padding: 20px 20px;
     a{
-      color: config.$text-color;
+      color: config.$bold-color;
     }
   }
 

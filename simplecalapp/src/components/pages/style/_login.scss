@@ -17,7 +17,7 @@
 
     p{
      font-size: 70px;
-     color:  config.$text-color;
+     color:  config.$bold-color;
      margin-top: 300pt;
      margin-left: 250pt;
      opacity: 1.0;
@@ -38,12 +38,12 @@
         gap: 20px;
 
         .material-symbols-outlined {
-            color: config.$text-color;
+            color: config.$bold-color;
             font-size: 30px;
         }
 
         .cal-title {
-            color: config.$text-color;
+            color: config.$bold-color;
             font-size: 20px;
         }
     }

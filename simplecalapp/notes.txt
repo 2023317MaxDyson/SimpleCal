@@ -1,0 +1,65 @@
+**Short answer:**  
+No — **events**, **tasks**, and **appointments** are *three different object types* in digital calendars. An **event** does *not* classify as a task or an appointment, even though all three may appear in your calendar.   [Ellie](https://ellieplanner.com/productivity-guides/calendar-vs-to-do-list)
+
+---
+
+## 🧩 What each item actually represents
+
+### **Event**
+A **time‑bound commitment**.  
+- Has a **start time**, **end time**, and often a **location** or participants.  
+- Example: *Dentist appointment at 2:00 p.m.*, *Team meeting 10–11 a.m.*  
+- Purpose: **When is this happening?**  
+  [Ellie](https://ellieplanner.com/productivity-guides/calendar-vs-to-do-list)
+
+### **Appointment**
+A **specific type of event** that involves another person or a fixed external schedule.  
+- All appointments are events, but not all events are appointments.  
+- Example: *Doctor visit*, *Interview*, *Flight departure*.  
+- Purpose: **You must be present at a specific time.**  
+  [Ellie](https://ellieplanner.com/productivity-guides/calendar-vs-to-do-list)
+
+### **Task**
+An **action you need to complete**, not tied to a fixed time unless you choose to schedule it.  
+- Can be done at any time unless you deliberately reserve time for it.  
+- Example: *Draft pricing summary*, *Send invoice*, *Replace air filter*.  
+- Purpose: **What action must be completed?**  
+  [Ellie](https://ellieplanner.com/productivity-guides/calendar-vs-to-do-list)
+
+---
+
+## 🔍 Why people confuse them
+Because apps like Google Calendar show tasks *on the calendar*, they can look like events — but they behave differently:
+
+- **Events** block time and may involve others.  
+- **Tasks** do not block time and remain until marked done.   [TechRepublic](https://www.techrepublic.com/article/google-calendar-tasks-and-events-which-should-you-use/)  
+- **Appointments** are simply events with external time constraints.
+
+---
+
+## 🧭 Quick classification rule
+Use this to decide what something is:
+
+1. **Does someone expect you at a specific time?**  
+   → **Appointment (Event)**
+
+2. **Does it reserve time on your calendar?**  
+   → **Event**
+
+3. **Is it an action you can do whenever?**  
+   → **Task**
+
+---
+
+## 🗂 Summary Table
+
+| Item Type | Time-bound? | Involves others? | Blocks calendar time? | Core question |
+|----------|-------------|------------------|------------------------|----------------|
+| **Event** | Yes | Sometimes | Yes | *When is this happening?* |
+| **Appointment** | Yes | Yes | Yes | *Where/when must I show up?* |
+| **Task** | Optional | No | No | *What must I complete?* |
+
+---
+
+## Follow-up question  
+Do you want help deciding how **your** calendar app (Google, Outlook, Apple, etc.) treats these items?

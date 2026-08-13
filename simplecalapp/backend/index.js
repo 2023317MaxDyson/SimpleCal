@@ -5,7 +5,10 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const eventRoutes = require("./routes/eventRoutes");
+const appointmentRoutes = require("./routes/appointmentRoutes");
+const taskRoutes = require("./routes/taskRoutes");
 const authRoutes = require("./routes/authRoutes");
+
 
 const app = express();
 
@@ -19,7 +22,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Use routes
 app.use("/events", eventRoutes);
+app.use("/appointments",appointmentRoutes);
+app.use("/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
+
 
 // Use PORT from .env
 const PORT = process.env.PORT || 5000;

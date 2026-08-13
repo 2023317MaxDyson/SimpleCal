@@ -34,7 +34,7 @@ const selectedEvent = location.state?.event;
     });
 
     // After submitting the form, navigate back to the Calander page 
-    navigate("/");
+    navigate("/calendar");
   }
 
   // EDIT EVENT
@@ -51,7 +51,7 @@ const selectedEvent = location.state?.event;
       }
     );
 
-    navigate("/");
+    navigate("/calendar");
   }
   // DELETE EVENT 
   async function handleDelete(e) {
@@ -65,7 +65,7 @@ const selectedEvent = location.state?.event;
     );
 
 
-    navigate("/");
+    navigate("/calendar");
   }
 
   function handleChange(e) {
@@ -85,7 +85,7 @@ const selectedEvent = location.state?.event;
         </span>
         <p className="cal-title"> SimpleCal </p>
         {/* Navigate back to the Calendar page */}
-        <button className="events-calendar-btn" onClick={() => navigate("/")}>Calendar</button>
+        <button className="events-calendar-btn" onClick={() => navigate("/calendar")}>Calendar</button>
       </div>
       <div className="event-main">
         <br/>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function Calendar() {
 
-    
+
   // Variable for navigation
   const navigate = useNavigate();
 
@@ -126,9 +126,15 @@ function Calendar() {
   );
 
   useEffect(() => {
-  setEventPage(0);
-}, [searchQuery, categoryFilter]);
+    setEventPage(0);
+  }, [searchQuery, categoryFilter]);
 
+
+
+  function handleSignOut() {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <div className="cal-background">
@@ -140,6 +146,7 @@ function Calendar() {
         <input className="cal-events-search-input" type="search" placeholder="Search events..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         {/* Navigate to the events page */}
         <button className="cal-events-btn " onClick={() => navigate("/event")}>Events</button>
+        <button className="cal-signout-btn" onClick={handleSignOut}>Sign Out</button>
       </div>
       <div className="cal-main">
         <div className="cal-filter-category">
@@ -181,7 +188,68 @@ function Calendar() {
             <p> No events found </p>
           )}
         </div>
-        <div className="cal-calander ">
+        <div className="cal-schedule">
+
+          <div className="">
+            <button>&lt;</button>
+            <h2>August 13, 2026</h2>
+            <button>&gt;</button>
+          </div>
+
+          <div className="cal-schedule">
+
+            <div className="cal-time-column">
+              <div>8:00 AM</div>
+              <div>9:00 AM</div>
+              <div>10:00 AM</div>
+              <div>11:00 AM</div>
+              <div>12:00 PM</div>
+              <div>1:00 PM</div>
+              <div>2:00 PM</div>
+              <div>3:00 PM</div>
+              <div>4:00 PM</div>
+              <div>5:00 PM</div>
+            </div>
+
+            <div className="cal-schedule-column">
+
+              <div className="time-slot"></div>
+              <div className="time-slot">
+                <div className="calendar-event">
+                  <strong>Meeting</strong>
+                  <span>9:00 AM - 10:00 AM</span>
+                </div>
+              </div>
+
+              <div className="cal-time-slot"></div>
+
+              <div className="cal-time-slot">
+                <div className="cal-calendar-event">
+                  <strong>Lunch</strong>
+                  <span>11:00 AM - 12:00 PM</span>
+                </div>
+              </div>
+
+              <div className="cal-time-slot"></div>
+              <div className="cal-time-slot"></div>
+
+              <div className="cal-time-slot">
+                <div className="cal-calendar-event">
+                  <strong>Project Work</strong>
+                  <span>2:00 PM - 3:00 PM</span>
+                </div>
+              </div>
+
+              <div className="cal-time-slot"></div>
+              <div className="cal-time-slot"></div>
+              <div className="cal-time-slot"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div className="cal-minicalander ">
           <h2 className="cal-monthinyear"> {months[month]} / {year}  </h2>
           <div className="cal-filter">
             <button className="cal-left" onClick={handlePrevMonth}>  {leftArrow} </button>
@@ -222,31 +290,31 @@ function Calendar() {
       </div>
       <footer className="cal-footer">
         <div className="footer-left">
-  <p>© 2026 SimpleCal</p>
-  <p>Created by Max Dyson</p>
-  <a
-    href="https://github.com/2023317MaxDyson/SimpleCal"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    GitHub
-  </a>
-  </div>
-  <div className="footer-center">
-    <b> Navigations </b>
-    <a href="/">Home</a>
-    <a href="/event">Events</a>
-    <a href="/login">Login</a>
-    <a href="/signup">Sign Up</a>
-  </div>
-  <div className="footer-right"> 
-    <b> About</b>
-    <p>
-      SimpleCal is a calendar application that helps users organize events,
-      track schedules, and manage their time efficiently.
-    </p>
-  </div>
-</footer>
+          <p>© 2026 SimpleCal</p>
+          <p>Created by Max Dyson</p>
+          <a
+            href="https://github.com/2023317MaxDyson/SimpleCal"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
+        <div className="footer-center">
+          <b> Navigations </b>
+          <a href="/">Home</a>
+          <a href="/event">Events</a>
+          <a href="/login">Login</a>
+          <a href="/signup">Sign Up</a>
+        </div>
+        <div className="footer-right">
+          <b> About</b>
+          <p>
+            SimpleCal is a calendar application that helps users organize events,
+            track schedules, and manage their time efficiently.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
