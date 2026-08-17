@@ -3,9 +3,11 @@
 /* ====== GLOBAL ====== */
 .home {
   font-family: "Inter", sans-serif;
-  color: #1a1a1a;
+  color: config.$text-color;
   display: flex;
   flex-direction: column;
+  background: config.$primary-color;
+  min-height: 100vh;
 }
 
 /* ====== HEADER ====== */
@@ -44,7 +46,7 @@
 }
 
 .home-header button:hover {
-  background: config.$secondary-color;
+  background: config.$bold-color;
 }
 
 /* ====== HERO SECTION ====== */
@@ -53,10 +55,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: config.$layer-color ;
-  gap: 200px;
-  width: 200%;
-  max-width: 1610px;
+  background: config.$layer-color;
+  gap: 100px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 80px 60px;
 }
 
 .home-herosection-img {
@@ -70,6 +74,7 @@
 
 .home-herosection h1 {
   font-size: 42px;
+  color: config.$bold-color;
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -80,7 +85,7 @@
 
 .home-herosection p {
   font-size: 18px;
-  color: #555;
+  color: config.$muted-color;
   margin-bottom: 25px;
 }
 
@@ -97,28 +102,29 @@
 
 .home-herosection button:hover {
   background: config.$secondary-color;
-  transform: translateY(-10px);
+  transform: translateY(-3px);
 }
 
 /* ====== FEATURE CARDS ====== */
 .home-featurecards {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 100px;
-  margin-top: 100px;
-  margin-left: 160px;
-  max-width: 1600px;
+  gap: 40px;
+  margin: 80px auto 0;
+  max-width: 1200px;
+  padding: 0 30px;
 }
 
 .home-card,
 .home-card2,
 .home-card3 {
-  flex:1;
-  background: #ffffff;
+  flex: 1;
+  background: config.$white;
   padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  border: 1px solid config.$border-color;
+  box-shadow: 0 8px 24px rgba(36, 86, 106, 0.08);
   text-align: center;
   transition: 0.25s;
 }
@@ -127,22 +133,32 @@
 .home-card2:hover,
 .home-card3:hover {
   transform: translateY(-6px);
+  border-color: config.$secondary-color;
+  box-shadow: 0 12px 30px rgba(36, 86, 106, 0.14);
 }
 
 .home-featurecards h2 {
+  color: config.$bold-color;
   font-size: 22px;
   margin-bottom: 10px;
 }
 
 .home-featurecards p {
-  color: #555;
+  color: config.$muted-color;
   font-size: 16px;
 }
 
 .material-symbols-outlined {
-  font-size: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
   color: config.$secondary-color;
-  margin-bottom: 10px;
+  background: config.$primary-color;
+  border-radius: 50%;
+  margin-bottom: 15px;
 }
 
 /* ====== HOW IT WORKS ====== */
@@ -173,15 +189,14 @@
 footer {
   display: flex;
   flex-direction: row;
-  align-items:center; 
-  justify-content:space-around;
-  gap: 150px;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
   margin-top: 100px;
   padding: 40px;
-  background: #f5f5f5;
+  background: config.$bold-color;
   text-align: center;
-  color: #777;
+  color: config.$primary-color;
   font-size: 14px;
 }
 

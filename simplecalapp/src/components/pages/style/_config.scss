@@ -1,7 +1,13 @@
 @use "sass:color";
 
-$primary-color: #e6f2ff; // Light Blue
-$secondary-color: #0892d0; // Rich Electric Blue
-$bold-color: #367588; // Teal Blue
-$layer-color: #fae6c3; // Hex
-$smooth-corners: 40px;
+$primary-color: #e6f2ff;   // Main light-blue background
+$secondary-color: #087ea4; // Main blue / buttons
+$bold-color: #24566a;      // Dark teal / headings
+$layer-color: #fae6c3;     // Warm event highlight
+
+$text-color: #17324d;      // Main text
+$muted-color: #66808f;     // Secondary text
+$border-color: #c9dce8;    // Calendar borders
+$white: #ffffff;           // Cards / schedule
+
+$smooth-corners: 10px; 

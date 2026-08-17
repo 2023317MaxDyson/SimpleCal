@@ -17,7 +17,7 @@ function Home() {
         </span>
         <p>SimpleCal</p>
         </div>
-        <div className="home-navbuttons"> 
+        <div> 
         <button onClick={() => navigate("/login")}>
           Login
         </button>

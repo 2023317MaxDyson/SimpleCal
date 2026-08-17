@@ -1,6 +1,7 @@
 import './style/Calendarstyle.css';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Footer.jsx";
 function Calendar() {
 
 
@@ -143,21 +144,32 @@ function Calendar() {
           calendar_month
         </span>
         <p className="cal-title"> SimpleCal </p>
-        <input className="cal-events-search-input" type="search" placeholder="Search events..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+        <input className="cal-events-search-input" type="search" placeholder="Search events, tasks or appointments..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         {/* Navigate to the events page */}
-        <button className="cal-events-btn " onClick={() => navigate("/event")}>Events</button>
+        <button className="cal-events-btn " onClick={() => navigate("/event")}> Create Events</button>
+        <button className="cal-tasks-btn"> Create Tasks </button>
+        <button className="cal-appointments-btn"> Create Appointments </button>
         <button className="cal-signout-btn" onClick={handleSignOut}>Sign Out</button>
       </div>
       <div className="cal-main">
+        <div>
         <div className="cal-filter-category">
           <select className="cal-category-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-            <option value="">  Filter category </option>
+            <option value=""> Category </option>
             <option value="Work"> Work </option>
             <option value="Home"> Home </option>
             <option value="Meetup"> Meetup </option>
             <option value="other"> Other </option>
           </select>
+            <select className="cal-category-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+            <option value=""> Calender Type </option>
+            <option value="Event"> Event</option>
+            <option value="Task"> Task </option>
+            <option value="Appointment"> Appointment </option>
+          </select>
         </div>
+        </div> 
+        <div className="cal-container">
         <div className="cal-show-events">
           {displayedEvents.length > 0 ? (displayedEvents.map((event) => (
             <div key={event._id}
@@ -170,7 +182,7 @@ function Calendar() {
                   },
                 })
               }>
-              <h3 className="cal-event-title">  {event.title}  </h3>
+              <h3 className="cal-event-title"> {event.title}  </h3>
               <p className="cal-event-date">{event.date}</p>
               {event.image && (
                 <img
@@ -188,67 +200,100 @@ function Calendar() {
             <p> No events found </p>
           )}
         </div>
-        <div className="cal-schedule">
+   </div>
+   <div className="cal-calendar-layout">
+   <div className="cal-schedule">
 
-          <div className="">
-            <button>&lt;</button>
-            <h2>August 13, 2026</h2>
-            <button>&gt;</button>
-          </div>
+  {/* Calendar Header */}
+  <div className="cal-calendar-header">
 
-          <div className="cal-schedule">
+    <div className="cal-date-navigation">
+      <button className="cal-nav-button">&lt;</button>
 
-            <div className="cal-time-column">
-              <div>8:00 AM</div>
-              <div>9:00 AM</div>
-              <div>10:00 AM</div>
-              <div>11:00 AM</div>
-              <div>12:00 PM</div>
-              <div>1:00 PM</div>
-              <div>2:00 PM</div>
-              <div>3:00 PM</div>
-              <div>4:00 PM</div>
-              <div>5:00 PM</div>
-            </div>
+      <h2>August 13, 2026</h2>
 
-            <div className="cal-schedule-column">
+      <button className="cal-nav-button">&gt;</button>
+    </div>
 
-              <div className="time-slot"></div>
-              <div className="time-slot">
-                <div className="calendar-event">
-                  <strong>Meeting</strong>
-                  <span>9:00 AM - 10:00 AM</span>
-                </div>
-              </div>
+    <div className="cal-view-buttons">
+      <button className="cal-today-button">
+        Today
+      </button>
 
-              <div className="cal-time-slot"></div>
+      <button className="cal-view-button active">
+        Month
+      </button>
 
-              <div className="cal-time-slot">
-                <div className="cal-calendar-event">
-                  <strong>Lunch</strong>
-                  <span>11:00 AM - 12:00 PM</span>
-                </div>
-              </div>
+      <button className="cal-view-button">
+        Day
+      </button>
+    </div>
 
-              <div className="cal-time-slot"></div>
-              <div className="cal-time-slot"></div>
+  </div>
 
-              <div className="cal-time-slot">
-                <div className="cal-calendar-event">
-                  <strong>Project Work</strong>
-                  <span>2:00 PM - 3:00 PM</span>
-                </div>
-              </div>
 
-              <div className="cal-time-slot"></div>
-              <div className="cal-time-slot"></div>
-              <div className="cal-time-slot"></div>
+  {/* Calendar Body */}
+  <div className="cal-calendar-body">
 
-            </div>
+    {/* Time Column */}
+    <div className="cal-time-column">
 
-          </div>
+      <div>8:00 AM</div>
+      <div>9:00 AM</div>
+      <div>10:00 AM</div>
+      <div>11:00 AM</div>
+      <div>12:00 PM</div>
+      <div>1:00 PM</div>
+      <div>2:00 PM</div>
+      <div>3:00 PM</div>
+      <div>4:00 PM</div>
+      <div>5:00 PM</div>
 
+    </div>
+
+
+    {/* Schedule */}
+    <div className="cal-schedule-column">
+
+      <div className="cal-time-slot"></div>
+
+      <div className="cal-time-slot">
+        <div className="cal-calendar-event meeting">
+          <strong>Meeting</strong>
+          <span>9:00 AM - 10:00 AM</span>
         </div>
+      </div>
+
+      <div className="cal-time-slot"></div>
+
+      <div className="cal-time-slot">
+        <div className="cal-calendar-event lunch">
+          <strong>Lunch</strong>
+          <span>11:00 AM - 12:00 PM</span>
+        </div>
+      </div>
+
+      <div className="cal-time-slot"></div>
+
+      <div className="cal-time-slot"></div>
+
+      <div className="cal-time-slot">
+        <div className="cal-calendar-event project">
+          <strong>Project Work</strong>
+          <span>2:00 PM - 3:00 PM</span>
+        </div>
+      </div>
+
+      <div className="cal-time-slot"></div>
+
+      <div className="cal-time-slot"></div>
+
+      <div className="cal-time-slot"></div>
+
+    </div>
+
+  </div>
+</div>
         <div className="cal-minicalander ">
           <h2 className="cal-monthinyear"> {months[month]} / {year}  </h2>
           <div className="cal-filter">
@@ -280,6 +325,7 @@ function Calendar() {
             })}
           </div>
         </div>
+</div>
         <div className="event-pagination">
           <button onClick={() => setEventPage(eventPage - 1)} disabled={eventPage === 0} > Previous </button>
           <span>
@@ -288,33 +334,7 @@ function Calendar() {
           <button onClick={() => setEventPage(eventPage + 1)} disabled={eventPage >= totalPages - 1} > Next </button>
         </div>
       </div>
-      <footer className="cal-footer">
-        <div className="footer-left">
-          <p>© 2026 SimpleCal</p>
-          <p>Created by Max Dyson</p>
-          <a
-            href="https://github.com/2023317MaxDyson/SimpleCal"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-        </div>
-        <div className="footer-center">
-          <b> Navigations </b>
-          <a href="/">Home</a>
-          <a href="/event">Events</a>
-          <a href="/login">Login</a>
-          <a href="/signup">Sign Up</a>
-        </div>
-        <div className="footer-right">
-          <b> About</b>
-          <p>
-            SimpleCal is a calendar application that helps users organize events,
-            track schedules, and manage their time efficiently.
-          </p>
-        </div>
-      </footer>
+     <Footer/>
     </div>
   );
 }

@@ -23,8 +23,8 @@ function Login() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        email,
-                        password,
+                        email: email.trim(),
+                        password: password.trim(),
                     }),
                 }
             );
@@ -52,11 +52,18 @@ function Login() {
     return (
 
         <div className="login-container">
-
-            <h1>SimpleCal</h1>
-
-            <form onSubmit={handleLogin}>
-
+           <div className="login-background">
+            <p>Login</p>
+            </div>
+            <div className="login-inputs">
+            <div className="cal-logo-title">
+              <span className="material-symbols-outlined">
+                            calendar_month
+                 </span>
+               <p className="cal-title"> SimpleCal </p>
+              </div>
+            <form className="login-form" onSubmit={handleLogin}>
+       
                 <label>Email</label>
 
                 <input
@@ -80,17 +87,18 @@ function Login() {
                 <button type="submit">
                     Login
                 </button>
-
+            
             </form>
-
-
+            <div className="login-noaccount">
             <p>
                 Have you not registered yet?
             </p>
-
+        
             <button onClick={() => navigate("/signup")}>
                 Sign up
             </button>
+            </div>
+            </div>
         </div>
     );
 }
