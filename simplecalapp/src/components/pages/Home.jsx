@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function Home() {
+
+  /*
   const screenshots = [
      
   ];
   const [currentImage, setCurrentImage] = useState(0);
-
+*/
 
   const navigate = useNavigate();
   return (
