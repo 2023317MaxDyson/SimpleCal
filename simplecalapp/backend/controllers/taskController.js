@@ -70,7 +70,7 @@ exports.getTasks = async (req, res) => {
 
 
 // GET ONE Task BY NUMBER
-exports.getTaskId = async (req, res) => {
+exports.getTaskById = async (req, res) => {
   try {
     const task = await Task.findOne({
       id: Number(req.params.id)
