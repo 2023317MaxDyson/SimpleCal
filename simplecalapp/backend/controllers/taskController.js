@@ -1,7 +1,7 @@
 const Task = require("../models/Task.js");
 
 // CREATE Task
-exports.createEvent = async (req, res) => {
+exports.createTask = async (req, res) => {
   try {
     const task = await Task.create(req.body);
 
