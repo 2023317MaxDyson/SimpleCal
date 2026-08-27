@@ -24,11 +24,10 @@ function Calendar() {
   const days = [];
 
   const calendarHours = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
     13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-    23, 24
+    23
   ];
-
 
 
   for (let i = 0; i < firstDay; i++) {
@@ -76,11 +75,43 @@ function Calendar() {
 
   const [events, setEvents] = useState([]);
 
+
   async function fetchEvents() {
-    const response = await fetch("https://simplecal-nf6h.onrender.com/events");
-    const data = await response.json();
-    setEvents(data);
+  try {
+    const [eventsResponse, tasksResponse, appointmentsResponse] =
+      await Promise.all([
+        fetch("https://simplecal-nf6h.onrender.com/events"),
+        fetch("https://simplecal-nf6h.onrender.com/tasks"),
+        fetch("https://simplecal-nf6h.onrender.com/appointments")
+      ]);
+
+    const eventsData = await eventsResponse.json();
+    const tasksData = await tasksResponse.json();
+    const appointmentsData = await appointmentsResponse.json();
+
+    const allItems = [
+      ...eventsData.map(item => ({
+        ...item,
+        type: "Event"
+      })),
+
+      ...tasksData.map(item => ({
+        ...item,
+        type: "Task"
+      })),
+
+      ...appointmentsData.map(item => ({
+        ...item,
+        type: "Appointment"
+      }))
+    ];
+
+    setEvents(allItems);
+
+  } catch (error) {
+    console.error("Error fetching calendar items:", error);
   }
+}
 
   useEffect(() => {
     async function load() {
@@ -161,43 +192,65 @@ function Calendar() {
   }
 
 
-
-
   function getEventHour(time) {
     if (!time) return null;
 
-    const match = time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    const timeString = time.toString().trim();
 
-    if (!match) return null;
+    // Handles: "9:00 AM", "9:30 PM"
+    const amPmMatch = timeString.match(
+      /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
+    );
 
-    let hour = Number(match[1]);
-    const period = match[3].toUpperCase();
+    if (amPmMatch) {
+      let hour = Number(amPmMatch[1]);
+      const period = amPmMatch[3].toUpperCase();
 
-    if (period === "PM" && hour !== 12) {
-      hour += 12;
+      if (period === "PM" && hour !== 12) {
+        hour += 12;
+      }
+
+      if (period === "AM" && hour === 12) {
+        hour = 0;
+      }
+
+      return hour;
     }
 
-    if (period === "AM" && hour === 12) {
-      hour = 0;
+    // Handles: "09:00", "14:00", "9:00"
+    const twentyFourHourMatch = timeString.match(
+      /^(\d{1,2}):(\d{2})$/
+    );
+
+    if (twentyFourHourMatch) {
+      return Number(twentyFourHourMatch[1]);
     }
 
-    return hour;
+    return null;
   }
 
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
 
   const filteredEvents = events.filter(event => {
-    const q = searchQuery.toLowerCase();
-    const matchesSearch =
-      (event.title ?? "").toLowerCase().includes(q) ||
-      (event.notes ?? "").toLowerCase().includes(q) ||
-      (event.category ?? "").toLowerCase().includes(q);
+  const q = searchQuery.toLowerCase();
 
-    const matchesCategory = categoryFilter === "" || (event.category ?? "").trim() === categoryFilter;
+  const matchesSearch =
+    (event.title ?? "").toLowerCase().includes(q) ||
+    (event.notes ?? "").toLowerCase().includes(q) ||
+    (event.category ?? "").toLowerCase().includes(q);
 
-    return matchesSearch && matchesCategory;
-  });
+  const matchesCategory =
+    categoryFilter === "" ||
+    (event.category ?? "").trim() === categoryFilter;
+
+  const matchesType =
+    typeFilter === "" ||
+    (event.type ?? "").trim() === typeFilter;
+
+  return matchesSearch && matchesCategory && matchesType;
+});
 
 
   const [eventPage, setEventPage] = useState(0);
@@ -212,7 +265,7 @@ function Calendar() {
 
   useEffect(() => {
     setEventPage(0);
-  }, [searchQuery, categoryFilter]);
+  }, [searchQuery, categoryFilter,typeFilter]);
 
 
 
@@ -228,18 +281,33 @@ function Calendar() {
           calendar_month
         </span>
         <p className="cal-title"> SimpleCal </p>
+        <a>  Hello </a>
+        <a> Hello </a>
         <input className="cal-events-search-input" type="search" placeholder="Search events, tasks or appointments..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         {/* Navigate to the events page */}
         <button className="cal-events-btn " onClick={() => navigate("/event")}> Create Events</button>
-        <button className="cal-tasks-btn"> Create Tasks </button>
-        <button className="cal-appointments-btn"> Create Appointments </button>
+        <button className="cal-tasks-btn" onClick={() => navigate("/task")}> Create Tasks </button>
+        <button className="cal-appointments-btn" onClick={() => navigate("/appointment")}> Create Appointments </button>
         <button className="cal-signout-btn" onClick={handleSignOut}>Sign Out</button>
       </div>
       <div className="cal-main">
+        <div className="cal-section-header">
+          <div className="cal-section-title">
+            <span className="material-symbols-outlined">
+              calendar_month
+            </span>
+
+            <div>
+              <h1>Calendar</h1>
+              <p>View your schedule and upcoming events</p>
+            </div>
+          </div>
+        </div>
         <div className="cal-calendar-layout">
           <div className="cal-schedule">
 
             {/* Calendar Header */}
+
             <div className="cal-calendar-header">
 
               <div className="cal-date-navigation">
@@ -274,18 +342,21 @@ function Calendar() {
 
             </div>
 
+
+
             {/* Calendar Body */}
             <div className="cal-calendar-body">
 
               {/* Time Column */}
               <div className="cal-time-column">
-
+                <div>12:00 AM</div>
                 <div> 1:00 AM</div>
                 <div> 2:00 AM</div>
                 <div> 3:00 AM</div>
                 <div> 4:00 AM</div>
                 <div> 5:00 AM</div>
                 <div> 6:00 AM</div>
+                <div> 7:00 AM </div>
                 <div>8:00 AM</div>
                 <div>9:00 AM</div>
                 <div>10:00 AM</div>
@@ -302,7 +373,6 @@ function Calendar() {
                 <div>9:00 PM</div>
                 <div>10:00 PM</div>
                 <div>11:00 PM</div>
-                <div>12:00 PM</div>
               </div>
 
 
@@ -311,9 +381,7 @@ function Calendar() {
 
                 {calendarHours.map((hour) => {
 
-                  const hourEvents = getEventsForDay(
-                    selectedDay
-                  ).filter((event) => {
+                  const hourEvents = getEventsForDay(selectedDay).filter((event) => {
                     return getEventHour(event.time) === hour;
                   });
 
@@ -322,48 +390,26 @@ function Calendar() {
                       className="cal-time-slot"
                       key={hour}
                     >
-
                       {hourEvents.map((event) => (
-
                         <div
                           key={event._id}
-                          className={`cal-calendar-event ${(
-                            event.category || "other"
-                          ).toLowerCase()}`}
-                          onClick={() =>
-                            navigate("/event", {
-                              state: {
-                                event,
-                                isEditing: true
-                              }
-                            })
-                          }
+                          className={`cal-calendar-event ${(event.category || "other").toLowerCase()
+                            }`}
                         >
+                          <strong>{event.title}</strong>
 
-                          <strong>
-                            {event.title}
-                          </strong>
+                          <span>{event.time}</span>
 
-                          <span>
-                            {event.time}
-                          </span>
-
-                          {event.category && (
-                            <span>
-                              {event.category}
-                            </span>
-                          )}
+                          <span className="cal-event-category-small">
+                            {event.category}</span>
 
                           {event.notes && (
                             <span className="cal-event-description">
                               {event.notes}
                             </span>
                           )}
-
                         </div>
-
                       ))}
-
                     </div>
                   );
                 })}
@@ -392,7 +438,11 @@ function Calendar() {
                   <div
                     key={index}
                     className={`cal-days ${isToday ? "cal-today" : ""}`}
-                    onClick={() => navigate(`/day/${year}-${month + 1}-${d}`)}
+                    onClick={() => {
+                      if (d !== null) {
+                        setSelectedDay(d);
+                      }
+                    }}
                   >
                     {d ?? ""}
 
@@ -400,6 +450,18 @@ function Calendar() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </div>
+        <div className="cal-section-header">
+          <div className="cal-section-title">
+            <span className="material-symbols-outlined">
+              event
+            </span>
+
+            <div>
+              <h2> Events, Tasks and Appointments</h2>
+              <p>View, filter, search, edit and manage your scheduled items</p>
             </div>
           </div>
         </div>
@@ -411,20 +473,21 @@ function Calendar() {
             <option value="Meetup"> Meetup </option>
             <option value="other"> Other </option>
           </select>
-          <select className="cal-category-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+          <select className="cal-category-select" value={typeFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
             <option value=""> Calender Type </option>
             <option value="Event"> Event</option>
             <option value="Task"> Task </option>
             <option value="Appointment"> Appointment </option>
           </select>
         </div>
+        <div className="cal-container"></div>
         <div className="cal-container">
           <div className="cal-show-events">
             {displayedEvents.length > 0 ? (displayedEvents.map((event) => (
               <div key={event._id}
                 className="cal-event"
                 onClick={() =>
-                  navigate("/event", {
+                  navigate("/edit", {
                     state: {
                       event,
                       isEditing: true,
@@ -433,6 +496,7 @@ function Calendar() {
                 }>
                 <h3 className="cal-event-title"> {event.title}  </h3>
                 <p className="cal-event-date">{event.date}</p>
+                  <p className="cal-event-type"> {event.type}</p>
                 {event.image && (
                   <img
                     className="cal-event-image"
@@ -444,7 +508,21 @@ function Calendar() {
                 <p className="cal-event-notes"> {event.notes}</p>
                 <p className="cal-event-category"> {event.category}</p>
                 <br />
-                <button className="cal-edit-btn">Edit</button>
+                <button
+                  className="cal-edit-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    navigate("/edit", {
+                      state: {
+                        item: event,
+                        type: event.type || "Event"
+                      }
+                    });
+                  }}
+                >
+                  Edit
+                </button>
               </div>
             ))
             ) : (

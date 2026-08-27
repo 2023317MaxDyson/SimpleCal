@@ -71,12 +71,15 @@ function Home() {
         </div>
       </div>
       <div className="how-it-works">
-        <img src="" />
+        <img src="..." />
         <div>
           <button> </button>
           <button>  </button>
           <button>  </button>
         </div>
+      </div>
+        <div className="testimonials"> 
+
       </div>
       <footer> 
         <p> © 2026 SimpleCal <br/>

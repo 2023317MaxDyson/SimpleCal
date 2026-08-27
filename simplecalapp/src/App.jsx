@@ -4,6 +4,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from './components/pages/Home';
 import Calendar from './components/pages/Calendar';
 import Events from './components/pages/Events';
+import Appointments from "./components/pages/Appointments";
+import Tasks from "./components/pages/Tasks";
+import Edit from "./components/pages/Edit";
 import DayDetails from './components/pages/DayDetails';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
@@ -16,10 +19,21 @@ function App() {
             <Calendar />
         } />
         <Route path="/event" element={
-          <ProtectedRoute>
           <Events />
-          </ProtectedRoute>}
+         }
          />
+         <Route path="/appointment" element={
+           <Appointments />
+         }
+        />
+          <Route path="/task" element={
+           <Tasks />
+         }
+        />
+           <Route path="/edit" element={
+           <Edit />
+         }
+        />
         <Route path="/day/:date" element={
           <ProtectedRoute>
           <DayDetails />

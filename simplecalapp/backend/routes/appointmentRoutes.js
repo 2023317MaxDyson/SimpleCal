@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const appointmentController = require("../controllers/appointmentController");
 
-router.get("/", appointmentController.getAppoinments);
+router.get("/", appointmentController.getAppointments);
 // GET ONE APPOINTMENT BY NUMBER ID 
 router.get("/:id", appointmentController.getAppointmentById);
 router.post("/", appointmentController.createAppointment);

@@ -1,8 +1,11 @@
 @use 'config';
 @use "home";
 @use 'events';
+@use 'tasks';
+@use 'appointments';
 @use "login";
 @use "signup";
+@use "footer";
 
 /* =========================================================
    PAGE
@@ -176,6 +179,100 @@
 }
 
 
+
+
+/* =========================================================
+   SECTION HEADERS 
+========================================================= */
+
+/* =================================
+   SECTION HEADERS
+================================= */
+
+.cal-section-header {
+  width: 100%;
+  margin: 30px 0 18px;
+  padding: 16px 20px;
+
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(8, 146, 208, 0.12);
+  border-radius: 14px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 4px 15px rgba(54, 117, 136, 0.08);
+
+  backdrop-filter: blur(10px);
+}
+
+
+/* Header content */
+
+.cal-section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+/* Icon */
+
+.cal-section-title .material-symbols-outlined {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 10px;
+
+  background: rgba(8, 146, 208, 0.1);
+
+  color: #0892d0;
+
+  font-size: 23px;
+}
+
+
+/* Heading */
+
+.cal-section-title h1,
+.cal-section-title h2 {
+  margin: 0;
+
+  color: #367588;
+
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+
+/* Main Calendar heading */
+
+.cal-section-title h1 {
+  font-size: 28px;
+}
+
+
+/* Smaller section headings */
+
+.cal-section-title h2 {
+  font-size: 22px;
+}
+
+
+/* Description */
+
+.cal-section-title p {
+  margin: 4px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.4;
+}
 /* =========================================================
    FILTERS
 ========================================================= */
@@ -638,27 +735,20 @@
 ========================================================= */
 
 .cal-schedule-column {
-
-  min-width: 0;
-
-  background-color: config.$white;
+  display: flex;
+  flex-direction: column;
 }
+
 
 
 .cal-time-slot {
 
   position: relative;
-
-  height: 80px;
-
+  min-height: 60px;
   box-sizing: border-box;
-
   padding: 6px 10px;
-
   border-bottom: 1px solid config.$border-color;
-
   background-color: config.$white;
-
   transition: 0.2s ease;
 
 
@@ -672,32 +762,51 @@
   }
 }
 
+.cal-event-category-small {
+  display: inline-block;
+
+  width: fit-content;
+
+  padding: 2px 7px;
+
+  border-radius: 10px;
+
+  background-color: rgba(255, 255, 255, 0.6);
+
+  font-size: 10px !important;
+
+  font-weight: 600;
+}
+
+
+.cal-event-description {
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: config.$text-color;
+
+  font-size: 11px !important;
+}
 
 /* =========================================================
    CALENDAR EVENTS
 ========================================================= */
 
 .cal-calendar-event {
-
-  width: 100%;
-
-  height: 100%;
-
-  box-sizing: border-box;
-
-  padding: 10px 14px;
-
-  display: flex;
-
+ display: flex;
   flex-direction: column;
-
-  justify-content: center;
-
-  gap: 4px;
-
-  border-left: 5px solid;
-
+  padding: 8px;
+  margin: 4px;
   border-radius: 8px;
+  background: config.$secondary-color;
+  color: white;
+  min-height: 50px;
+  position: relative;
+  z-index: 2;
 
   cursor: pointer;
 
@@ -729,65 +838,6 @@
   }
 }
 
-
-/* Meeting */
-
-.cal-calendar-event.meeting {
-
-  background-color: config.$primary-color;
-
-  border-left-color: config.$secondary-color;
-
-
-  strong {
-    color: config.$bold-color;
-  }
-
-
-  span {
-    color: config.$text-color;
-  }
-}
-
-
-/* Lunch */
-
-.cal-calendar-event.lunch {
-
-  background-color: #edf6f3;
-
-  border-left-color: config.$bold-color;
-
-
-  strong {
-    color: config.$bold-color;
-  }
-
-
-  span {
-    color: config.$text-color;
-  }
-}
-
-
-/* Project */
-
-.cal-calendar-event.project {
-
-  background-color: config.$layer-color;
-
-  border-left-color: #c28a35;
-
-
-  strong {
-    color: #795522;
-  }
-
-
-  span {
-    color: config.$text-color;
-  }
-}
 
 
 /* =========================================================
@@ -1025,28 +1075,7 @@
 }
 
 
-/* =========================================================
-   FOOTER
-========================================================= */
 
-.cal-footer {
-
-  width: 100%;
-
-  min-height: 150px;
-
-  box-sizing: border-box;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  padding: 30px 50px;
-
-  background-color: config.$primary-color;
-
-  border-top: 1px solid config.$border-color;
-}
 
 
 /* =========================================================
@@ -1115,11 +1144,14 @@
   }
 
 
-  .cal-main {
 
-    padding:
-      90px 15px 40px;
-  }
+
+  .cal-main {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+  
 
 
   .cal-filter-category {
