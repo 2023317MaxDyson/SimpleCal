@@ -2,8 +2,15 @@ import './style/Calendarstyle.css';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer.jsx";
-function Calendar() {
 
+
+  // Arrow signs for the mini calendar buttons
+  const rightArrow = ">";
+  const leftArrow = "<";
+
+
+
+function Calendar() {
 
   // Variable for navigation
   const navigate = useNavigate();
@@ -29,15 +36,14 @@ function Calendar() {
     23
   ];
 
-
   for (let i = 0; i < firstDay; i++) {
     days.push(null);
   }
 
-
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(i);
   }
+
 
   function handlePrevMonth() {
     // If the month is Jan set it back to Dec when press the previous month 
@@ -68,15 +74,10 @@ function Calendar() {
   }
 
 
-  // Arrow signs for the mini calendar buttons
-  const rightArrow = ">";
-  const leftArrow = "<";
+  const [calendaritems, setCalendarItems] = useState([]);
 
 
-  const [events, setEvents] = useState([]);
-
-
-  async function fetchEvents() {
+  async function fetchCalendarItems() {
   try {
     const [eventsResponse, tasksResponse, appointmentsResponse] =
       await Promise.all([
@@ -106,7 +107,7 @@ function Calendar() {
       }))
     ];
 
-    setEvents(allItems);
+    setCalendarItems(allItems);
 
   } catch (error) {
     console.error("Error fetching calendar items:", error);
@@ -115,32 +116,37 @@ function Calendar() {
 
   useEffect(() => {
     async function load() {
-      await fetchEvents();
+      await fetchCalendarItems();
     }
     load();
   }, []);
 
 
 
-  const eventDays = events.filter(event => {
-    if (!event.date) return false; // prevents crash
 
-    const iso = event.date.split("T")[0]; // "2026-05-30"
-    const [yearStr, monthStr, dayStr] = iso.split("-");
 
-    const date = new Date(Number(yearStr), Number(monthStr) - 1, Number(dayStr));
+ const calendarDays = calendaritems
+  .filter(calendaritem => {
+    if (!calendaritem.date) return false;
 
-    return date.getMonth() === month && date.getFullYear() === year;
+    const [calendarYear, calendarMonth] = calendaritem.date
+      .split("T")[0]
+      .split("-")
+      .map(Number);
+
+    return (
+      calendarYear === year &&
+      calendarMonth - 1 === month
+    );
   })
-    .map(event => {
-      if (!event.date) return null;
+  .map(calendaritem => {
+    const [, , day] = calendaritem.date
+      .split("T")[0]
+      .split("-")
+      .map(Number);
 
-      const iso = event.date.split("T")[0];
-      const day = iso.split("-")[2];
-      return Number(day);
-    })
-    .filter(Boolean); // remove nulls
-
+    return day;
+  });
 
   const [selectedDay, setSelectedDay] = useState(todaysdate.getDate());
 
@@ -174,25 +180,25 @@ function Calendar() {
     setYear(date.getFullYear());
   }
 
-  function getEventsForDay(day) {
-    return events.filter((event) => {
-      if (!event.date) return false;
+  function getCalendarItemsForDay(day) {
+    return calendaritems.filter((calendaritem) => {
+      if (!calendaritem.date) return false;
 
-      const eventDate = event.date.split("T")[0];
+      const calendarDate = calendaritem.date.split("T")[0];
 
-      const [eventYear, eventMonth, eventDay] =
-        eventDate.split("-").map(Number);
+      const [calendarYear, calendarMonth, calendarDay] =
+        calendarDate.split("-").map(Number);
 
       return (
-        eventYear === year &&
-        eventMonth - 1 === month &&
-        eventDay === day
+        calendarYear === year &&
+        calendarMonth - 1 === month &&
+        calendarDay === day
       );
     });
   }
 
 
-  function getEventHour(time) {
+  function getCalendarItemHour(time) {
     if (!time) return null;
 
     const timeString = time.toString().trim();
@@ -229,42 +235,55 @@ function Calendar() {
     return null;
   }
 
+
+  function formatTime(time) {
+  if (!time) return "";
+
+  const [hours, minutes] = time.split(":");
+  const hour = Number(hours);
+
+  const period = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+
+  return `${displayHour}:${minutes} ${period}`;
+}
+
+
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
 
-  const filteredEvents = events.filter(event => {
+  const filteredCalendarItems = calendaritems.filter(calendaritem => {
   const q = searchQuery.toLowerCase();
 
   const matchesSearch =
-    (event.title ?? "").toLowerCase().includes(q) ||
-    (event.notes ?? "").toLowerCase().includes(q) ||
-    (event.category ?? "").toLowerCase().includes(q);
+    (calendaritem.title ?? "").toLowerCase().includes(q) ||
+    (calendaritem.notes ?? "").toLowerCase().includes(q) ||
+    (calendaritem.category ?? "").toLowerCase().includes(q);
 
   const matchesCategory =
     categoryFilter === "" ||
-    (event.category ?? "").trim() === categoryFilter;
+    (calendaritem.category ?? "").trim() === categoryFilter;
 
   const matchesType =
     typeFilter === "" ||
-    (event.type ?? "").trim() === typeFilter;
+    (calendaritem.type ?? "").trim() === typeFilter;
 
   return matchesSearch && matchesCategory && matchesType;
 });
 
+  const [calendaritemPage, setcalendaritemPage] = useState(0);
+  const calendaritemsPerPage = 6;
 
-  const [eventPage, setEventPage] = useState(0);
-  const eventsPerPage = 6;
+  const totalPages = Math.ceil(filteredCalendarItems.length / calendaritemsPerPage);
 
-  const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
-
-  const displayedEvents = filteredEvents.slice(
-    eventPage * eventsPerPage,
-    (eventPage + 1) * eventsPerPage
+  const displayedCalendarItems = filteredCalendarItems.slice(
+    calendaritemPage * calendaritemsPerPage,
+    ( calendaritemPage + 1) * calendaritemsPerPage
   );
 
   useEffect(() => {
-    setEventPage(0);
+    setcalendaritemPage(0);
   }, [searchQuery, categoryFilter,typeFilter]);
 
 
@@ -281,9 +300,7 @@ function Calendar() {
           calendar_month
         </span>
         <p className="cal-title"> SimpleCal </p>
-        <a>  Hello </a>
-        <a> Hello </a>
-        <input className="cal-events-search-input" type="search" placeholder="Search events, tasks or appointments..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+        <input className="cal-calendaritems-search-input" type="search" placeholder="Search events, tasks or appointments..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         {/* Navigate to the events page */}
         <button className="cal-events-btn " onClick={() => navigate("/event")}> Create Events</button>
         <button className="cal-tasks-btn" onClick={() => navigate("/task")}> Create Tasks </button>
@@ -341,9 +358,6 @@ function Calendar() {
               </div>
 
             </div>
-
-
-
             {/* Calendar Body */}
             <div className="cal-calendar-body">
 
@@ -379,42 +393,44 @@ function Calendar() {
               {/* Schedule */}
               <div className="cal-schedule-column">
 
-                {calendarHours.map((hour) => {
+              {calendarHours.map((hour) => {
 
-                  const hourEvents = getEventsForDay(selectedDay).filter((event) => {
-                    return getEventHour(event.time) === hour;
-                  });
+  const hourItems = getCalendarItemsForDay(selectedDay).filter((calendarItem) => {
+    return getCalendarItemHour(calendarItem.time) === hour;
+  });
 
-                  return (
-                    <div
-                      className="cal-time-slot"
-                      key={hour}
-                    >
-                      {hourEvents.map((event) => (
-                        <div
-                          key={event._id}
-                          className={`cal-calendar-event ${(event.category || "other").toLowerCase()
-                            }`}
-                        >
-                          <strong>{event.title}</strong>
+  return (
+    <div
+      className="cal-time-slot"
+      key={hour}
+    >
+      {hourItems.map((calendarItem) => (
+        <div
+          key={calendarItem._id}
+          className={`cal-calendar-calendaritem ${
+            (calendarItem.category || "other").toLowerCase()
+          }`}
+        >
+          <strong>{calendarItem.title}</strong>
 
-                          <span>{event.time}</span>
+          <span>{formatTime(calendarItem.time)}</span>
 
-                          <span className="cal-event-category-small">
-                            {event.category}</span>
+          <span className="cal-calendaritem-category-small">
+            {calendarItem.category}
+          </span>
 
-                          {event.notes && (
-                            <span className="cal-event-description">
-                              {event.notes}
-                            </span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })}
+          {calendarItem.notes && (
+            <span className="cal-calendaritem-description">
+              {calendarItem.notes}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+})}
 
-              </div>
+        </div>
             </div>
           </div>
           <div className="cal-minicalander ">
@@ -433,7 +449,7 @@ function Calendar() {
               })}
               {days.map((d, index) => {
                 const isToday = d === today;
-                const hasEvent = d !== null && eventDays.includes(d);
+                const hasCalenderItem = d !== null && calendarDays.includes(d);
                 return (
                   <div
                     key={index}
@@ -446,7 +462,7 @@ function Calendar() {
                   >
                     {d ?? ""}
 
-                    {hasEvent && <span className="cal-event-dot"></span>}
+                    {hasCalenderItem && <span className="cal-calendaritem-dot"></span>}
                   </div>
                 );
               })}
@@ -458,7 +474,6 @@ function Calendar() {
             <span className="material-symbols-outlined">
               event
             </span>
-
             <div>
               <h2> Events, Tasks and Appointments</h2>
               <p>View, filter, search, edit and manage your scheduled items</p>
@@ -473,7 +488,7 @@ function Calendar() {
             <option value="Meetup"> Meetup </option>
             <option value="other"> Other </option>
           </select>
-          <select className="cal-category-select" value={typeFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+          <select className="cal-category-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
             <option value=""> Calender Type </option>
             <option value="Event"> Event</option>
             <option value="Task"> Task </option>
@@ -482,31 +497,31 @@ function Calendar() {
         </div>
         <div className="cal-container"></div>
         <div className="cal-container">
-          <div className="cal-show-events">
-            {displayedEvents.length > 0 ? (displayedEvents.map((event) => (
-              <div key={event._id}
-                className="cal-event"
+          <div className="cal-show-calendaritems">
+            {displayedCalendarItems.length > 0 ? (displayedCalendarItems.map((calendaritem) => (
+              <div key={calendaritem._id}
+                className="cal-calenderitem"
                 onClick={() =>
                   navigate("/edit", {
                     state: {
-                      event,
+                      calendaritems,
                       isEditing: true,
                     },
                   })
                 }>
-                <h3 className="cal-event-title"> {event.title}  </h3>
-                <p className="cal-event-date">{event.date}</p>
-                  <p className="cal-event-type"> {event.type}</p>
-                {event.image && (
+                <h3 className="cal-calendaritem-title"> {calendaritem.title}  </h3>
+                <p className="cal-calendaritem-date"> {calendaritem.date ? calendaritem.date.split("T")[0] : ""}</p>
+                  <p className="cal-calendaritem-type"> {calendaritem.type}</p>
+                {calendaritem.image && (
                   <img
-                    className="cal-event-image"
-                    src={event.image}
-                    alt={event.title}
+                    className="cal-calendaritem-image"
+                    src={calendaritem.image}
+                    alt={calendaritem.title}
                   />
                 )}
-                <p className="cal-event-time"> {event.time} </p>
-                <p className="cal-event-notes"> {event.notes}</p>
-                <p className="cal-event-category"> {event.category}</p>
+                <p className="cal-calendaritem-time">   {formatTime(calendaritem.time)} </p>
+                <p className="cal-calendaritem-notes"> {calendaritem.notes}</p>
+                <p className="cal-calendaritem-category"> {calendaritem.category}</p>
                 <br />
                 <button
                   className="cal-edit-btn"
@@ -515,8 +530,8 @@ function Calendar() {
 
                     navigate("/edit", {
                       state: {
-                        item: event,
-                        type: event.type || "Event"
+                        item: calendaritem,
+                        type: calendaritem.type 
                       }
                     });
                   }}
@@ -530,12 +545,12 @@ function Calendar() {
             )}
           </div>
         </div>
-        <div className="event-pagination">
-          <button onClick={() => setEventPage(eventPage - 1)} disabled={eventPage === 0} > Previous </button>
+        <div className="calendaritem-pagination">
+          <button onClick={() => setcalendaritemPage(calendaritemPage - 1)} disabled={calendaritemPage === 0} > Previous </button>
           <span>
-            Page {eventPage + 1} of {totalPages || 1}
+            Page {calendaritemPage + 1} of {totalPages || 1}
           </span>
-          <button onClick={() => setEventPage(eventPage + 1)} disabled={eventPage >= totalPages - 1} > Next </button>
+          <button onClick={() => setcalendaritemPage(calendaritemPage + 1)} disabled={calendaritemPage >= totalPages - 1} > Next </button>
         </div>
       </div>
       <Footer />

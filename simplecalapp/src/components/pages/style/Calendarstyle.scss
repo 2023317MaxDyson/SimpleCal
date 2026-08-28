@@ -73,7 +73,7 @@
 
   /* Search */
 
-  .cal-events-search-input {
+  .cal-calendaritems-search-input {
     flex: 1;
 
     max-width: 420px;
@@ -327,7 +327,7 @@
 
 
 /* =========================================================
-   EVENT CARDS
+   CALENDAR ITEM CARDS
 ========================================================= */
 
 .cal-container {
@@ -342,7 +342,7 @@
 }
 
 
-.cal-show-events {
+.cal-show-calendaritems {
 
   width: 100%;
 
@@ -355,9 +355,9 @@
 }
 
 
-/* Individual event */
+/* Individual calendaritem */
 
-.cal-event {
+.cal-calenderitem {
 
   min-height: 180px;
 
@@ -411,7 +411,7 @@
 }
 
 
-.cal-event-image {
+.cal-calendaritem-image {
 
   width: 100%;
 
@@ -432,7 +432,8 @@
 }
 
 
-.cal-event-category {
+
+.cal-calendaritem-category {
 
   display: inline-block;
 
@@ -762,7 +763,7 @@
   }
 }
 
-.cal-event-category-small {
+.cal-calendaritem-category-small {
   display: inline-block;
 
   width: fit-content;
@@ -779,7 +780,7 @@
 }
 
 
-.cal-event-description {
+.cal-calendaritem-description {
 
   overflow: hidden;
 
@@ -796,7 +797,7 @@
    CALENDAR EVENTS
 ========================================================= */
 
-.cal-calendar-event {
+.cal-calendar-calendaritem {
  display: flex;
   flex-direction: column;
   padding: 8px;
@@ -1009,7 +1010,7 @@
 
 /* Event dot */
 
-.cal-event-dot {
+.cal-calendaritem-dot {
 
   width: 5px;
 
@@ -1027,7 +1028,7 @@
    PAGINATION
 ========================================================= */
 
-.event-pagination {
+.calendaritem-pagination {
 
   display: flex;
 
@@ -1041,7 +1042,7 @@
 }
 
 
-.event-pagination button {
+.calendaritem-pagination button {
 
   padding: 9px 16px;
 
@@ -1086,7 +1087,7 @@
 
   .cal-header {
 
-    .cal-events-search-input {
+    .cal-calendaritems-search-input {
       max-width: 300px;
     }
 
@@ -1111,7 +1112,7 @@
   }
 
 
-  .cal-show-events {
+  .cal-show-calenderitems {
 
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
@@ -1133,17 +1134,15 @@
     }
 
 
-    .cal-events-search-input {
+    .cal-calendaritems-search-input {
       max-width: none;
     }
 
 
-    .cal-events-btn {
+    .cal-calendaritems-btn {
       display: none;
     }
   }
-
-
 
 
   .cal-main {
@@ -1162,7 +1161,7 @@
   }
 
 
-  .cal-show-events {
+  .cal-show-calendaritems {
 
     grid-template-columns: 1fr;
   }
@@ -1218,7 +1217,7 @@
     }
 
 
-    .cal-events-search-input {
+    .cal-calendaritems-search-input {
       width: 100%;
 
       font-size: 12px;

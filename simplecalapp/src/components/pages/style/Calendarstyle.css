@@ -1006,7 +1006,7 @@ footer {
 .cal-header {
   /* Search */
 }
-.cal-header .cal-events-search-input {
+.cal-header .cal-calendaritems-search-input {
   flex: 1;
   max-width: 420px;
   margin-left: auto;
@@ -1018,7 +1018,7 @@ footer {
   font-size: 14px;
   transition: 0.2s ease;
 }
-.cal-header .cal-events-search-input:focus {
+.cal-header .cal-calendaritems-search-input:focus {
   outline: none;
   border-color: #087ea4;
   box-shadow: 0 0 0 3px rgba(8, 146, 208, 0.12);
@@ -1165,7 +1165,7 @@ footer {
 }
 
 /* =========================================================
-   EVENT CARDS
+   CALENDAR ITEM CARDS
 ========================================================= */
 .cal-container {
   width: min(100%, 1400px);
@@ -1174,15 +1174,15 @@ footer {
   justify-content: center;
 }
 
-.cal-show-events {
+.cal-show-calendaritems {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
-/* Individual event */
-.cal-event {
+/* Individual calendaritem */
+.cal-calenderitem {
   min-height: 180px;
   box-sizing: border-box;
   padding: 20px;
@@ -1193,23 +1193,23 @@ footer {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.cal-event:hover {
+.cal-calenderitem:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(36, 86, 106, 0.12);
   border-color: #087ea4;
 }
-.cal-event h3 {
+.cal-calenderitem h3 {
   margin: 0 0 8px;
   color: #24566a;
   font-size: 18px;
 }
-.cal-event p {
+.cal-calenderitem p {
   margin: 5px 0;
   color: #17324d;
   font-size: 14px;
 }
 
-.cal-event-image {
+.cal-calendaritem-image {
   width: 100%;
   height: 130px;
   margin: 12px 0;
@@ -1218,11 +1218,11 @@ footer {
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
-.cal-event-image:hover {
+.cal-calendaritem-image:hover {
   transform: scale(1.02);
 }
 
-.cal-event-category {
+.cal-calendaritem-category {
   display: inline-block;
   margin-top: 10px !important;
   padding: 5px 10px;
@@ -1414,7 +1414,7 @@ footer {
   border-bottom: none;
 }
 
-.cal-event-category-small {
+.cal-calendaritem-category-small {
   display: inline-block;
   width: -moz-fit-content;
   width: fit-content;
@@ -1425,7 +1425,7 @@ footer {
   font-weight: 600;
 }
 
-.cal-event-description {
+.cal-calendaritem-description {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1436,7 +1436,7 @@ footer {
 /* =========================================================
    CALENDAR EVENTS
 ========================================================= */
-.cal-calendar-event {
+.cal-calendar-calendaritem {
   display: flex;
   flex-direction: column;
   padding: 8px;
@@ -1450,14 +1450,14 @@ footer {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.cal-calendar-event strong {
+.cal-calendar-calendaritem strong {
   font-size: 14px;
   font-weight: 700;
 }
-.cal-calendar-event span {
+.cal-calendar-calendaritem span {
   font-size: 12px;
 }
-.cal-calendar-event:hover {
+.cal-calendar-calendaritem:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 12px rgba(36, 86, 106, 0.12);
 }
@@ -1557,7 +1557,7 @@ footer {
 }
 
 /* Event dot */
-.cal-event-dot {
+.cal-calendaritem-dot {
   width: 5px;
   height: 5px;
   margin-left: 3px;
@@ -1568,7 +1568,7 @@ footer {
 /* =========================================================
    PAGINATION
 ========================================================= */
-.event-pagination {
+.calendaritem-pagination {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1576,7 +1576,7 @@ footer {
   margin: 10px 0 30px;
 }
 
-.event-pagination button {
+.calendaritem-pagination button {
   padding: 9px 16px;
   border: 1px solid #c9dce8;
   border-radius: 8px;
@@ -1585,11 +1585,11 @@ footer {
   cursor: pointer;
   transition: 0.2s ease;
 }
-.event-pagination button:hover:not(:disabled) {
+.calendaritem-pagination button:hover:not(:disabled) {
   background-color: #e6f2ff;
   border-color: #087ea4;
 }
-.event-pagination button:disabled {
+.calendaritem-pagination button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -1598,7 +1598,7 @@ footer {
    RESPONSIVE
 ========================================================= */
 @media (max-width: 1100px) {
-  .cal-header .cal-events-search-input {
+  .cal-header .cal-calendaritems-search-input {
     max-width: 300px;
   }
   .cal-header .cal-tasks-btn,
@@ -1612,7 +1612,7 @@ footer {
     max-width: 400px;
     margin: 0 auto;
   }
-  .cal-show-events {
+  .cal-show-calenderitems {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1624,10 +1624,10 @@ footer {
   .cal-header .cal-title {
     font-size: 20px;
   }
-  .cal-header .cal-events-search-input {
+  .cal-header .cal-calendaritems-search-input {
     max-width: none;
   }
-  .cal-header .cal-events-btn {
+  .cal-header .cal-calendaritems-btn {
     display: none;
   }
   .cal-main {
@@ -1639,7 +1639,7 @@ footer {
     justify-content: center;
     flex-wrap: wrap;
   }
-  .cal-show-events {
+  .cal-show-calendaritems {
     grid-template-columns: 1fr;
   }
   .cal-calendar-header {
@@ -1669,7 +1669,7 @@ footer {
   .cal-header .cal-title {
     font-size: 18px;
   }
-  .cal-header .cal-events-search-input {
+  .cal-header .cal-calendaritems-search-input {
     width: 100%;
     font-size: 12px;
   }
