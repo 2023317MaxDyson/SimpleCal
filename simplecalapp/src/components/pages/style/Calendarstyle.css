@@ -1186,8 +1186,7 @@ footer {
   min-height: 180px;
   box-sizing: border-box;
   padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #c9dce8;
+  border: 1px solid #087ea4;
   border-radius: 14px;
   box-shadow: 0 5px 18px rgba(36, 86, 106, 0.07);
   cursor: pointer;
@@ -1205,7 +1204,6 @@ footer {
 }
 .cal-calenderitem p {
   margin: 5px 0;
-  color: #17324d;
   font-size: 14px;
 }
 
@@ -1224,13 +1222,51 @@ footer {
 
 .cal-calendaritem-category {
   display: inline-block;
-  margin-top: 10px !important;
-  padding: 5px 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #087ea4;
   border-radius: 20px;
-  background-color: #e6f2ff;
-  color: #087ea4 !important;
-  font-size: 12px !important;
+  font-size: 12px;
   font-weight: 600;
+}
+
+.cal-calanderitem-options {
+  display: flex;
+  justify-content: baseline;
+  align-items: first baseline;
+  gap: 30px;
+}
+
+.cal-calendaritem-type {
+  background-color: #087ea4;
+  padding: 10px;
+  color: white;
+  border-radius: 12px;
+}
+
+.cal-calenderitem.event {
+  background-color: #dbeafe;
+}
+
+.cal-calenderitem.task {
+  background-color: #dcfce7;
+}
+
+.cal-calenderitem.appointment {
+  background-color: #f3e8ff;
+}
+
+/*  Edit button */
+.cal-edit-btn {
+  background: linear-gradient(to bottom, #0099ff 20%, darkred 100%);
+  border: 1px solid darkred;
+  border-radius: 14px;
+  color: white;
+  padding: 10px;
+  transition: transform 0.2s ease;
+}
+.cal-edit-btn:hover {
+  transform: translateY(-3px);
 }
 
 /* =========================================================
@@ -1420,7 +1456,8 @@ footer {
   width: fit-content;
   padding: 2px 7px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: red;
+  color: white;
   font-size: 10px !important;
   font-weight: 600;
 }
@@ -1429,12 +1466,12 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #17324d;
+  color: #087ea4;
   font-size: 11px !important;
 }
 
 /* =========================================================
-   CALENDAR EVENTS
+   CALENDARITEMS
 ========================================================= */
 .cal-calendar-calendaritem {
   display: flex;
@@ -1442,8 +1479,7 @@ footer {
   padding: 8px;
   margin: 4px;
   border-radius: 8px;
-  background: #087ea4;
-  color: white;
+  color: #087ea4;
   min-height: 50px;
   position: relative;
   z-index: 2;
@@ -1460,6 +1496,21 @@ footer {
 .cal-calendar-calendaritem:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 12px rgba(36, 86, 106, 0.12);
+}
+
+/* Event */
+.cal-calendar-calendaritem.event {
+  background-color: #dbeafe;
+}
+
+/* Task */
+.cal-calendar-calendaritem.task {
+  background-color: #dcfce7;
+}
+
+/* Appointment */
+.cal-calendar-calendaritem.appointment {
+  background-color: #f3e8ff;
 }
 
 /* =========================================================

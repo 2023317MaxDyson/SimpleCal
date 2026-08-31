@@ -355,6 +355,7 @@
 }
 
 
+
 /* Individual calendaritem */
 
 .cal-calenderitem {
@@ -365,9 +366,7 @@
 
   padding: 20px;
 
-  background-color: config.$white;
-
-  border: 1px solid config.$border-color;
+  border: 1px solid config.$secondary-color;
 
   border-radius: 14px;
 
@@ -404,8 +403,6 @@
   p {
     margin: 5px 0;
 
-    color: config.$text-color;
-
     font-size: 14px;
   }
 }
@@ -433,23 +430,68 @@
 
 
 
+
 .cal-calendaritem-category {
 
   display: inline-block;
 
-  margin-top: 10px !important;
+  margin-top: 10px;
 
-  padding: 5px 10px;
+  padding: 10px;
+
+  border: 1px solid config.$secondary-color;
 
   border-radius: 20px;
 
-  background-color: config.$primary-color;
-
-  color: config.$secondary-color !important;
-
-  font-size: 12px !important;
+  font-size: 12px;
 
   font-weight: 600;
+}
+
+
+.cal-calanderitem-options{
+  display: flex;
+  justify-content: baseline;
+  align-items: first baseline;
+  gap: 30px;
+}
+
+
+.cal-calendaritem-type{
+background-color: config.$secondary-color;
+padding: 10px;
+color: white;
+border-radius: 12px;
+}
+
+
+
+
+.cal-calenderitem.event{
+  background-color: #dbeafe;
+}
+
+.cal-calenderitem.task {
+  background-color: #dcfce7;
+}
+
+.cal-calenderitem.appointment  {
+  background-color: #f3e8ff;
+}
+
+/*  Edit button */
+
+.cal-edit-btn {
+  background: linear-gradient(to bottom, #0099ff 20%, darkred 100%);
+  border: 1px solid darkred;
+  border-radius: 14px;
+  color: white;
+  padding: 10px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 }
 
 
@@ -772,7 +814,9 @@
 
   border-radius: 10px;
 
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: red;
+  
+  color: white;
 
   font-size: 10px !important;
 
@@ -787,14 +831,14 @@
   text-overflow: ellipsis;
 
   white-space: nowrap;
-
-  color: config.$text-color;
+  
+  color: config.$secondary-color;
 
   font-size: 11px !important;
 }
 
 /* =========================================================
-   CALENDAR EVENTS
+   CALENDARITEMS
 ========================================================= */
 
 .cal-calendar-calendaritem {
@@ -803,8 +847,7 @@
   padding: 8px;
   margin: 4px;
   border-radius: 8px;
-  background: config.$secondary-color;
-  color: white;
+  color: config.$secondary-color;
   min-height: 50px;
   position: relative;
   z-index: 2;
@@ -839,6 +882,20 @@
   }
 }
 
+/* Event */
+.cal-calendar-calendaritem.event {
+ background-color: #dbeafe;
+}
+
+/* Task */
+.cal-calendar-calendaritem.task {
+  background-color: #dcfce7;
+}
+
+/* Appointment */
+.cal-calendar-calendaritem.appointment {
+  background-color: #f3e8ff;
+}
 
 
 /* =========================================================

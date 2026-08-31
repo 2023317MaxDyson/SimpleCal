@@ -391,45 +391,46 @@ function Calendar() {
 
 
               {/* Schedule */}
-              <div className="cal-schedule-column">
+           <div className="cal-schedule-column">
 
-              {calendarHours.map((hour) => {
+   {calendarHours.map((hour) => {
 
   const hourItems = getCalendarItemsForDay(selectedDay).filter((calendarItem) => {
     return getCalendarItemHour(calendarItem.time) === hour;
   });
 
-  return (
-    <div
-      className="cal-time-slot"
-      key={hour}
-    >
-      {hourItems.map((calendarItem) => (
-        <div
-          key={calendarItem._id}
-          className={`cal-calendar-calendaritem ${
-            (calendarItem.category || "other").toLowerCase()
-          }`}
-        >
-          <strong>{calendarItem.title}</strong>
+return (
+  <div
+    className="cal-time-slot"
+    key={hour}
+  >
+    {hourItems.map((calendarItem) => (
+      <div
+        key={calendarItem._id}
+        className={`cal-calendar-calendaritem ${
+          (calendarItem.category || "other").toLowerCase()
+        } ${(calendarItem.type || "other").toLowerCase()}`}
+      >
+        <strong>{calendarItem.title}</strong>
 
-          <span>{formatTime(calendarItem.time)}</span>
+        <span>{formatTime(calendarItem.time)}</span>
 
-          <span className="cal-calendaritem-category-small">
-            {calendarItem.category}
+        <span>{calendarItem.type}</span>
+
+        <span className="cal-calendaritem-category-small">
+          {calendarItem.category}
+        </span>
+
+        {calendarItem.notes && (
+          <span className="cal-calendaritem-description">
+            {calendarItem.notes}
           </span>
-
-          {calendarItem.notes && (
-            <span className="cal-calendaritem-description">
-              {calendarItem.notes}
-            </span>
-          )}
-        </div>
-      ))}
-    </div>
-  );
+        )}
+      </div>
+    ))}
+  </div>
+);
 })}
-
         </div>
             </div>
           </div>
@@ -495,12 +496,12 @@ function Calendar() {
             <option value="Appointment"> Appointment </option>
           </select>
         </div>
-        <div className="cal-container"></div>
+  
         <div className="cal-container">
           <div className="cal-show-calendaritems">
             {displayedCalendarItems.length > 0 ? (displayedCalendarItems.map((calendaritem) => (
               <div key={calendaritem._id}
-                className="cal-calenderitem"
+                className= {`cal-calenderitem ${(calendaritem.type || "other").toLowerCase()}`}
                 onClick={() =>
                   navigate("/edit", {
                     state: {
@@ -511,7 +512,6 @@ function Calendar() {
                 }>
                 <h3 className="cal-calendaritem-title"> {calendaritem.title}  </h3>
                 <p className="cal-calendaritem-date"> {calendaritem.date ? calendaritem.date.split("T")[0] : ""}</p>
-                  <p className="cal-calendaritem-type"> {calendaritem.type}</p>
                 {calendaritem.image && (
                   <img
                     className="cal-calendaritem-image"
@@ -521,7 +521,10 @@ function Calendar() {
                 )}
                 <p className="cal-calendaritem-time">   {formatTime(calendaritem.time)} </p>
                 <p className="cal-calendaritem-notes"> {calendaritem.notes}</p>
+                <div className="cal-calanderitem-options">
+                <p className="cal-calendaritem-type"> {calendaritem.type}</p>
                 <p className="cal-calendaritem-category"> {calendaritem.category}</p>
+                </div>
                 <br />
                 <button
                   className="cal-edit-btn"
