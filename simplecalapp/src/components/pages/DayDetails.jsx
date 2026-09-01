@@ -1,11 +1,10 @@
-import {useState, useEffect} from "react";
+
 import { useParams, useNavigate} from "react-router-dom";
 
 export default function DayDetails(){
     const {date} = useParams();
     const navigate = useNavigate();
 
-    const [events, setEvents] = useState([]);
 
     return(
       <div className="cal-background">
