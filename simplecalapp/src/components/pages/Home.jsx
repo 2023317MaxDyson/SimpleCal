@@ -74,7 +74,7 @@ function Home() {
         </div>
       </div>
       <div className="how-it-works">
-        <img src="..." />
+        <img src="..."  alt="How it Works"/>
         <div>
           <button> </button>
           <button>  </button>
