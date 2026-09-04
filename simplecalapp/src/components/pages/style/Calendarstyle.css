@@ -778,6 +778,192 @@ footer {
     font-size: 14px;
   }
 }
+.edit-main {
+  min-height: calc(100vh - 79px);
+  margin-top: 79px;
+  padding: 50px 30px 80px;
+  background: #fae6c3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.edit-page-header {
+  width: 100%;
+  max-width: 850px;
+  margin-bottom: 25px;
+}
+.edit-page-header h1 {
+  margin: 0;
+  color: #24566a;
+  font-size: 32px;
+  font-weight: 700;
+}
+.edit-page-header p {
+  margin-top: 8px;
+  color: #17324d;
+  font-size: 15px;
+}
+
+.edit-deleteorupdate {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 20px;
+}
+
+.edit-form {
+  width: 100%;
+  max-width: 850px;
+  box-sizing: border-box;
+  padding: 45px 55px;
+  background: #ffffff;
+  border: 1px solid #c9dce8;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(36, 86, 106, 0.1);
+}
+
+.edit-form-group1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+.edit-form-group1 #title-label,
+.edit-form-group1 #date-label {
+  margin: 0;
+  color: #24566a;
+  font-size: 14px;
+  font-weight: 600;
+}
+.edit-form-group1 #title,
+.edit-form-group1 #date {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0 0;
+  padding: 11px 13px;
+  height: 44px;
+  background: #ffffff;
+  color: #17324d;
+  border: 1px solid #c9dce8;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.edit-form-group1 #title:focus,
+.edit-form-group1 #date:focus {
+  outline: none;
+  border-color: #087ea4;
+  box-shadow: 0 0 0 3px rgba(8, 146, 208, 0.12);
+}
+
+.edit-form-group2 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+}
+.edit-form-group2 label {
+  margin-top: 12px;
+  color: #24566a;
+  font-size: 14px;
+  font-weight: 600;
+}
+.edit-form-group2 input[type=text],
+.edit-form-group2 input[type=time],
+.edit-form-group2 select,
+.edit-form-group2 textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 11px 13px;
+  margin: 0 0 8px;
+  background: #ffffff;
+  color: #17324d;
+  border: 1px solid #c9dce8;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.edit-form-group2 input[type=text]:focus,
+.edit-form-group2 input[type=time]:focus,
+.edit-form-group2 select:focus,
+.edit-form-group2 textarea:focus {
+  outline: none;
+  border-color: #087ea4;
+  box-shadow: 0 0 0 3px rgba(8, 146, 208, 0.12);
+}
+.edit-form-group2 textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.edit-form-group2 button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.edit-form-group2 button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(36, 86, 106, 0.15);
+}
+.edit-form-group2 button:active {
+  transform: translateY(0);
+}
+.edit-form-group2 .edit-submit-btn {
+  margin-top: 20px;
+  background: #087ea4;
+  color: white;
+}
+.edit-form-group2 .edit-submit-btn:hover {
+  background: #24566a;
+}
+.edit-form-group2 .edit-delete-btn {
+  background: #dc6b6b;
+  color: white;
+}
+.edit-form-group2 .edit-delete-btn:hover {
+  background: #c94f4f;
+}
+.edit-form-group2 .edit-toggle-btn {
+  background: #e6f2ff;
+  color: #24566a;
+  border: 1px solid #c9dce8;
+}
+.edit-form-group2 .edit-toggle-btn:hover {
+  background: #087ea4;
+  color: white;
+}
+
+.edit-calendar-btn {
+  align-self: flex-start;
+  margin: 0;
+  padding: 10px 16px;
+  background: transparent;
+  color: #24566a;
+  border: 1px solid #c9dce8;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.edit-calendar-btn:hover {
+  background: #087ea4;
+  border-color: #087ea4;
+  color: white;
+}
+
 .login-container {
   display: flex;
   flex-direction: row;
@@ -1266,6 +1452,7 @@ footer {
   transition: transform 0.2s ease;
 }
 .cal-edit-btn:hover {
+  background: darkred;
   transform: translateY(-3px);
 }
 

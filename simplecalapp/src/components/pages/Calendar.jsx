@@ -9,7 +9,6 @@ import Footer from "../Footer.jsx";
   const leftArrow = "<";
 
 
-
 function Calendar() {
 
   // Variable for navigation
@@ -316,7 +315,7 @@ function Calendar() {
 
             <div>
               <h1>Calendar</h1>
-              <p>View your schedule and upcoming events</p>
+              <p>View your schedule and upcoming events, tasks, and appointments</p>
             </div>
           </div>
         </div>
@@ -544,7 +543,7 @@ return (
               </div>
             ))
             ) : (
-              <p>  No events found </p>
+              <p>  No calendar items found </p>
             )}
           </div>
         </div>

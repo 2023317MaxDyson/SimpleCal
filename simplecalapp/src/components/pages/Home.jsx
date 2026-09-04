@@ -6,8 +6,6 @@ function Home() {
   /*
  const screenshots = [
 
-
-     
   ];
 
   const [currentImage, setCurrentImage] = useState(0);*/

@@ -3,7 +3,10 @@ const Task = require("../models/Task.js");
 // CREATE Task
 exports.createTask = async (req, res) => {
   try {
-    const task = await Task.create(req.body);
+    const task = await Task.create({
+      ...req.body,
+      userId: req.user.userId
+    });
 
     console.log(task);
     res.json(task);
@@ -17,10 +20,15 @@ exports.createTask = async (req, res) => {
 exports.updateTask = async (req, res) => {
   try {
     const updated = await Task.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+      {
+      _id: req.params.id,
+      userId: req.user.userId
+    }, 
+    req.body, {
+      new: true
+    }
+      
+  );
 
     if (!updated) {
       return res.status(404).json({
@@ -39,7 +47,10 @@ exports.updateTask = async (req, res) => {
 //DELETE Task
 exports.deleteTask = async (req, res) => {
   try {
-    const deleted = await Task.findByIdAndDelete(req.params.id);
+    const deleted = await Task.findByIdAndDelete({
+      _id: req.params.id,
+      userId: req.user.userId
+    });
 
     if (!deleted) {
       return res.status(404).json({
@@ -60,7 +71,7 @@ exports.deleteTask = async (req, res) => {
 // GET ALL Tasks
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await Task.find({ userId: req.user.userId });
     res.json(tasks);
 
   } catch (err) {

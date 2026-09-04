@@ -3,6 +3,7 @@
 @use 'events';
 @use 'tasks';
 @use 'appointments';
+@use 'edit';
 @use "login";
 @use "signup";
 @use "footer";
@@ -490,6 +491,7 @@ border-radius: 12px;
   transition: transform 0.2s ease;
 
   &:hover {
+    background: darkred;
     transform: translateY(-3px);
   }
 }

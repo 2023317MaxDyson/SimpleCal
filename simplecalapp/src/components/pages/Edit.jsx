@@ -8,7 +8,7 @@ function Edit() {
   const navigate = useNavigate();
 
   const item = location.state?.item;
-  const type = location.state?.type || "Event";
+  const type = location.state?.type;
 
   const [formData, setFormData] = useState(item || {
     title: "",
@@ -26,13 +26,30 @@ function Edit() {
     });
   }
 
+  // Update calanderitem 
+
   async function handleUpdate(e) {
+
+  
+
     e.preventDefault();
 
     try {
 
+      let endpoint;
+
+      if(type === "Event"){
+        endpoint = "events";
+      } else if (type === "Task"){
+        endpoint = "tasks";
+      }
+        else if(type === "Appointment"){
+          endpoint = "appointments";
+        }
+
+
       const response = await fetch(
-        `https://simplecal-nf6h.onrender.com/events/${formData._id}`,
+        `https://simplecal-nf6h.onrender.com/${endpoint}/${formData._id}`,
         {
           method: "PUT",
           headers: {
@@ -53,6 +70,9 @@ function Edit() {
     }
   }
 
+
+  // Delete calendaritem
+
   async function handleDelete() {
 
     const confirmed = window.confirm(
@@ -65,8 +85,20 @@ function Edit() {
 
     try {
 
+       let endpoint;
+
+      if(type === "Event"){
+        endpoint = "events";
+      } else if (type === "Task"){
+        endpoint = "tasks";
+      }
+        else if(type === "Appointment"){
+          endpoint = "appointments";
+        }
+
+
       const response = await fetch(
-        `https://simplecal-nf6h.onrender.com/events/${formData._id}`,
+        `https://simplecal-nf6h.onrender.com/${endpoint}/${formData._id}`,
         {
           method: "DELETE"
         }
@@ -109,27 +141,32 @@ function Edit() {
         </p>
 
         <button
-          className="events-calendar-btn"
+          className="edit-calendar-btn"
           onClick={() => navigate("/calendar")}
         >
-          Calendar
+        Back to the Calendar
         </button>
 
       </div>
 
 
-      <div className="event-main">
+      <div className="edit-main">
+ 
 
-        <h2>
+      <div className="edit-page-header">
+        <h1>
           Edit {type}
-        </h2>
-
+        </h1>
+        <p>
+          Update the details of your {type.toLowerCase()} below.
+        </p>
+      </div>
         <form
-          className="event-form"
+          className="edit-form"
           onSubmit={handleUpdate}
         >
 
-          <div className="event-form-group1">
+          <div className="edit-form-group1">
 
             <label htmlFor="title">
               Title
@@ -138,8 +175,6 @@ function Edit() {
             <label htmlFor="date">
               Date
             </label>
-
-            <br />
 
             <input
               type="text"
@@ -162,7 +197,7 @@ function Edit() {
           </div>
 
 
-          <div className="event-form-group2">
+          <div className="edit-form-group2">
 
             <label htmlFor="time">
               Time
@@ -227,7 +262,7 @@ function Edit() {
 
 
             <label htmlFor="image">
-              Image URL
+              Image URL (Optional)
             </label>
 
             <input
@@ -241,7 +276,7 @@ function Edit() {
 
             <button
               type="submit"
-              className="events-submit-btn"
+              className="edit-submit-btn"
             >
               Update {type}
             </button>
@@ -249,7 +284,7 @@ function Edit() {
 
             <button
               type="button"
-              className="events-delete-btn"
+              className="edit-delete-btn"
               onClick={handleDelete}
             >
               Delete {type}

@@ -3,7 +3,10 @@ const Event = require("../models/Event.js");
 // CREATE Event
 exports.createEvent = async (req, res) => {
   try {
-    const event = await Event.create(req.body);
+    const event = await Event.create({
+      ...req.body,
+      userId: req.user.userId
+    });
 
     console.log(event);
     res.json(event);
@@ -16,11 +19,10 @@ exports.createEvent = async (req, res) => {
 // UPDATE Event
 exports.updateEvent = async (req, res) => {
   try {
-    const updated = await Event.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const updated = await Event.findByIdAndUpdate({
+      _id: req.params.id,
+      userId: req.user.userId
+    }, req.body, { new: true });
 
     if (!updated) {
       return res.status(404).json({
@@ -39,7 +41,10 @@ exports.updateEvent = async (req, res) => {
 //DELETE Event
 exports.deleteEvent = async (req, res) => {
   try {
-    const deleted = await Event.findByIdAndDelete(req.params.id);
+    const deleted = await Event.findByIdAndDelete({
+      _id: req.params.id,
+      userId: req.user.userId
+    });
 
     if (!deleted) {
       return res.status(404).json({
@@ -60,7 +65,7 @@ exports.deleteEvent = async (req, res) => {
 // GET ALL Events
 exports.getEvents = async (req, res) => {
   try {
-    const events = await Event.find();
+    const events = await Event.find({ userId: req.user.userId });
     res.json(events);
 
   } catch (err) {

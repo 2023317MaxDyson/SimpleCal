@@ -3,10 +3,13 @@ const Appointment = require("../models/Appointment.js");
 // CREATE Appointment
 exports.createAppointment = async (req, res) => {
   try {
-    const appointment = await Appointment.create(req.body);
+    const appointment = await Appointment.create({
+      ...req.body,
+      userId: req.user.userId
+    });
 
-    console.log( appointment);
-    res.json( appointment);
+    console.log(appointment);
+    res.json(appointment);
 
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -16,11 +19,10 @@ exports.createAppointment = async (req, res) => {
 // UPDATE Appointment
 exports.updateAppointment = async (req, res) => {
   try {
-    const updated = await Appointment.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const updated = await Appointment.findByIdAndUpdate({
+      _id: req.params.id,
+      userId: req.user.userId
+    }, req.body, { new: true });
 
     if (!updated) {
       return res.status(404).json({
@@ -39,7 +41,10 @@ exports.updateAppointment = async (req, res) => {
 //DELETE Appointment
 exports.deleteAppointment = async (req, res) => {
   try {
-    const deleted = await Appointment.findByIdAndDelete(req.params.id);
+    const deleted = await Appointment.findByIdAndDelete({
+      _id: req.params.id,
+      userId: req.user.userId
+    });
 
     if (!deleted) {
       return res.status(404).json({
@@ -60,7 +65,7 @@ exports.deleteAppointment = async (req, res) => {
 // GET ALL Appointments
 exports.getAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find();
+    const appointments = await Appointment.find({ userId: req.user.userId });
     res.json(appointments);
 
   } catch (err) {

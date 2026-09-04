@@ -1,0 +1,360 @@
+@use 'config';
+
+
+// ========================================
+// EDIT PAGE
+// ========================================
+
+.edit-main {
+  min-height: calc(100vh - 79px);
+
+  margin-top: 79px;
+  padding: 50px 30px 80px;
+
+  background: config.$layer-color;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+
+// ========================================
+// EDIT PAGE HEADER 
+// ========================================
+
+
+.edit-page-header {
+  width: 100%;
+  max-width: 850px;
+
+  margin-bottom: 25px;
+
+  h1 {
+    margin: 0;
+
+    color: config.$bold-color;
+
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  p {
+    margin-top: 8px;
+
+    color: config.$text-color;
+
+    font-size: 15px;
+  }
+}
+
+
+// ========================================
+// UPDATE / DELETE HEADER
+// ========================================
+
+.edit-deleteorupdate {
+  width: 100%;
+  max-width: 850px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  margin: 0 0 20px;
+}
+
+
+// ========================================
+// EVENT FORM
+// ========================================
+
+.edit-form {
+  width: 100%;
+  max-width: 850px;
+
+  box-sizing: border-box;
+
+  padding: 45px 55px;
+
+  background: config.$white;
+
+  border: 1px solid config.$border-color;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(36, 86, 106, 0.10);
+}
+
+
+// ========================================
+// FORM GROUP 1
+// TITLE + DATE
+// ========================================
+
+.edit-form-group1 {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 25px;
+
+  margin-bottom: 25px;
+
+
+  #title-label,
+  #date-label {
+    margin: 0;
+
+    color: config.$bold-color;
+
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+
+  #title,
+  #date {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin: 8px 0 0;
+
+    padding: 11px 13px;
+
+    height: 44px;
+
+    background: config.$white;
+
+    color: config.$text-color;
+
+    border: 1px solid config.$border-color;
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+
+    &:focus {
+      outline: none;
+
+      border-color: config.$secondary-color;
+
+      box-shadow:
+        0 0 0 3px rgba(8, 146, 208, 0.12);
+    }
+  }
+}
+
+
+// ========================================
+// FORM GROUP 2
+// OTHER INPUTS
+// ========================================
+
+.edit-form-group2 {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  width: 100%;
+
+  margin: 0;
+
+
+  label {
+    margin-top: 12px;
+
+    color: config.$bold-color;
+
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+
+  input[type="text"],
+  input[type="time"],
+  select,
+  textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    min-height: 44px;
+
+    padding: 11px 13px;
+
+    margin: 0 0 8px;
+
+    background: config.$white;
+
+    color: config.$text-color;
+
+    border: 1px solid config.$border-color;
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+
+    &:focus {
+      outline: none;
+
+      border-color: config.$secondary-color;
+
+      box-shadow:
+        0 0 0 3px rgba(8, 146, 208, 0.12);
+    }
+  }
+
+
+  textarea {
+    min-height: 120px;
+
+    resize: vertical;
+  }
+
+
+  button {
+    width: 100%;
+
+    min-height: 48px;
+
+    margin-top: 10px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: config.$smooth-corners;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+
+
+    &:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 5px 12px rgba(36, 86, 106, 0.15);
+    }
+
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+
+  // ========================================
+  // SUBMIT
+  // ========================================
+
+  .edit-submit-btn {
+    margin-top: 20px;
+
+    background: config.$secondary-color;
+
+    color: white;
+
+
+    &:hover {
+      background: config.$bold-color;
+    }
+  }
+
+
+  // ========================================
+  // DELETE
+  // ========================================
+
+  .edit-delete-btn {
+    background: #dc6b6b;
+
+    color: white;
+
+
+    &:hover {
+      background: #c94f4f;
+    }
+  }
+
+
+  // ========================================
+  // TOGGLE
+  // ========================================
+
+  .edit-toggle-btn {
+    background: config.$primary-color;
+
+    color: config.$bold-color;
+
+    border: 1px solid config.$border-color;
+
+
+    &:hover {
+      background: config.$secondary-color;
+
+      color: white;
+    }
+  }
+}
+
+
+// ========================================
+// BACK TO CALENDAR
+// ========================================
+
+.edit-calendar-btn {
+  align-self: flex-start;
+
+  margin: 0;
+
+  padding: 10px 16px;
+
+  background: transparent;
+
+  color: config.$bold-color;
+
+  border: 1px solid config.$border-color;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+
+  &:hover {
+    background: config.$secondary-color;
+
+    border-color: config.$secondary-color;
+
+    color: white;
+  }
+}
