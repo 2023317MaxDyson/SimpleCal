@@ -77,36 +77,52 @@ function Calendar() {
 
 
   async function fetchCalendarItems() {
+
+    const token = localStorage.getItem("token"); 
+    
   try {
     const [eventsResponse, tasksResponse, appointmentsResponse] =
       await Promise.all([
-        fetch("https://simplecal-nf6h.onrender.com/events"),
-        fetch("https://simplecal-nf6h.onrender.com/tasks"),
-        fetch("https://simplecal-nf6h.onrender.com/appointments")
+        fetch("https://simplecal-nf6h.onrender.com/events", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }),
+        fetch("https://simplecal-nf6h.onrender.com/tasks", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }),
+        fetch("https://simplecal-nf6h.onrender.com/appointments", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       ]);
 
     const eventsData = await eventsResponse.json();
     const tasksData = await tasksResponse.json();
     const appointmentsData = await appointmentsResponse.json();
 
-    const allItems = [
-      ...eventsData.map(item => ({
-        ...item,
-        type: "Event"
-      })),
 
-      ...tasksData.map(item => ({
-        ...item,
-        type: "Task"
-      })),
+  const allItems = [
+  ...(Array.isArray(eventsData) ? eventsData : []).map(item => ({
+    ...item,
+    type: "Event"
+  })),
 
-      ...appointmentsData.map(item => ({
-        ...item,
-        type: "Appointment"
-      }))
-    ];
+  ...(Array.isArray(tasksData) ? tasksData : []).map(item => ({
+    ...item,
+    type: "Task"
+  })),
 
-    setCalendarItems(allItems);
+  ...(Array.isArray(appointmentsData) ? appointmentsData : []).map(item => ({
+    ...item,
+    type: "Appointment"
+  }))
+];
+
+setCalendarItems(allItems);
 
   } catch (error) {
     console.error("Error fetching calendar items:", error);
@@ -119,7 +135,6 @@ function Calendar() {
     }
     load();
   }, []);
-
 
 
 
@@ -197,56 +212,21 @@ function Calendar() {
   }
 
 
-  function getCalendarItemHour(time) {
-    if (!time) return null;
 
-    const timeString = time.toString().trim();
+  function formatTime(time) {
+    if (!time) return "";
 
-    // Handles: "9:00 AM", "9:30 PM"
-    const amPmMatch = timeString.match(
-      /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
-    );
+    const [hours, minutes] = time.split(":");
+    const hour = Number(hours);
 
-    if (amPmMatch) {
-      let hour = Number(amPmMatch[1]);
-      const period = amPmMatch[3].toUpperCase();
+    const period = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour % 12 || 12;
 
-      if (period === "PM" && hour !== 12) {
-        hour += 12;
-      }
-
-      if (period === "AM" && hour === 12) {
-        hour = 0;
-      }
-
-      return hour;
-    }
-
-    // Handles: "09:00", "14:00", "9:00"
-    const twentyFourHourMatch = timeString.match(
-      /^(\d{1,2}):(\d{2})$/
-    );
-
-    if (twentyFourHourMatch) {
-      return Number(twentyFourHourMatch[1]);
-    }
-
-    return null;
+    return `${displayHour}:${minutes} ${period}`;
   }
 
 
-  function formatTime(time) {
-  if (!time) return "";
-
-  const [hours, minutes] = time.split(":");
-  const hour = Number(hours);
-
-  const period = hour >= 12 ? "PM" : "AM";
-  const displayHour = hour % 12 || 12;
-
-  return `${displayHour}:${minutes} ${period}`;
-}
-
+  const items = getCalendarItemsForDay(selectedDay);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -393,9 +373,12 @@ function Calendar() {
            <div className="cal-schedule-column">
 
    {calendarHours.map((hour) => {
+  
+ const itemsForThisHour = items.filter((item) => {
 
-  const hourItems = getCalendarItemsForDay(selectedDay).filter((calendarItem) => {
-    return getCalendarItemHour(calendarItem.time) === hour;
+    const itemHour = parseInt(item.time.split(":")[0], 10);
+
+    return itemHour === hour;
   });
 
 return (
@@ -403,7 +386,7 @@ return (
     className="cal-time-slot"
     key={hour}
   >
-    {hourItems.map((calendarItem) => (
+    {itemsForThisHour.map((calendarItem) => (
       <div
         key={calendarItem._id}
         className={`cal-calendar-calendaritem ${
@@ -420,11 +403,6 @@ return (
           {calendarItem.category}
         </span>
 
-        {calendarItem.notes && (
-          <span className="cal-calendaritem-description">
-            {calendarItem.notes}
-          </span>
-        )}
       </div>
     ))}
   </div>

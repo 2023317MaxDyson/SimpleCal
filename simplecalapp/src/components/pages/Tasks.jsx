@@ -23,6 +23,8 @@ function Tasks() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(
@@ -30,7 +32,8 @@ function Tasks() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formData)
         }

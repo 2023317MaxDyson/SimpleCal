@@ -729,7 +729,7 @@ border-radius: 12px;
   grid-template-columns:
     80px minmax(0, 1fr);
 
-  height: 650px;
+  height: 800px;
 
   overflow-y: auto;
 
@@ -779,28 +779,34 @@ border-radius: 12px;
    SCHEDULE
 ========================================================= */
 
+
 .cal-schedule-column {
   display: flex;
   flex-direction: column;
 }
 
 
-
 .cal-time-slot {
-
   position: relative;
-  min-height: 60px;
-  box-sizing: border-box;
-  padding: 6px 10px;
-  border-bottom: 1px solid config.$border-color;
-  background-color: config.$white;
-  transition: 0.2s ease;
 
+  height: 80px;
+  min-height: 80px;
+
+  box-sizing: border-box;
+
+  padding: 3px 6px;
+
+  border-bottom: 1px solid config.$border-color;
+
+  background-color: config.$white;
+
+  overflow: visible;
+
+  transition: 0.2s ease;
 
   &:hover {
     background-color: config.$primary-color;
   }
-
 
   &:last-child {
     border-bottom: none;
@@ -826,61 +832,33 @@ border-radius: 12px;
 }
 
 
-.cal-calendaritem-description {
 
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-  
-  color: config.$secondary-color;
-
-  font-size: 11px !important;
-}
 
 /* =========================================================
    CALENDARITEMS
 ========================================================= */
 
 .cal-calendar-calendaritem {
- display: flex;
-  flex-direction: column;
-  padding: 8px;
-  margin: 4px;
-  border-radius: 8px;
-  color: config.$secondary-color;
-  min-height: 50px;
-  position: relative;
-  z-index: 2;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 5px 6px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  font-size: 10px;
+  line-height: 1;
+  margin-top: 2px;
+  margin-left: 22px;
 
   strong {
-
-    font-size: 14px;
-
-    font-weight: 700;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
 
   span {
-
-    font-size: 12px;
-  }
-
-
-  &:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow:
-      0 5px 12px rgba(36, 86, 106, 0.12);
+    font-size: 10px;
   }
 }
 

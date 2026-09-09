@@ -1587,7 +1587,7 @@ footer {
 .cal-calendar-body {
   display: grid;
   grid-template-columns: 80px minmax(0, 1fr);
-  height: 650px;
+  height: 800px;
   overflow-y: auto;
   background-color: #ffffff;
 }
@@ -1623,11 +1623,13 @@ footer {
 
 .cal-time-slot {
   position: relative;
-  min-height: 60px;
+  height: 80px;
+  min-height: 80px;
   box-sizing: border-box;
-  padding: 6px 10px;
+  padding: 3px 6px;
   border-bottom: 1px solid #c9dce8;
   background-color: #ffffff;
+  overflow: visible;
   transition: 0.2s ease;
 }
 .cal-time-slot:hover {
@@ -1649,40 +1651,29 @@ footer {
   font-weight: 600;
 }
 
-.cal-calendaritem-description {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #087ea4;
-  font-size: 11px !important;
-}
-
 /* =========================================================
    CALENDARITEMS
 ========================================================= */
 .cal-calendar-calendaritem {
   display: flex;
-  flex-direction: column;
-  padding: 8px;
-  margin: 4px;
-  border-radius: 8px;
-  color: #087ea4;
-  min-height: 50px;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  align-items: center;
+  gap: 40px;
+  padding: 5px 6px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  font-size: 10px;
+  line-height: 1;
+  margin-top: 2px;
+  margin-left: 22px;
 }
 .cal-calendar-calendaritem strong {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cal-calendar-calendaritem span {
-  font-size: 12px;
-}
-.cal-calendar-calendaritem:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(36, 86, 106, 0.12);
+  font-size: 10px;
 }
 
 /* Event */

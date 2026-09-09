@@ -9,7 +9,6 @@ const appointmentRoutes = require("./routes/appointmentRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-
 const app = express();
 
 app.use(cors());

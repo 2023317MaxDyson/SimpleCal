@@ -25,13 +25,16 @@ function Events() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+
     try {
       const response = await fetch(
         "https://simplecal-nf6h.onrender.com/events",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formData)
         }

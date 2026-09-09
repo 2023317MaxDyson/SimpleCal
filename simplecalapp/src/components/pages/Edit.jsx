@@ -30,9 +30,9 @@ function Edit() {
 
   async function handleUpdate(e) {
 
-  
-
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
 
     try {
 
@@ -53,7 +53,8 @@ function Edit() {
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formData)
         }
@@ -75,6 +76,8 @@ function Edit() {
 
   async function handleDelete() {
 
+    const token = localStorage.getItem("token");
+
     const confirmed = window.confirm(
       `Are you sure you want to delete this ${type.toLowerCase()}?`
     );
@@ -82,6 +85,7 @@ function Edit() {
     if (!confirmed) {
       return;
     }
+
 
     try {
 
@@ -100,7 +104,11 @@ function Edit() {
       const response = await fetch(
         `https://simplecal-nf6h.onrender.com/${endpoint}/${formData._id}`,
         {
-          method: "DELETE"
+          method: "DELETE",
+          headers:{
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 

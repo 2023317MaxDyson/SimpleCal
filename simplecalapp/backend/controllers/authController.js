@@ -11,7 +11,7 @@ exports.SignupAccount = async (req, res) => {
 
         const existingUser = await User.findOne({
             // Don't let someone sign up if either their email OR their username is already being used.
-            $or: [{ email }, { username }]
+            $or: [{ email: email.trim() }, { username }]
         });
 
         if (existingUser) {
@@ -59,7 +59,7 @@ exports.SignupAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email.trim() });
 
         if (!user) {
             return res.status(400).json({
@@ -89,7 +89,8 @@ exports.SignupAccount = async (req, res) => {
             }
         );
 
-        res.json({
+        res.status(200).json({
+            message: "Login successful",
             token
         });
 
