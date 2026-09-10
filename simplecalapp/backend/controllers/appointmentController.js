@@ -5,7 +5,7 @@ exports.createAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.create({
       ...req.body,
-      userId: req.user.userId
+      userId: req.user.id
     });
 
     console.log(appointment);
@@ -21,7 +21,7 @@ exports.updateAppointment = async (req, res) => {
   try {
     const updated = await Appointment.findByIdAndUpdate({
       _id: req.params.id,
-      userId: req.user.userId
+      userId: req.user.id
     }, req.body, { new: true });
 
     if (!updated) {
@@ -43,7 +43,7 @@ exports.deleteAppointment = async (req, res) => {
   try {
     const deleted = await Appointment.findByIdAndDelete({
       _id: req.params.id,
-      userId: req.user.userId
+      userId: req.user.id
     });
 
     if (!deleted) {
@@ -65,7 +65,7 @@ exports.deleteAppointment = async (req, res) => {
 // GET ALL Appointments
 exports.getAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find({ userId: req.user.userId });
+    const appointments = await Appointment.find({ userId: req.user.id });
     res.json(appointments);
 
   } catch (err) {

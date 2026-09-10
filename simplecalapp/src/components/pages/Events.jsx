@@ -22,35 +22,36 @@ function Events() {
     });
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch("https://simplecal-nf6h.onrender.com/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${token}`,
 
-    const token = localStorage.getItem("token");
+      },
+      body: JSON.stringify(formData),
+    });
 
-    try {
-      const response = await fetch(
-        "https://simplecal-nf6h.onrender.com/events",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify(formData)
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to create event");
-      }
-
-      // Return to calendar after creating event
-      navigate("/calendar");
-
-    } catch (error) {
-      console.error("Error creating event:", error);
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log("Backend error:", errorData);
+      throw new Error(errorData.message || "Failed to create event");
     }
+
+    const data = await response.json();
+
+    console.log("Event created:", data);
+
+    navigate("/calendar");
+
+  } catch (error) {
+    console.error("Error creating event:", error);
   }
+};
 
   return (
     <div className="cal-background">

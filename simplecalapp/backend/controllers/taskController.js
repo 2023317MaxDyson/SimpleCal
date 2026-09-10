@@ -5,7 +5,7 @@ exports.createTask = async (req, res) => {
   try {
     const task = await Task.create({
       ...req.body,
-      userId: req.user.userId
+      userId: req.user.id
     });
 
     console.log(task);
@@ -22,7 +22,7 @@ exports.updateTask = async (req, res) => {
     const updated = await Task.findByIdAndUpdate(
       {
       _id: req.params.id,
-      userId: req.user.userId
+      userId: req.user.id 
     }, 
     req.body, {
       new: true
@@ -49,7 +49,7 @@ exports.deleteTask = async (req, res) => {
   try {
     const deleted = await Task.findByIdAndDelete({
       _id: req.params.id,
-      userId: req.user.userId
+      userId: req.user.id
     });
 
     if (!deleted) {
@@ -71,7 +71,7 @@ exports.deleteTask = async (req, res) => {
 // GET ALL Tasks
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({ userId: req.user.userId });
+    const tasks = await Task.find({ userId: req.user.id });
     res.json(tasks);
 
   } catch (err) {

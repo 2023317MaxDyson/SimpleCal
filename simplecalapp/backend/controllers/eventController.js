@@ -5,7 +5,7 @@ exports.createEvent = async (req, res) => {
   try {
     const event = await Event.create({
       ...req.body,
-      userId: req.user.userId
+      userId: req.user.id 
     });
 
     console.log(event);
@@ -21,7 +21,7 @@ exports.updateEvent = async (req, res) => {
   try {
     const updated = await Event.findByIdAndUpdate({
       _id: req.params.id,
-      userId: req.user.userId
+      userId: req.user.id
     }, req.body, { new: true });
 
     if (!updated) {
@@ -43,7 +43,7 @@ exports.deleteEvent = async (req, res) => {
   try {
     const deleted = await Event.findByIdAndDelete({
       _id: req.params.id,
-      userId: req.user.userId
+      userId: req.user.id
     });
 
     if (!deleted) {
@@ -65,7 +65,7 @@ exports.deleteEvent = async (req, res) => {
 // GET ALL Events
 exports.getEvents = async (req, res) => {
   try {
-    const events = await Event.find({ userId: req.user.userId });
+    const events = await Event.find({ userId: req.user.id });
     res.json(events);
 
   } catch (err) {
