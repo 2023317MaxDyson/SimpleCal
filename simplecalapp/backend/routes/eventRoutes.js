@@ -7,11 +7,11 @@ router.get("/", authenticateToken, eventController.getEvents);
 // GET ONE EVENT BY NUMBER ID 
 router.get("/:id", authenticateToken, eventController.getEventById);
 router.post("/", authenticateToken, eventController.createEvent);
-router.put("/:id", eventController.updateEvent);
+router.put("/:id", authenticateToken, eventController.updateEvent);
 // DELETE EVENT BY TITLE + DATE
-router.delete("/", eventController.deleteEvent);
+router.delete("/",  authenticateToken, eventController.deleteEvent);
 // (Optionial)
-router.delete("/:id", eventController.deleteEvent)
+router.delete("/:id",  authenticateToken, eventController.deleteEvent)
 
 module.exports = router;
 
