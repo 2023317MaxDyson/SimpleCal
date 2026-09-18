@@ -1,292 +1,298 @@
-import './style/Calendarstyle.css';
+import "./style/Calendarstyle.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Footer from "../Footer.jsx";
+import CalendarHeader from "../CalendarHeader.jsx";
+import MonthView from "../MonthView.jsx";
+import DayView from "../DayView.jsx";
+import MiniCalendar from "../MiniCalendar.jsx";
+import CalendarFilters from "../CalendarFilters.jsx";
+import CalendarItemList from "../CalendarItemList.jsx";
 
-
-  // Arrow signs for the mini calendar buttons
-  const rightArrow = ">";
-  const leftArrow = "<";
-
+import {
+  getCalendarItemsForDay,
+  getCalendarDaysWithItems,
+} from "../calendarUtils.js";
 
 function Calendar() {
-
-  // Variable for navigation
   const navigate = useNavigate();
 
-  const todaysdate = new Date();
+  const todayDate = new Date();
 
-  const [month, setMonth] = useState(todaysdate.getMonth());
-  const [year, setYear] = useState(todaysdate.getFullYear());
+  // -------------------------
+  // Calendar state
+  // -------------------------
 
-  const today = todaysdate.getDate();
+  const [month, setMonth] = useState(todayDate.getMonth());
+  const [year, setYear] = useState(todayDate.getFullYear());
 
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const [selectedDay, setSelectedDay] = useState(todayDate.getDate());
+  const [selectedDate, setSelectedDate] = useState(todayDate);
 
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const [view, setView] = useState("month");
 
-  const days = [];
+  // -------------------------
+  // Calendar items
+  // -------------------------
 
-  const calendarHours = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-    13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-    23
-  ];
+  const [calendarItems, setCalendarItems] = useState([]);
 
-  for (let i = 0; i < firstDay; i++) {
-    days.push(null);
-  }
-
-  for (let i = 1; i <= daysInMonth; i++) {
-    days.push(i);
-  }
-
-
-  function handlePrevMonth() {
-    // If the month is Jan set it back to Dec when press the previous month 
-    if (month === 0) {
-      setMonth(11);
-      // The year should go back one year 
-      setYear(year - 1)
-    }
-
-    else {
-      setMonth(month - 1);
-    }
-
-  }
-
-
-
-  function handleNextMonth() {
-    // If the month is Dec set it back to Jan when pressing the next month
-    if (month === 11) {
-      setMonth(0);
-      // The year should go forward one year 
-      setYear(year + 1)
-    }
-    else {
-      setMonth(month + 1);
-    }
-  }
-
-
-  const [calendaritems, setCalendarItems] = useState([]);
-
-
-  async function fetchCalendarItems() {
-
-    const token = localStorage.getItem("token"); 
-    
-  try {
-    const [eventsResponse, tasksResponse, appointmentsResponse] =
-      await Promise.all([
-        fetch("https://simplecal-nf6h.onrender.com/events", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }),
-        fetch("https://simplecal-nf6h.onrender.com/tasks", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }),
-        fetch("https://simplecal-nf6h.onrender.com/appointments", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-      ]);
-
-    const eventsData = await eventsResponse.json();
-    const tasksData = await tasksResponse.json();
-    const appointmentsData = await appointmentsResponse.json();
-
-
-  const allItems = [
-  ...(Array.isArray(eventsData) ? eventsData : []).map(item => ({
-    ...item,
-    type: "Event"
-  })),
-
-  ...(Array.isArray(tasksData) ? tasksData : []).map(item => ({
-    ...item,
-    type: "Task"
-  })),
-
-  ...(Array.isArray(appointmentsData) ? appointmentsData : []).map(item => ({
-    ...item,
-    type: "Appointment"
-  }))
-];
-
-setCalendarItems(allItems);
-
-  } catch (error) {
-    console.error("Error fetching calendar items:", error);
-  }
-}
-
-  useEffect(() => {
-    async function load() {
-      await fetchCalendarItems();
-    }
-    load();
-  }, []);
-
-
-
-
- const calendarDays = calendaritems
-  .filter(calendaritem => {
-    if (!calendaritem.date) return false;
-
-    const [calendarYear, calendarMonth] = calendaritem.date
-      .split("T")[0]
-      .split("-")
-      .map(Number);
-
-    return (
-      calendarYear === year &&
-      calendarMonth - 1 === month
-    );
-  })
-  .map(calendaritem => {
-    const [, , day] = calendaritem.date
-      .split("T")[0]
-      .split("-")
-      .map(Number);
-
-    return day;
-  });
-
-  const [selectedDay, setSelectedDay] = useState(todaysdate.getDate());
-
-  function handlePrevDay() {
-
-    const date = new Date(
-      year,
-      month,
-      selectedDay
-    );
-
-    date.setDate(date.getDate() - 1);
-
-    setSelectedDay(date.getDate());
-    setMonth(date.getMonth());
-    setYear(date.getFullYear());
-  }
-
-  function handleNextDay() {
-
-    const date = new Date(
-      year,
-      month,
-      selectedDay
-    );
-
-    date.setDate(date.getDate() + 1);
-
-    setSelectedDay(date.getDate());
-    setMonth(date.getMonth());
-    setYear(date.getFullYear());
-  }
-
-  function getCalendarItemsForDay(day) {
-    return calendaritems.filter((calendaritem) => {
-      if (!calendaritem.date) return false;
-
-      const calendarDate = calendaritem.date.split("T")[0];
-
-      const [calendarYear, calendarMonth, calendarDay] =
-        calendarDate.split("-").map(Number);
-
-      return (
-        calendarYear === year &&
-        calendarMonth - 1 === month &&
-        calendarDay === day
-      );
-    });
-  }
-
-
-
-  function formatTime(time) {
-    if (!time) return "";
-
-    const [hours, minutes] = time.split(":");
-    const hour = Number(hours);
-
-    const period = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour % 12 || 12;
-
-    return `${displayHour}:${minutes} ${period}`;
-  }
-
-
-  const items = getCalendarItemsForDay(selectedDay);
+  // -------------------------
+  // Search / filters
+  // -------------------------
 
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
 
-  const filteredCalendarItems = calendaritems.filter(calendaritem => {
-  const q = searchQuery.toLowerCase();
+  // -------------------------
+  // Pagination
+  // -------------------------
 
-  const matchesSearch =
-    (calendaritem.title ?? "").toLowerCase().includes(q) ||
-    (calendaritem.notes ?? "").toLowerCase().includes(q) ||
-    (calendaritem.category ?? "").toLowerCase().includes(q);
+  const [calendarItemPage, setCalendarItemPage] = useState(0);
 
-  const matchesCategory =
-    categoryFilter === "" ||
-    (calendaritem.category ?? "").trim() === categoryFilter;
+  const calendarItemsPerPage = 6;
 
-  const matchesType =
-    typeFilter === "" ||
-    (calendaritem.type ?? "").trim() === typeFilter;
+  // -------------------------
+  // Fetch calendar items
+  // -------------------------
 
-  return matchesSearch && matchesCategory && matchesType;
-});
+  async function fetchCalendarItems() {
+    const token = localStorage.getItem("token");
 
-  const [calendaritemPage, setcalendaritemPage] = useState(0);
-  const calendaritemsPerPage = 6;
+    try {
+      const [
+        eventsResponse,
+        tasksResponse,
+        appointmentsResponse,
+      ] = await Promise.all([
+        fetch("https://simplecal-nf6h.onrender.com/events", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
 
-  const totalPages = Math.ceil(filteredCalendarItems.length / calendaritemsPerPage);
+        fetch("https://simplecal-nf6h.onrender.com/tasks", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+
+        fetch("https://simplecal-nf6h.onrender.com/appointments", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+      ]);
+
+      const eventsData = await eventsResponse.json();
+      const tasksData = await tasksResponse.json();
+      const appointmentsData = await appointmentsResponse.json();
+
+      const allItems = [
+        ...(Array.isArray(eventsData) ? eventsData : []).map((item) => ({
+          ...item,
+          type: "Event",
+        })),
+
+        ...(Array.isArray(tasksData) ? tasksData : []).map((item) => ({
+          ...item,
+          type: "Task",
+        })),
+
+        ...(Array.isArray(appointmentsData)
+          ? appointmentsData
+          : []
+        ).map((item) => ({
+          ...item,
+          type: "Appointment",
+        })),
+      ];
+
+      setCalendarItems(allItems);
+    } catch (error) {
+      console.error("Error fetching calendar items:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCalendarItems();
+  }, []);
+
+  // -------------------------
+  // Month navigation
+  // -------------------------
+
+  function handlePrevMonth() {
+    if (month === 0) {
+      setMonth(11);
+      setYear(year - 1);
+    } else {
+      setMonth(month - 1);
+    }
+  }
+
+  function handleNextMonth() {
+    if (month === 11) {
+      setMonth(0);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
+  }
+
+  // -------------------------
+  // Day navigation
+  // -------------------------
+
+  function handlePrevDay() {
+    const newDate = new Date(selectedDate);
+
+    if (view === "month") {
+      newDate.setMonth(newDate.getMonth() - 1);
+    } else {
+      newDate.setDate(newDate.getDate() - 1);
+    }
+
+    setSelectedDate(newDate);
+    setSelectedDay(newDate.getDate());
+    setMonth(newDate.getMonth());
+    setYear(newDate.getFullYear());
+  }
+
+  function handleNextDay() {
+    const newDate = new Date(selectedDate);
+
+    if (view === "month") {
+      newDate.setMonth(newDate.getMonth() + 1);
+    } else {
+      newDate.setDate(newDate.getDate() + 1);
+    }
+
+    setSelectedDate(newDate);
+    setSelectedDay(newDate.getDate());
+    setMonth(newDate.getMonth());
+    setYear(newDate.getFullYear());
+  }
+
+  // -------------------------
+  // Today button
+  // -------------------------
+
+  function handleToday() {
+    const today = new Date();
+
+    setSelectedDate(today);
+    setSelectedDay(today.getDate());
+    setMonth(today.getMonth());
+    setYear(today.getFullYear());
+  }
+
+  // -------------------------
+  // Select a day
+  // -------------------------
+
+  function handleSelectDay(day) {
+    const newDate = new Date(`${day.date}T00:00:00`);
+
+    setSelectedDate(newDate);
+    setSelectedDay(newDate.getDate());
+    setMonth(newDate.getMonth());
+    setYear(newDate.getFullYear());
+
+    setView("day");
+  }
+
+  // -------------------------
+  // Search/filter
+  // -------------------------
+
+  const filteredCalendarItems = calendarItems.filter((item) => {
+    const q = searchQuery.toLowerCase();
+
+    const matchesSearch =
+      (item.title ?? "").toLowerCase().includes(q) ||
+      (item.notes ?? "").toLowerCase().includes(q) ||
+      (item.category ?? "").toLowerCase().includes(q);
+
+    const matchesCategory =
+      categoryFilter === "" ||
+      (item.category ?? "").trim() === categoryFilter;
+
+    const matchesType =
+      typeFilter === "" ||
+      (item.type ?? "").trim() === typeFilter;
+
+    return matchesSearch && matchesCategory && matchesType;
+  });
+
+  // -------------------------
+  // Pagination
+  // -------------------------
+
+  const totalPages = Math.ceil(
+    filteredCalendarItems.length / calendarItemsPerPage
+  );
 
   const displayedCalendarItems = filteredCalendarItems.slice(
-    calendaritemPage * calendaritemsPerPage,
-    ( calendaritemPage + 1) * calendaritemsPerPage
+    calendarItemPage * calendarItemsPerPage,
+    (calendarItemPage + 1) * calendarItemsPerPage
   );
 
   useEffect(() => {
-    setcalendaritemPage(0);
-  }, [searchQuery, categoryFilter,typeFilter]);
+    setCalendarItemPage(0);
+  }, [searchQuery, categoryFilter, typeFilter]);
 
+  // -------------------------
+  // Items for selected day
+  // -------------------------
 
+  const selectedDayItems = getCalendarItemsForDay(
+    calendarItems,
+    selectedDay,
+    month,
+    year
+  );
+
+  // -------------------------
+  // Days that contain items
+  // -------------------------
+
+  const calendarDaysWithItems = getCalendarDaysWithItems(
+    calendarItems,
+    month,
+    year
+  );
+
+  // -------------------------
+  // Sign out
+  // -------------------------
 
   function handleSignOut() {
     localStorage.removeItem("token");
     navigate("/");
   }
 
+  // -------------------------
+  // Render
+  // -------------------------
+
   return (
     <div className="cal-background">
-      <div className="cal-header">
-        <span className="material-symbols-outlined">
-          calendar_month
-        </span>
-        <p className="cal-title"> SimpleCal </p>
-        <input className="cal-calendaritems-search-input" type="search" placeholder="Search events, tasks or appointments..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-        {/* Navigate to the events page */}
-        <button className="cal-events-btn " onClick={() => navigate("/event")}> Create Events</button>
-        <button className="cal-tasks-btn" onClick={() => navigate("/task")}> Create Tasks </button>
-        <button className="cal-appointments-btn" onClick={() => navigate("/appointment")}> Create Appointments </button>
-        <button className="cal-signout-btn" onClick={handleSignOut}>Sign Out</button>
-      </div>
+
+      <CalendarHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onCreateEvent={() => navigate("/event")}
+        onCreateTask={() => navigate("/task")}
+        onCreateAppointment={() => navigate("/appointment")}
+        onSignOut={handleSignOut}
+      />
+
       <div className="cal-main">
+
+        {/* Page heading */}
         <div className="cal-section-header">
           <div className="cal-section-title">
             <span className="material-symbols-outlined">
@@ -295,245 +301,179 @@ setCalendarItems(allItems);
 
             <div>
               <h1>Calendar</h1>
-              <p>View your schedule and upcoming events, tasks, and appointments</p>
+              <p>
+                View your schedule and upcoming events, tasks,
+                and appointments
+              </p>
             </div>
           </div>
         </div>
-        <div className="cal-calendar-layout">
-          <div className="cal-schedule">
 
-            {/* Calendar Header */}
+        {/* Calendar */}
+        <div className="cal-calendar-layout">
+
+          <div className="cal-schedule">
 
             <div className="cal-calendar-header">
 
               <div className="cal-date-navigation">
-                <button className="cal-nav-button"
-                  onClick={handlePrevDay}>&lt;</button>
+                <button
+                  className="cal-nav-button"
+                  onClick={handlePrevDay}
+                >
+                  &lt;
+                </button>
 
-                <h2>{months[month]} {selectedDay}, {year}</h2>
+                <h2>
+                  {new Date(
+                    year,
+                    month,
+                    selectedDay
+                  ).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </h2>
 
-                <button className="cal-nav-button" onClick={handleNextDay}>&gt;</button>
+                <button
+                  className="cal-nav-button"
+                  onClick={handleNextDay}
+                >
+                  &gt;
+                </button>
               </div>
 
               <div className="cal-view-buttons">
-                <button className="cal-today-button"
-                  onClick={() => {
-                    const today = new Date();
 
-                    setSelectedDay(today.getDate());
-                    setMonth(today.getMonth());
-                    setYear(today.getFullYear());
-                  }}>
+                <button
+                  className="cal-today-button"
+                  onClick={handleToday}
+                >
                   Today
                 </button>
 
-                <button className="cal-view-button active">
+                <button
+                  className={`cal-view-button ${
+                    view === "month" ? "active" : ""
+                  }`}
+                  onClick={() => setView("month")}
+                >
                   Month
                 </button>
 
-                <button className="cal-view-button">
+                <button
+                  className={`cal-view-button ${
+                    view === "day" ? "active" : ""
+                  }`}
+                  onClick={() => setView("day")}
+                >
                   Day
                 </button>
-              </div>
 
+              </div>
             </div>
-            {/* Calendar Body */}
+
             <div className="cal-calendar-body">
 
-              {/* Time Column */}
-              <div className="cal-time-column">
-                <div>12:00 AM</div>
-                <div> 1:00 AM</div>
-                <div> 2:00 AM</div>
-                <div> 3:00 AM</div>
-                <div> 4:00 AM</div>
-                <div> 5:00 AM</div>
-                <div> 6:00 AM</div>
-                <div> 7:00 AM </div>
-                <div>8:00 AM</div>
-                <div>9:00 AM</div>
-                <div>10:00 AM</div>
-                <div>11:00 AM</div>
-                <div>12:00 PM</div>
-                <div>1:00 PM</div>
-                <div>2:00 PM</div>
-                <div>3:00 PM</div>
-                <div>4:00 PM</div>
-                <div>5:00 PM</div>
-                <div>6:00 PM</div>
-                <div>7:00 PM</div>
-                <div>8:00 PM</div>
-                <div>9:00 PM</div>
-                <div>10:00 PM</div>
-                <div>11:00 PM</div>
-              </div>
+              {view === "month" && (
+                <MonthView
+                  month={month}
+                  year={year}
+                  calendarItems={displayedCalendarItems}
+                  onSelectDay={handleSelectDay}
+                />
+              )}
 
+              {view === "day" && (
+                <DayView
+                  calendarItems={selectedDayItems}
+                />
+              )}
 
-              {/* Schedule */}
-           <div className="cal-schedule-column">
-
-   {calendarHours.map((hour) => {
-  
- const itemsForThisHour = items.filter((item) => {
-
-    const itemHour = parseInt(item.time.split(":")[0], 10);
-
-    return itemHour === hour;
-  });
-
-return (
-  <div
-    className="cal-time-slot"
-    key={hour}
-  >
-    {itemsForThisHour.map((calendarItem) => (
-      <div
-        key={calendarItem._id}
-        className={`cal-calendar-calendaritem ${
-          (calendarItem.category || "other").toLowerCase()
-        } ${(calendarItem.type || "other").toLowerCase()}`}
-      >
-        <strong>{calendarItem.title}</strong>
-
-        <span>{formatTime(calendarItem.time)}</span>
-
-        <span>{calendarItem.type}</span>
-
-        <span className="cal-calendaritem-category-small">
-          {calendarItem.category}
-        </span>
-
-      </div>
-    ))}
-  </div>
-);
-})}
-        </div>
             </div>
           </div>
-          <div className="cal-minicalander ">
-            <h2 className="cal-monthinyear"> {months[month]} / {year}  </h2>
-            <div className="cal-filter">
-              <button className="cal-left" onClick={handlePrevMonth}>  {leftArrow} </button>
-              <button className="cal-right" onClick={handleNextMonth}> {rightArrow} </button>
-            </div>
-            <div className="cal-grid">
-              {daysOfWeek.map((day) => {
-                return (
-                  <div key={day} className="cal-daysofweek">
-                    {day}
-                  </div>
-                );
-              })}
-              {days.map((d, index) => {
-                const isToday = d === today;
-                const hasCalenderItem = d !== null && calendarDays.includes(d);
-                return (
-                  <div
-                    key={index}
-                    className={`cal-days ${isToday ? "cal-today" : ""}`}
-                    onClick={() => {
-                      if (d !== null) {
-                        setSelectedDay(d);
-                      }
-                    }}
-                  >
-                    {d ?? ""}
 
-                    {hasCalenderItem && <span className="cal-calendaritem-dot"></span>}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          {/* Mini calendar */}
+          <MiniCalendar
+            month={month}
+            year={year}
+            selectedDay={selectedDay}
+            calendarDaysWithItems={calendarDaysWithItems}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+            onSelectDay={(day) => setSelectedDay(day)}
+          />
+
         </div>
+
+        {/* Items section */}
         <div className="cal-section-header">
           <div className="cal-section-title">
+
             <span className="material-symbols-outlined">
               event
             </span>
-            <div>
-              <h2> Events, Tasks and Appointments</h2>
-              <p>View, filter, search, edit and manage your scheduled items</p>
-            </div>
-          </div>
-        </div>
-        <div className="cal-filter-category">
-          <select className="cal-category-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-            <option value=""> Category </option>
-            <option value="Work"> Work </option>
-            <option value="Home"> Home </option>
-            <option value="Meetup"> Meetup </option>
-            <option value="other"> Other </option>
-          </select>
-          <select className="cal-category-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-            <option value=""> Calender Type </option>
-            <option value="Event"> Event</option>
-            <option value="Task"> Task </option>
-            <option value="Appointment"> Appointment </option>
-          </select>
-        </div>
-  
-        <div className="cal-container">
-          <div className="cal-show-calendaritems">
-            {displayedCalendarItems.length > 0 ? (displayedCalendarItems.map((calendaritem) => (
-              <div key={calendaritem._id}
-                className= {`cal-calenderitem ${(calendaritem.type || "other").toLowerCase()}`}
-                onClick={() =>
-                  navigate("/edit", {
-                    state: {
-                      calendaritems,
-                      isEditing: true,
-                    },
-                  })
-                }>
-                <h3 className="cal-calendaritem-title"> {calendaritem.title}  </h3>
-                <p className="cal-calendaritem-date"> {calendaritem.date ? calendaritem.date.split("T")[0] : ""}</p>
-                {calendaritem.image && (
-                  <img
-                    className="cal-calendaritem-image"
-                    src={calendaritem.image}
-                    alt={calendaritem.title}
-                  />
-                )}
-                <p className="cal-calendaritem-time">   {formatTime(calendaritem.time)} </p>
-                <p className="cal-calendaritem-notes"> {calendaritem.notes}</p>
-                <div className="cal-calanderitem-options">
-                <p className="cal-calendaritem-type"> {calendaritem.type}</p>
-                <p className="cal-calendaritem-category"> {calendaritem.category}</p>
-                </div>
-                <br />
-                <button
-                  className="cal-edit-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
 
-                    navigate("/edit", {
-                      state: {
-                        item: calendaritem,
-                        type: calendaritem.type 
-                      }
-                    });
-                  }}
-                >
-                  Edit
-                </button>
-              </div>
-            ))
-            ) : (
-              <p>  No calendar items found </p>
-            )}
+            <div>
+              <h2>Events, Tasks and Appointments</h2>
+
+              <p>
+                View, filter, search, edit and manage your
+                scheduled items
+              </p>
+            </div>
+
           </div>
         </div>
+
+        {/* Filters */}
+        <CalendarFilters
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+          typeFilter={typeFilter}
+          setTypeFilter={setTypeFilter}
+        />
+
+        {/* Item cards */}
+        <CalendarItemList
+          calendarItems={displayedCalendarItems}
+          navigate={navigate}
+        />
+
+        {/* Pagination */}
         <div className="calendaritem-pagination">
-          <button onClick={() => setcalendaritemPage(calendaritemPage - 1)} disabled={calendaritemPage === 0} > Previous </button>
+
+          <button
+            onClick={() =>
+              setCalendarItemPage(calendarItemPage - 1)
+            }
+            disabled={calendarItemPage === 0}
+          >
+            Previous
+          </button>
+
           <span>
-            Page {calendaritemPage + 1} of {totalPages || 1}
+            Page {calendarItemPage + 1} of {totalPages || 1}
           </span>
-          <button onClick={() => setcalendaritemPage(calendaritemPage + 1)} disabled={calendaritemPage >= totalPages - 1} > Next </button>
+
+          <button
+            onClick={() =>
+              setCalendarItemPage(calendarItemPage + 1)
+            }
+            disabled={
+              calendarItemPage >= totalPages - 1
+            }
+          >
+            Next
+          </button>
+
         </div>
+
       </div>
+
       <Footer />
+
     </div>
   );
 }

@@ -30,7 +30,7 @@ function Home() {
         </div>
       </div>
       <div className="home-herosection">
-        <img className="home-herosection-img" src="http://localhost:3000/img/herosection.jpg" alt="Hero Section" />
+        <img className="home-herosection-img" src="http://localhost:3000/img/Hero-Section.png" alt="Hero Section" />
         <div>
         <h1> Make planning easy, enjoyable, and <span className="home-stress">stress free</span></h1>
         <p> Plan smarter, stay on top of every event, and spend less time worrying about your schedule. </p>
