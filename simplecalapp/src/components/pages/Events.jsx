@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Calendarstyle.css";
+import Footer from "../Footer.jsx";
 
 function Events() {
 
@@ -195,12 +196,7 @@ function Events() {
           </div>
         </form>
       </div>
-      <footer className="cal-footer">
-        <p>
-          SimpleCal copyright@ 2026
-        </p>
-      </footer>
-
+      <Footer/>
     </div>
   );
 }

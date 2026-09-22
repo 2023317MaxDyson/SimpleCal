@@ -15,9 +15,9 @@ return(
         </div>
         <div className="footer-center">
           <b> Navigations </b>
-          <a href="/event">Events</a>
-          <a href="/task">Task</a>
-          <a href="/appointment">Appointments</a>
+          <a href="/event"> Create Events</a>
+          <a href="/task"> Create Task</a>
+          <a href="/appointment"> Create Appointments</a>
         </div>
         <div className="footer-right">
           <b> About</b>

@@ -1,0 +1,141 @@
+@use "config";
+
+/* =========================================================
+   DAY VIEW
+========================================================= */
+
+.day-view {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+
+  width: max(0px, 1000px);
+  min-height: 700px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  overflow-y: auto;
+}
+
+/* Time column */
+
+.cal-time-column {
+  border-right: 1px solid #ddd;
+
+  background: #f8fafc;
+
+  > div {
+    height: 70px;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    font-size: 13px;
+    color: #555;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+  }
+}
+
+/* Schedule */
+
+.cal-schedule-column {
+  width: 100%;
+}
+
+.cal-time-slot {
+  min-height: 70px;
+  height: auto;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  position: relative;
+
+  padding: 5px 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  &:hover {
+    background: #fafafa;
+  }
+}
+
+/* Calendar items */
+
+.cal-calendar-calendaritem {
+  width: 100%;
+  min-height: 50px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 10px 14px;
+
+  margin: 0;
+
+  border-radius: 7px;
+
+  strong {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  span {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
+
+.cal-calendar-calendaritem.event {
+  background: #dbeafe;
+  border-left: 4px solid #3b82f6;
+}
+
+.cal-calendar-calendaritem.task {
+  background: #dcfce7;
+  border-left: 4px solid #22c55e;
+}
+
+.cal-calendar-calendaritem.appointment {
+  background: #f3e8ff;
+  border-left: 4px solid #a855f7;
+}
+
+.cal-calendaritem-category-small {
+  padding: 3px 8px;
+
+  border-radius: 10px;
+
+  background: rgba(0, 0, 0, 0.08);
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+@media (max-width: 500px) {
+  .cal-calendar-body {
+    grid-template-columns: 60px minmax(500px, 1fr);
+
+    height: 550px;
+
+    overflow-x: auto;
+  }
+}

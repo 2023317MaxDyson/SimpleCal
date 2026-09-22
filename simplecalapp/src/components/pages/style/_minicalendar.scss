@@ -1,0 +1,142 @@
+@use "config";
+
+/* =========================================================
+   MINI CALENDAR
+========================================================= */
+
+.cal-minicalander {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 20px;
+
+  background-color: config.$white;
+
+  border: 1px solid config.$border-color;
+  border-radius: 16px;
+
+  box-shadow:
+    0 8px 24px rgba(36, 86, 106, 0.10);
+}
+
+.cal-monthinyear {
+  margin: 0 0 15px;
+
+  text-align: center;
+
+  color: config.$bold-color;
+
+  font-size: 20px;
+}
+
+/* Navigation */
+
+.cal-filter {
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-bottom: 15px;
+}
+
+.cal-left,
+.cal-right {
+  width: 38px;
+  height: 36px;
+
+  border: 1px solid config.$secondary-color;
+  border-radius: 8px;
+
+  background-color: config.$secondary-color;
+  color: config.$white;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: config.$bold-color;
+    border-color: config.$bold-color;
+  }
+}
+
+/* Grid */
+
+.cal-grid {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 4px;
+
+  padding: 8px;
+
+  background-color: config.$white;
+
+  border: 1px solid config.$border-color;
+  border-radius: 12px;
+}
+
+.cal-grid > div {
+  min-height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  color: config.$text-color;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: 0.15s ease;
+
+  &:hover {
+    background-color: config.$primary-color;
+    color: config.$secondary-color;
+  }
+}
+
+.cal-grid .cal-daysofweek {
+  min-height: 30px;
+
+  color: config.$bold-color;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: default;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.cal-grid .cal-today {
+  background-color: config.$secondary-color;
+
+  color: config.$white;
+
+  font-weight: 700;
+
+  &:hover {
+    background-color: config.$bold-color;
+    color: config.$white;
+  }
+}
+
+.cal-calendaritem-dot {
+  width: 5px;
+  height: 5px;
+
+  margin-left: 3px;
+
+  border-radius: 50%;
+
+  background-color: config.$secondary-color;
+}

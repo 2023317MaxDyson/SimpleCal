@@ -1,0 +1,190 @@
+@use "config";
+
+.cal-container {
+  width: min(100%, 1400px);
+
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+}
+
+.cal-show-calendaritems {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.cal-calenderitem {
+  min-height: 180px;
+
+  box-sizing: border-box;
+
+  padding: 20px;
+
+  border: 1px solid config.$secondary-color;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(36, 86, 106, 0.07);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+      0 10px 25px rgba(36, 86, 106, 0.12);
+
+    border-color: config.$secondary-color;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+
+    color: config.$bold-color;
+    font-size: 18px;
+  }
+
+  p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+}
+
+.cal-calendaritem-image {
+  width: 100%;
+  height: 130px;
+
+  margin: 12px 0;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.cal-calendaritem-category {
+  display: inline-block;
+
+  margin-top: 10px;
+  padding: 10px;
+
+  border: 1px solid config.$secondary-color;
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cal-calanderitem-options {
+  display: flex;
+
+  justify-content: baseline;
+  align-items: first baseline;
+
+  gap: 30px;
+}
+
+.cal-calendaritem-type {
+  background-color: config.$secondary-color;
+
+  padding: 10px;
+
+  color: white;
+
+  border-radius: 12px;
+}
+
+/* Item colors */
+
+.cal-calenderitem.event {
+  background-color: #dbeafe;
+}
+
+.cal-calenderitem.task {
+  background-color: #dcfce7;
+}
+
+.cal-calenderitem.appointment {
+  background-color: #f3e8ff;
+}
+
+/* Edit button */
+
+.cal-edit-btn {
+  background: linear-gradient(to bottom, #0099ff 20%, darkred 100%);
+
+  border: 1px solid darkred;
+  border-radius: 14px;
+
+  color: white;
+
+  padding: 10px;
+
+  transition: transform 0.2s ease;
+
+  &:hover {
+    background: darkred;
+    transform: translateY(-3px);
+  }
+}
+
+/* Pagination */
+
+.calendaritem-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  margin: 10px 0 30px;
+
+  button {
+    padding: 9px 16px;
+
+    border: 1px solid config.$border-color;
+    border-radius: 8px;
+
+    background-color: config.$white;
+    color: config.$bold-color;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: config.$primary-color;
+      border-color: config.$secondary-color;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .cal-show-calendaritems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .cal-show-calendaritems {
+    grid-template-columns: 1fr;
+  }
+}

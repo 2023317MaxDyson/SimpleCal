@@ -1,4 +1,3 @@
-
 /* import { useState, useEffect } from "react"; */
 import { useNavigate } from "react-router-dom";
 function Home() {
@@ -13,7 +12,7 @@ function Home() {
   const navigate = useNavigate();
   return (
     <div className="home">
-      <div className="home-header">
+    <div className="home-header">
         <div className="home-logo">
         <span className="material-symbols-outlined">
           calendar_month
