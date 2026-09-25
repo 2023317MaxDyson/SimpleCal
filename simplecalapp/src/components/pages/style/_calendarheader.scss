@@ -29,6 +29,7 @@
   .material-symbols-outlined {
     color: config.$secondary-color;
     font-size: 30px;
+    flex-shrink: 0;
   }
 
   .cal-title {
@@ -45,6 +46,7 @@
   .cal-calendaritems-search-input {
     flex: 1;
     max-width: 420px;
+    min-width: 150px;
 
     margin-left: auto;
 
@@ -88,6 +90,8 @@
     background-color: transparent;
     color: config.$bold-color;
 
+    white-space: nowrap;
+
     &:hover {
       background-color: config.$white;
       color: config.$secondary-color;
@@ -102,11 +106,14 @@
 
     font-weight: 600;
 
+    white-space: nowrap;
+
     &:hover {
       background-color: config.$bold-color;
     }
   }
 }
+
 
 /* =========================================================
    CALENDAR NAVIGATION
@@ -224,5 +231,337 @@
 
     color: config.$secondary-color;
     font-weight: 600;
+  }
+}
+
+
+/* =========================================================
+   LARGE SCREENS
+   1200px and above
+========================================================= */
+
+@media (min-width: 1200px) {
+
+  .cal-header {
+    padding: 12px 30px;
+  }
+
+  .cal-calendaritems-search-input {
+    max-width: 420px;
+  }
+
+}
+
+
+/* =========================================================
+   MEDIUM SCREENS
+   769px - 1199px
+========================================================= */
+
+@media (max-width: 1199px) and (min-width: 769px) {
+
+  .cal-header {
+    gap: 8px;
+    padding: 10px 20px;
+  }
+
+  .cal-header {
+
+    .material-symbols-outlined {
+      font-size: 27px;
+    }
+
+    .cal-title {
+      font-size: 21px;
+    }
+
+    .cal-calendaritems-search-input {
+      max-width: 280px;
+      min-width: 130px;
+      padding: 9px 12px;
+    }
+
+    .cal-events-btn,
+    .cal-tasks-btn,
+    .cal-appointments-btn {
+      padding: 9px 10px;
+      font-size: 13px;
+    }
+
+    .cal-signout-btn {
+      padding: 9px 12px;
+      font-size: 13px;
+    }
+  }
+
+  .cal-calendar-header {
+    padding: 0 18px;
+    gap: 12px;
+  }
+
+  .cal-date-navigation {
+    gap: 8px;
+
+    h2 {
+      min-width: 160px;
+      font-size: 18px;
+    }
+  }
+
+  .cal-view-buttons {
+    gap: 5px;
+  }
+
+  .cal-today-button,
+  .cal-view-button {
+    padding: 8px 11px;
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   SMALL SCREENS
+   768px and below
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* -------------------------
+     TOP HEADER
+  ------------------------- */
+
+  .cal-header {
+    position: relative;
+
+    min-height: auto;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "icon title signout"
+      "search search search"
+      "filters filters filters";
+
+    gap: 10px;
+
+    padding: 12px 16px;
+  }
+
+  .cal-header {
+
+    .material-symbols-outlined {
+      grid-area: icon;
+      font-size: 27px;
+    }
+
+    .cal-title {
+      grid-area: title;
+
+      font-size: 21px;
+
+      align-self: center;
+    }
+
+    .cal-calendaritems-search-input {
+      grid-area: search;
+
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+
+      margin-left: 0;
+
+      box-sizing: border-box;
+
+      padding: 10px 12px;
+    }
+
+    .cal-events-btn,
+    .cal-tasks-btn,
+    .cal-appointments-btn {
+      padding: 8px 10px;
+
+      font-size: 13px;
+    }
+
+    .cal-signout-btn {
+      grid-area: signout;
+
+      padding: 8px 12px;
+
+      font-size: 13px;
+    }
+
+    /* If your filter buttons are direct children,
+       place them into a flex row */
+    .cal-events-btn,
+    .cal-tasks-btn,
+    .cal-appointments-btn {
+      flex: 1;
+    }
+  }
+
+  /* -------------------------
+     CALENDAR NAVIGATION
+  ------------------------- */
+
+  .cal-calendar-header {
+    min-height: auto;
+
+    padding: 14px 16px;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 12px;
+  }
+
+  .cal-date-navigation {
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    h2 {
+      min-width: 0;
+      flex: 1;
+
+      font-size: 18px;
+    }
+  }
+
+  .cal-nav-button {
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+  }
+
+  .cal-view-buttons {
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 6px;
+  }
+
+  .cal-today-button,
+  .cal-view-button {
+    flex: 1;
+
+    padding: 9px 10px;
+
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   480px and below
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .cal-header {
+    padding: 10px 12px;
+
+    gap: 8px;
+  }
+
+  .cal-header {
+
+    .material-symbols-outlined {
+      font-size: 24px;
+    }
+
+    .cal-title {
+      font-size: 18px;
+    }
+
+    .cal-signout-btn {
+      padding: 7px 9px;
+      font-size: 12px;
+    }
+
+    .cal-calendaritems-search-input {
+      font-size: 13px;
+      padding: 9px 10px;
+    }
+
+    .cal-events-btn,
+    .cal-tasks-btn,
+    .cal-appointments-btn {
+      padding: 7px 6px;
+
+      font-size: 12px;
+    }
+  }
+
+  .cal-calendar-header {
+    padding: 12px;
+  }
+
+  .cal-date-navigation {
+
+    h2 {
+      font-size: 16px;
+    }
+  }
+
+  .cal-nav-button {
+    width: 34px;
+    height: 34px;
+
+    font-size: 18px;
+  }
+
+  .cal-today-button,
+  .cal-view-button {
+    padding: 8px 6px;
+
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+   360px and below
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .cal-header {
+
+    .cal-title {
+      font-size: 16px;
+    }
+
+    .cal-signout-btn {
+      font-size: 11px;
+      padding: 6px 8px;
+    }
+
+    .cal-events-btn,
+    .cal-tasks-btn,
+    .cal-appointments-btn {
+      font-size: 11px;
+      padding: 7px 4px;
+    }
+  }
+
+  .cal-date-navigation {
+
+    h2 {
+      font-size: 14px;
+    }
+  }
+
+  .cal-today-button,
+  .cal-view-button {
+    font-size: 11px;
   }
 }

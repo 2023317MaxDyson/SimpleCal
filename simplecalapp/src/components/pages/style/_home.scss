@@ -1,82 +1,147 @@
 @use 'config';
 
-/* ====== GLOBAL ====== */
+/* =========================================================
+   GLOBAL
+========================================================= */
+
 .home {
   font-family: "Inter", sans-serif;
+
   color: config.$text-color;
+
   display: flex;
   flex-direction: column;
+
   background: config.$primary-color;
+
   min-height: 100vh;
+  width: 100%;
+
+  overflow-x: hidden;
+
+  box-sizing: border-box;
 }
 
-/* ====== HEADER ====== */
+* {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .home-header {
-  width: 100vmax;
+  width: 100%;
+
   padding: 20px 40px;
+
   display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
   background: #e6f2ff;
+
   border-bottom: 1px solid #e5e5e5;
 }
 
-.home-logo{
+.home-logo {
   display: flex;
   align-items: center;
-  justify-items: start;
+  justify-content: flex-start;
+
   color: config.$secondary-color;
+
+  flex-shrink: 0;
 }
 
 .home-header p {
-  font-size: 24px;
+  font-size: clamp(20px, 1.5vw, 32px);
+
   font-weight: 600;
+
   margin-left: 10px;
+
+  white-space: nowrap;
 }
 
 .home-header button {
   margin-left: 20px;
+
   padding: 10px 18px;
+
   background: config.$secondary-color;
   color: white;
+
   border: none;
   border-radius: 6px;
+
   cursor: pointer;
+
+  font-size: clamp(14px, 1vw, 20px);
+
   transition: 0.2s;
+
+  white-space: nowrap;
 }
 
 .home-header button:hover {
   background: config.$bold-color;
 }
 
-/* ====== HERO SECTION ====== */
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
 .home-herosection {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
   background: config.$layer-color;
-  gap: 100px;
+
+  gap: clamp(40px, 5vw, 120px);
+
   width: 100%;
-  max-width: 1600px;
+  max-width: 1800px;
+
   margin: 0 auto;
-  padding: 80px 60px;
+
+  padding:
+    clamp(50px, 6vw, 100px)
+    clamp(30px, 5vw, 100px);
+
+  box-sizing: border-box;
 }
 
 .home-herosection-img {
-  width: 500px;
-  height: 500px;
-  padding: 20px 50px;
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+
+  padding: 20px;
+
   border-radius: 40px;
 
-  margin-bottom: 30px;
+  object-fit: contain;
+
+  flex: 1;
 }
 
 .home-herosection h1 {
-  font-size: 42px;
+  font-size: clamp(32px, 3vw, 64px);
+
+  line-height: 1.15;
+
   color: config.$bold-color;
+
   font-weight: 700;
-  margin-bottom: 15px;
+
+  margin-bottom: 20px;
 }
 
 .home-stress {
@@ -84,35 +149,61 @@
 }
 
 .home-herosection p {
-  font-size: 18px;
+  font-size: clamp(16px, 1.3vw, 26px);
+
+  line-height: 1.6;
+
   color: config.$muted-color;
-  margin-bottom: 25px;
+
+  margin-bottom: 30px;
+
+  max-width: 700px;
 }
 
 .home-herosection button {
-  padding: 14px 26px;
+  padding:
+    clamp(12px, 1vw, 18px)
+    clamp(20px, 1.5vw, 32px);
+
   background: config.$secondary-color;
   color: white;
+
   border: none;
   border-radius: 8px;
-  font-size: 18px;
+
+  font-size: clamp(16px, 1.2vw, 24px);
+
   cursor: pointer;
+
   transition: 0.2s;
 }
 
 .home-herosection button:hover {
   background: config.$secondary-color;
+
   transform: translateY(-3px);
 }
 
-/* ====== FEATURE CARDS ====== */
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
 .home-featurecards {
   display: flex;
+
   align-items: stretch;
   justify-content: center;
-  gap: 40px;
-  margin: 80px auto 0;
-  max-width: 1200px;
+
+  gap: clamp(20px, 3vw, 60px);
+
+  margin:
+    clamp(50px, 5vw, 100px)
+    auto 0;
+
+  width: 100%;
+  max-width: 1400px;
+
   padding: 0 30px;
 }
 
@@ -120,12 +211,20 @@
 .home-card2,
 .home-card3 {
   flex: 1;
+
   background: config.$white;
-  padding: 30px;
+
+  padding: clamp(25px, 2.5vw, 50px);
+
   border-radius: 16px;
+
   border: 1px solid config.$border-color;
-  box-shadow: 0 8px 24px rgba(36, 86, 106, 0.08);
+
+  box-shadow:
+    0 8px 24px rgba(36, 86, 106, 0.08);
+
   text-align: center;
+
   transition: 0.25s;
 }
 
@@ -133,51 +232,86 @@
 .home-card2:hover,
 .home-card3:hover {
   transform: translateY(-6px);
+
   border-color: config.$secondary-color;
-  box-shadow: 0 12px 30px rgba(36, 86, 106, 0.14);
+
+  box-shadow:
+    0 12px 30px rgba(36, 86, 106, 0.14);
 }
 
 .home-featurecards h2 {
   color: config.$bold-color;
-  font-size: 22px;
+
+  font-size: clamp(20px, 1.5vw, 30px);
+
   margin-bottom: 10px;
 }
 
 .home-featurecards p {
   color: config.$muted-color;
-  font-size: 16px;
+
+  font-size: clamp(15px, 1vw, 20px);
+
+  line-height: 1.5;
 }
+
+
+/* =========================================================
+   MATERIAL ICONS
+========================================================= */
 
 .material-symbols-outlined {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  font-size: 32px;
+
+  width: clamp(55px, 4vw, 80px);
+  height: clamp(55px, 4vw, 80px);
+
+  font-size: clamp(28px, 2vw, 40px);
+
   color: config.$secondary-color;
+
   background: config.$primary-color;
+
   border-radius: 50%;
+
   margin-bottom: 15px;
 }
 
-/* ====== HOW IT WORKS ====== */
-.how-it-works {
-  display: flex;
-  justify-content: center;
-  margin-top: 300px;
-  margin-left: 200px;
 
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.how-it-works-section {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+
+  margin-top:
+    clamp(80px, 8vw, 160px);
+
+  padding: 0 20px;
 }
 
 .how-it-works button {
   width: 14px;
   height: 14px;
+
   border-radius: 50%;
+
   border: none;
+
   background: #cfcfcf;
+
   margin: 0 8px;
+
   cursor: pointer;
+
   transition: 0.2s;
 }
 
@@ -185,28 +319,505 @@
   background: config.$secondary-color;
 }
 
-/* ====== FOOTER ====== */
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
 footer {
   display: flex;
+
   flex-direction: row;
+
   align-items: center;
   justify-content: space-around;
+
   width: 100%;
-  margin-top: 100px;
-  padding: 40px;
+
+  margin-top:
+    clamp(60px, 6vw, 120px);
+
+  padding:
+    clamp(30px, 4vw, 60px);
+
   background: config.$bold-color;
+
   text-align: center;
+
   color: config.$primary-color;
-  font-size: 14px;
+
+  font-size: clamp(14px, 1vw, 20px);
+
+  gap: 30px;
 }
 
-/* ====== RESPONSIVE ====== */
-@media (max-width: 900px) {
+
+/* =========================================================
+   LARGE DESKTOP
+   1200px+
+========================================================= */
+
+@media (min-width: 1200px) {
+
+  .home-header {
+    padding: 20px 40px;
+  }
+
+  .home-herosection {
+    max-width: 1800px;
+  }
+
+  .home-herosection-img {
+    max-width: 700px;
+  }
+
   .home-featurecards {
-    flex-direction: column;
+    max-width: 1400px;
+  }
+}
+
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+   1600px+
+========================================================= */
+
+@media (min-width: 1600px) {
+
+  .home-herosection {
+    max-width: 1800px;
+
+    gap: 120px;
+  }
+
+  .home-herosection-img {
+    max-width: 750px;
+  }
+
+  .home-featurecards {
+    max-width: 1500px;
+  }
+}
+
+
+/* =========================================================
+   MEDIUM / TABLET
+   769px - 1199px
+========================================================= */
+
+@media (max-width: 1199px) and (min-width: 769px) {
+
+  /* ---------- HEADER ---------- */
+
+  .home-header {
+    padding: 16px 25px;
+
+    gap: 15px;
+  }
+
+  .home-header p {
+    font-size: 22px;
+  }
+
+  .home-header button {
+    margin-left: 10px;
+
+    padding: 9px 14px;
+
+    font-size: 14px;
+  }
+
+
+  /* ---------- HERO ---------- */
+
+  .home-herosection {
+    gap: 40px;
+
+    padding: 60px 40px;
+  }
+
+  .home-herosection-img {
+    max-width: 450px;
+
+    padding: 10px;
   }
 
   .home-herosection h1 {
-    font-size: 32px;
+    font-size: 42px;
+  }
+
+  .home-herosection p {
+    font-size: 18px;
+
+    max-width: 500px;
+  }
+
+  .home-herosection button {
+    padding: 12px 22px;
+
+    font-size: 16px;
+  }
+
+
+  /* ---------- FEATURE CARDS ---------- */
+
+  .home-featurecards {
+    gap: 20px;
+
+    padding: 0 25px;
+  }
+
+  .home-card,
+  .home-card2,
+  .home-card3 {
+    padding: 25px 20px;
+  }
+
+  .home-featurecards h2 {
+    font-size: 21px;
+  }
+
+  .home-featurecards p {
+    font-size: 15px;
+  }
+
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    padding: 40px 25px;
+
+    gap: 20px;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLETS / LARGE PHONES
+   501px - 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* ---------- HEADER ---------- */
+
+  .home-header {
+    padding: 14px 20px;
+
+    gap: 12px;
+  }
+
+  .home-header p {
+    font-size: 20px;
+  }
+
+  .home-header button {
+    margin-left: 0;
+
+    padding: 9px 14px;
+
+    font-size: 14px;
+  }
+
+
+  /* ---------- HERO ---------- */
+
+  .home-herosection {
+    flex-direction: column;
+
+    gap: 35px;
+
+    padding: 55px 30px;
+
+    text-align: center;
+  }
+
+  .home-herosection-img {
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 10px;
+
+    order: 1;
+  }
+
+  .home-herosection > div {
+    order: 2;
+  }
+
+  .home-herosection h1 {
+    font-size: 38px;
+
+    margin-bottom: 18px;
+  }
+
+  .home-herosection p {
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 17px;
+
+    max-width: 600px;
+  }
+
+  .home-herosection button {
+    padding: 12px 24px;
+
+    font-size: 16px;
+  }
+
+
+  /* ---------- FEATURE CARDS ---------- */
+
+  .home-featurecards {
+    flex-direction: column;
+
+    gap: 20px;
+
+    padding: 0 30px;
+  }
+
+  .home-card,
+  .home-card2,
+  .home-card3 {
+    width: 100%;
+
+    padding: 30px 25px;
+  }
+
+  .home-featurecards h2 {
+    font-size: 23px;
+  }
+
+  .home-featurecards p {
+    font-size: 16px;
+  }
+
+
+  /* ---------- HOW IT WORKS ---------- */
+
+  .how-it-works-section {
+    margin-top: 70px;
+  }
+
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    flex-direction: column;
+
+    gap: 20px;
+
+    padding: 40px 25px;
+
+    margin-top: 70px;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   500px and below
+========================================================= */
+
+@media (max-width: 500px) {
+
+  /* ---------- HEADER ---------- */
+
+  .home-header {
+    padding: 12px 15px;
+
+    gap: 10px;
+  }
+
+  .home-header p {
+    font-size: 18px;
+
+    margin-left: 7px;
+  }
+
+  .home-header button {
+    padding: 8px 12px;
+
+    font-size: 13px;
+  }
+
+
+  /* ---------- HERO ---------- */
+
+  .home-herosection {
+    gap: 25px;
+
+    padding: 40px 20px;
+  }
+
+  .home-herosection-img {
+    max-width: 350px;
+
+    padding: 5px;
+
+    border-radius: 25px;
+  }
+
+  .home-herosection h1 {
+    font-size: 29px;
+
+    line-height: 1.2;
+
+    margin-bottom: 15px;
+  }
+
+  .home-herosection p {
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+  }
+
+  .home-herosection button {
+    padding: 11px 20px;
+
+    font-size: 15px;
+  }
+
+
+  /* ---------- FEATURE CARDS ---------- */
+
+  .home-featurecards {
+    gap: 15px;
+
+    margin-top: 50px;
+
+    padding: 0 20px;
+  }
+
+  .home-card,
+  .home-card2,
+  .home-card3 {
+    padding: 25px 20px;
+
+    border-radius: 14px;
+  }
+
+  .home-featurecards h2 {
+    font-size: 20px;
+  }
+
+  .home-featurecards p {
+    font-size: 15px;
+
+    line-height: 1.5;
+  }
+
+
+  /* ---------- ICONS ---------- */
+
+  .material-symbols-outlined {
+    width: 58px;
+    height: 58px;
+
+    font-size: 28px;
+  }
+
+
+  /* ---------- HOW IT WORKS ---------- */
+
+  .how-it-works-section {
+    margin-top: 60px;
+
+    padding: 0 15px;
+  }
+
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    margin-top: 60px;
+
+    padding: 35px 20px;
+
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+   360px and below
+========================================================= */
+
+@media (max-width: 360px) {
+
+  /* ---------- HEADER ---------- */
+
+  .home-header {
+    padding: 10px 12px;
+  }
+
+  .home-header p {
+    font-size: 16px;
+  }
+
+  .home-header button {
+    padding: 7px 10px;
+
+    font-size: 12px;
+  }
+
+
+  /* ---------- HERO ---------- */
+
+  .home-herosection {
+    padding: 35px 15px;
+  }
+
+  .home-herosection-img {
+    max-width: 300px;
+  }
+
+  .home-herosection h1 {
+    font-size: 26px;
+  }
+
+  .home-herosection p {
+    font-size: 15px;
+  }
+
+  .home-herosection button {
+    padding: 10px 18px;
+
+    font-size: 14px;
+  }
+
+
+  /* ---------- FEATURE CARDS ---------- */
+
+  .home-featurecards {
+    padding: 0 15px;
+  }
+
+  .home-card,
+  .home-card2,
+  .home-card3 {
+    padding: 22px 16px;
+  }
+
+  .home-featurecards h2 {
+    font-size: 19px;
+  }
+
+  .home-featurecards p {
+    font-size: 14px;
+  }
+
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    padding: 30px 15px;
+
+    font-size: 13px;
   }
 }
