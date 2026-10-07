@@ -2,13 +2,13 @@ import "./style/Calendarstyle.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Footer from "../Footer.jsx";
-import CalendarHeader from "../CalendarHeader.jsx";
-import MonthView from "../MonthView.jsx";
-import DayView from "../DayView.jsx";
-import MiniCalendar from "../MiniCalendar.jsx";
-import CalendarFilters from "../CalendarFilters.jsx";
-import CalendarItemList from "../CalendarItemList.jsx";
+import Footer from "../Footer.js";
+import CalendarHeader from "../CalendarHeader.js";
+import MonthView from "../MonthView.js";
+import DayView from "../DayView.js";
+import MiniCalendar from "../MiniCalendar.js";
+import CalendarFilters from "../CalendarFilters.js";
+import CalendarItemList from "../CalendarItemList.js";
 
 import {
   getCalendarItemsForDay,

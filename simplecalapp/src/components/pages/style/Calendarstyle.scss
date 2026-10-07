@@ -1,15 +1,21 @@
 @use 'config';
 
-/*  Pages  */
+/* =========================================================
+   PAGES
+========================================================= */
+
 @use "home";
-@use 'events';
-@use 'tasks';
-@use 'appointments';
-@use 'edit';
+@use "events";
+@use "tasks";
+@use "appointments";
+@use "edit";
 @use "login";
 @use "signup";
 
-/* Components */
+/* =========================================================
+   COMPONENTS
+========================================================= */
+
 @use "calendarheader";
 @use "calendarfilters";
 @use "calendaritemlist";
@@ -31,10 +37,19 @@
 
   background-color: config.$layer-color;
   color: config.$text-color;
+
+  box-sizing: border-box;
 }
 
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
 .cal-main {
+  width: 100%;
   min-height: calc(100vh - 70px);
+
   box-sizing: border-box;
 
   padding: 100px 40px 60px;
@@ -42,8 +57,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 30px;
 }
+
 
 /* =========================================================
    SECTION HEADERS
@@ -51,10 +68,13 @@
 
 .cal-section-header {
   width: 100%;
+  max-width: 1400px;
+
   margin: 30px 0 18px;
   padding: 16px 20px;
 
   background: rgba(255, 255, 255, 0.65);
+
   border: 1px solid rgba(8, 146, 208, 0.12);
   border-radius: 14px;
 
@@ -65,12 +85,20 @@
   backdrop-filter: blur(10px);
 }
 
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
 .cal-section-title {
   display: flex;
   align-items: center;
+
   gap: 14px;
 
   .material-symbols-outlined {
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,7 +117,9 @@
   h1,
   h2 {
     margin: 0;
+
     color: #367588;
+
     font-weight: 700;
     line-height: 1.2;
   }
@@ -104,11 +134,14 @@
 
   p {
     margin: 4px 0;
+
     color: #6b7280;
+
     font-size: 14px;
     line-height: 1.4;
   }
 }
+
 
 /* =========================================================
    CALENDAR LAYOUT
@@ -118,47 +151,354 @@
   width: min(100%, 1400px);
 
   display: grid;
+
   grid-template-columns: minmax(0, 1fr) 300px;
 
   gap: 30px;
+
   align-items: start;
 
-  margin: 100px auto 0;
+  margin: 60px auto 0;
 }
+
+
+/* =========================================================
+   CALENDAR SCHEDULE
+========================================================= */
 
 .cal-schedule {
   width: 100%;
   min-width: 0;
 
   background-color: config.$white;
+
   border: 1px solid config.$border-color;
   border-radius: 16px;
 
   overflow: hidden;
 
   box-shadow: 0 8px 25px rgba(36, 86, 106, 0.10);
+
+  box-sizing: border-box;
 }
 
+
 /* =========================================================
-   RESPONSIVE
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+  .cal-main {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .cal-calendar-layout {
+    gap: 35px;
+  }
+
+}
+
+
+/* =========================================================
+   DESKTOP / LAPTOP
+========================================================= */
+
+@media (max-width: 1199px) {
+
+  .cal-main {
+    padding: 95px 30px 50px;
+    gap: 25px;
+  }
+
+  .cal-section-header {
+    margin-top: 25px;
+  }
+
+  .cal-calendar-layout {
+    grid-template-columns: minmax(0, 1fr) 270px;
+    gap: 20px;
+
+    margin-top: 50px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
 ========================================================= */
 
 @media (max-width: 1100px) {
+
+  .cal-main {
+    padding: 90px 25px 50px;
+  }
+
+  /*
+    Move the mini calendar underneath
+    the main calendar on smaller screens.
+  */
+
   .cal-calendar-layout {
     grid-template-columns: 1fr;
+
+    width: min(100%, 900px);
+
+    gap: 25px;
+
+    margin-top: 40px;
   }
+
+  .cal-schedule {
+    width: 100%;
+  }
+
+  .cal-section-header {
+    width: 100%;
+  }
+
 }
+
+
+/* =========================================================
+   SMALL TABLET / LARGE PHONE
+========================================================= */
 
 @media (max-width: 768px) {
+
   .cal-main {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+
+    padding: 85px 18px 40px;
+
+    gap: 20px;
   }
+
+
+  /* Section header */
+
+  .cal-section-header {
+    margin: 20px 0 12px;
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+  }
+
+
+  /* Section title */
+
+  .cal-section-title {
+    gap: 10px;
+
+    .material-symbols-outlined {
+      width: 38px;
+      height: 38px;
+
+      font-size: 21px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+
+  /* Calendar */
+
+  .cal-calendar-layout {
+    width: 100%;
+
+    gap: 20px;
+
+    margin-top: 30px;
+  }
+
+
+  .cal-schedule {
+    border-radius: 14px;
+
+    box-shadow: 0 5px 18px rgba(36, 86, 106, 0.08);
+  }
+
 }
 
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .cal-main {
+    padding: 80px 14px 35px;
+
+    gap: 18px;
+  }
+
+
+  .cal-section-header {
+    padding: 13px 14px;
+
+    margin: 15px 0 10px;
+  }
+
+
+  .cal-section-title {
+
+    .material-symbols-outlined {
+      width: 36px;
+      height: 36px;
+
+      font-size: 20px;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+
+
+  .cal-calendar-layout {
+    gap: 18px;
+
+    margin-top: 25px;
+  }
+
+
+  .cal-schedule {
+    border-radius: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
 @media (max-width: 500px) {
+
   .cal-main {
     padding: 75px 10px 30px;
   }
+
+
+  .cal-section-header {
+    padding: 12px;
+
+    border-radius: 10px;
+  }
+
+
+  .cal-section-title {
+    gap: 8px;
+
+    .material-symbols-outlined {
+      width: 34px;
+      height: 34px;
+
+      font-size: 19px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 17px;
+    }
+
+    p {
+      font-size: 12px;
+
+      line-height: 1.35;
+    }
+  }
+
+
+  .cal-calendar-layout {
+    margin-top: 20px;
+
+    gap: 15px;
+  }
+
+
+  .cal-schedule {
+    border-radius: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .cal-main {
+    padding: 72px 8px 25px;
+
+    gap: 15px;
+  }
+
+
+  .cal-section-header {
+    padding: 10px;
+  }
+
+
+  .cal-section-title {
+
+    .material-symbols-outlined {
+      width: 30px;
+      height: 30px;
+
+      font-size: 17px;
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 11px;
+    }
+  }
+
+
+  .cal-calendar-layout {
+    gap: 12px;
+
+    margin-top: 15px;
+  }
+
+
+  .cal-schedule {
+    border-radius: 8px;
+  }
+
 }

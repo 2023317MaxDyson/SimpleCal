@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Calendarstyle.css";
-import Footer from "../Footer.jsx";
+import Footer from "../Footer.js";
 
-function Appointments() {
+function Tasks() {
 
   const navigate = useNavigate();
 
@@ -24,30 +24,30 @@ function Appointments() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    const token = localStorage.getItem("token");
     
+    const token = localStorage.getItem("token");
+
     try {
       const response = await fetch(
-        "https://simplecal-nf6h.onrender.com/appointments",
+        "https://simplecal-nf6h.onrender.com/tasks",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+             Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formData)
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to create appointment");
+        throw new Error("Failed to create task");
       }
 
       navigate("/calendar");
 
     } catch (error) {
-      console.error("Error creating appointment:", error);
+      console.error("Error creating task:", error);
     }
   }
 
@@ -66,41 +66,41 @@ function Appointments() {
         </p>
 
         <button
-          className="appointments-calendar-btn"
+          className="tasks-calendar-btn"
           onClick={() => navigate("/calendar")}
         >
-         Back to the Calendar 
+        Back to the Calendar
         </button>
 
       </div>
 
 
-      {/* Appointment PAGE */}
-      <main className="appointment-main">
+      {/* TASK PAGE */}
+      <main className="task-main">
 
-        <div className="appointment-page-header">
+        <div className="task-page-header">
 
           <div>
-            <h1>Create a Apppointment</h1>
+            <h1>Create a Task</h1>
 
             <p>
-              Add a appointment to your SimpleCal schedule.
+              Add a task to your SimpleCal schedule.
             </p>
           </div>
 
         </div>
 
 
-        {/* Appointment FORM */}
+        {/* TASK FORM */}
         <form
-          className="appointment-form"
+          className="task-form"
           onSubmit={handleSubmit}
         >
 
           {/* TITLE + DATE */}
-          <div className="appointment-form-group1">
+          <div className="task-form-group1">
 
-            <div className="appointment-field">
+            <div className="task-field">
 
               <label htmlFor="title">
                 Title
@@ -110,7 +110,7 @@ function Appointments() {
                 type="text"
                 name="title"
                 id="title"
-                placeholder="Enter appointment title"
+                placeholder="Enter task title"
                 value={formData.title}
                 onChange={handleChange}
                 required
@@ -119,7 +119,7 @@ function Appointments() {
             </div>
 
 
-            <div className="appointment-field">
+            <div className="task-field">
 
               <label htmlFor="date">
                 Date
@@ -140,9 +140,9 @@ function Appointments() {
 
 
           {/* TIME */}
-          <div className="appointment-form-group2">
+          <div className="task-form-group2">
 
-            <div className="appointment-field">
+            <div className="task-field">
 
               <label htmlFor="time">
                 Time
@@ -161,7 +161,7 @@ function Appointments() {
 
 
             {/* NOTES */}
-            <div className="appointment-field">
+            <div className="task-field">
 
               <label htmlFor="notes">
                 Notes
@@ -170,7 +170,7 @@ function Appointments() {
               <textarea
                 name="notes"
                 id="notes"
-                placeholder="Add notes about this appointment..."
+                placeholder="Add notes about this task..."
                 value={formData.notes}
                 onChange={handleChange}
                 required
@@ -180,7 +180,7 @@ function Appointments() {
 
 
             {/* CATEGORY */}
-            <div className="appointment-field">
+            <div className="task-field">
 
               <label htmlFor="category">
                 Category
@@ -222,9 +222,9 @@ function Appointments() {
             {/* BUTTON */}
             <button
               type="submit"
-              className="appointment-submit-btn"
+              className="task-submit-btn"
             >
-              Add appointment
+              Add Task
             </button>
 
           </div>
@@ -232,11 +232,12 @@ function Appointments() {
         </form>
 
       </main>
-      
+
      <Footer/>
 
     </div>
+
   );
 }
 
-export default Appointments;
+export default Tasks;

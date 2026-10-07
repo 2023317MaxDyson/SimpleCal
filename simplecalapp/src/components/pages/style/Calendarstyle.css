@@ -1,4 +1,6 @@
-/*  Pages  */
+/* =========================================================
+   PAGES
+========================================================= */
 /* =========================================================
    GLOBAL
 ========================================================= */
@@ -1298,6 +1300,99 @@ footer {
   color: white;
 }
 
+@media (min-width: 1200px) {
+  .edit-form {
+    max-width: 850px;
+  }
+  .edit-page-header,
+  .edit-deleteorupdate {
+    max-width: 850px;
+  }
+}
+@media (max-width: 900px) {
+  .edit-main {
+    padding: 40px 25px 60px;
+  }
+  .edit-form {
+    padding: 35px 35px;
+  }
+  .edit-page-header h1 {
+    font-size: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .edit-main {
+    min-height: calc(100vh - 70px);
+    margin-top: 70px;
+    padding: 30px 15px 50px;
+  }
+  .edit-page-header {
+    margin-bottom: 20px;
+  }
+  .edit-page-header h1 {
+    font-size: 25px;
+  }
+  .edit-page-header p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .edit-deleteorupdate {
+    justify-content: stretch;
+    margin-bottom: 15px;
+  }
+  .edit-form {
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(36, 86, 106, 0.08);
+  }
+  .edit-form-group1 {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+  .edit-form-group2 button {
+    min-height: 46px;
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+  .edit-calendar-btn {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+@media (max-width: 400px) {
+  .edit-main {
+    padding: 25px 10px 40px;
+  }
+  .edit-form {
+    padding: 22px 15px;
+    border-radius: 12px;
+  }
+  .edit-page-header h1 {
+    font-size: 23px;
+  }
+  .edit-page-header p {
+    font-size: 13px;
+  }
+  .edit-form-group2 label {
+    font-size: 13px;
+  }
+  .edit-form-group2 input[type=text],
+  .edit-form-group2 input[type=time],
+  .edit-form-group2 select,
+  .edit-form-group2 textarea {
+    font-size: 14px;
+  }
+  .edit-form-group2 textarea {
+    min-height: 100px;
+  }
+  .edit-calendar-btn {
+    font-size: 13px;
+  }
+}
 .login-container {
   display: flex;
   flex-direction: row;
@@ -1481,7 +1576,9 @@ footer {
   transform: translateY(-2px);
 }
 
-/* Components */
+/* =========================================================
+   COMPONENTS
+========================================================= */
 /* =========================================================
    CALENDAR HEADER
 ========================================================= */
@@ -1887,6 +1984,26 @@ footer {
   align-items: center;
   gap: 12px;
   margin: 0 auto;
+  /* ====== TABLET ====== */
+}
+@media (max-width: 900px) {
+  .cal-filter-category {
+    width: 100%;
+    padding: 0 20px;
+    gap: 10px;
+  }
+}
+.cal-filter-category {
+  /* ====== MOBILE ====== */
+}
+@media (max-width: 600px) {
+  .cal-filter-category {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 15px;
+    gap: 10px;
+  }
 }
 
 .cal-category-select {
@@ -1907,22 +2024,55 @@ footer {
   border-color: #087ea4;
   box-shadow: 0 0 0 3px rgba(8, 146, 208, 0.12);
 }
+.cal-category-select {
+  /* ====== TABLET ====== */
+}
+@media (max-width: 900px) {
+  .cal-category-select {
+    min-width: 150px;
+  }
+}
+.cal-category-select {
+  /* ====== MOBILE ====== */
+}
+@media (max-width: 600px) {
+  .cal-category-select {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+}
 
+/* =========================================================
+   CALENDAR CONTAINER
+========================================================= */
 .cal-container {
   width: min(100%, 1400px);
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
+/* =========================================================
+   CALENDAR ITEM GRID
+========================================================= */
 .cal-show-calendaritems {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+  box-sizing: border-box;
 }
 
+/* =========================================================
+   CALENDAR ITEM
+========================================================= */
 .cal-calenderitem {
+  width: 100%;
+  min-width: 0;
   min-height: 180px;
   box-sizing: border-box;
   padding: 20px;
@@ -1931,6 +2081,7 @@ footer {
   box-shadow: 0 5px 18px rgba(36, 86, 106, 0.07);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 .cal-calenderitem:hover {
   transform: translateY(-3px);
@@ -1941,13 +2092,21 @@ footer {
   margin: 0 0 8px;
   color: #24566a;
   font-size: 18px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 .cal-calenderitem p {
   margin: 5px 0;
   font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
+/* =========================================================
+   CALENDAR ITEM IMAGE
+========================================================= */
 .cal-calendaritem-image {
+  display: block;
   width: 100%;
   height: 130px;
   margin: 12px 0;
@@ -1960,31 +2119,50 @@ footer {
   transform: scale(1.02);
 }
 
+/* =========================================================
+   CATEGORY
+========================================================= */
 .cal-calendaritem-category {
   display: inline-block;
+  max-width: 100%;
   margin-top: 10px;
-  padding: 10px;
+  padding: 8px 10px;
   border: 1px solid #087ea4;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
+/* =========================================================
+   ITEM OPTIONS
+========================================================= */
 .cal-calanderitem-options {
   display: flex;
-  justify-content: baseline;
-  align-items: first baseline;
-  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
 }
 
+/* =========================================================
+   ITEM TYPE
+========================================================= */
 .cal-calendaritem-type {
+  display: inline-block;
   background-color: #087ea4;
-  padding: 10px;
+  padding: 8px 10px;
   color: white;
   border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-/* Item colors */
+/* =========================================================
+   ITEM COLORS
+========================================================= */
 .cal-calenderitem.event {
   background-color: #dbeafe;
 }
@@ -1997,27 +2175,40 @@ footer {
   background-color: #f3e8ff;
 }
 
-/* Edit button */
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
 .cal-edit-btn {
-  background: linear-gradient(to bottom, #0099ff 20%, darkred 100%);
-  border: 1px solid darkred;
+  background: linear-gradient(135deg, #0066cc 0%, #00a6e8 100%);
+  border: 1px solid #005fa3;
   border-radius: 14px;
   color: white;
-  padding: 10px;
-  transition: transform 0.2s ease;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 102, 204, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .cal-edit-btn:hover {
-  background: darkred;
+  background: linear-gradient(135deg, #0052a3 0%, #008dcc 100%);
   transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 102, 204, 0.35);
+}
+.cal-edit-btn:active {
+  transform: translateY(-1px);
 }
 
-/* Pagination */
+/* =========================================================
+   PAGINATION
+========================================================= */
 .calendaritem-pagination {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
   margin: 10px 0 30px;
+  flex-wrap: wrap;
 }
 .calendaritem-pagination button {
   padding: 9px 16px;
@@ -2037,14 +2228,266 @@ footer {
   cursor: not-allowed;
 }
 
-@media (max-width: 1100px) {
+/* =========================================================
+   LARGE DESKTOP
+   1600px+
+========================================================= */
+@media (min-width: 1600px) {
+  .cal-container {
+    max-width: 1600px;
+    padding: 0 30px;
+  }
   .cal-show-calendaritems {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+  }
+  .cal-calenderitem {
+    padding: 24px;
+    min-height: 200px;
+  }
+  .cal-calenderitem h3 {
+    font-size: 20px;
+  }
+  .cal-calenderitem p {
+    font-size: 15px;
+  }
+  .cal-calendaritem-image {
+    height: 160px;
   }
 }
+/* =========================================================
+   DESKTOP
+   1200px - 1599px
+========================================================= */
+@media (max-width: 1599px) and (min-width: 1200px) {
+  .cal-container {
+    padding: 0 25px;
+  }
+  .cal-show-calendaritems {
+    gap: 20px;
+  }
+  .cal-calenderitem {
+    padding: 20px;
+  }
+  .cal-calendaritem-image {
+    height: 140px;
+  }
+}
+/* =========================================================
+   MEDIUM / TABLET
+   901px - 1199px
+========================================================= */
+@media (max-width: 1199px) and (min-width: 901px) {
+  .cal-container {
+    padding: 0 20px;
+  }
+  .cal-show-calendaritems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .cal-calenderitem {
+    min-height: 180px;
+    padding: 18px;
+  }
+  .cal-calenderitem h3 {
+    font-size: 17px;
+  }
+  .cal-calenderitem p {
+    font-size: 14px;
+  }
+  .cal-calendaritem-image {
+    height: 125px;
+  }
+  .cal-calanderitem-options {
+    gap: 10px;
+  }
+}
+/* =========================================================
+   SMALL TABLET
+   769px - 900px
+========================================================= */
+@media (max-width: 900px) and (min-width: 769px) {
+  .cal-container {
+    padding: 0 18px;
+  }
+  .cal-show-calendaritems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+  .cal-calenderitem {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .cal-calenderitem h3 {
+    font-size: 16px;
+  }
+  .cal-calenderitem p {
+    font-size: 13px;
+  }
+  .cal-calendaritem-image {
+    height: 115px;
+  }
+  .cal-calendaritem-category {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .cal-calendaritem-type {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .cal-edit-btn {
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+}
+/* =========================================================
+   MOBILE
+   501px - 768px
+========================================================= */
 @media (max-width: 768px) {
+  .cal-container {
+    width: 100%;
+    padding: 0 20px;
+  }
   .cal-show-calendaritems {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .cal-calenderitem {
+    min-height: auto;
+    padding: 20px;
+    border-radius: 14px;
+  }
+  .cal-calenderitem h3 {
+    font-size: 19px;
+  }
+  .cal-calenderitem p {
+    font-size: 14px;
+  }
+  .cal-calendaritem-image {
+    width: 100%;
+    height: 180px;
+    margin: 15px 0;
+  }
+  .cal-calendaritem-category {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .cal-calanderitem-options {
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .cal-calendaritem-type {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .cal-edit-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+  .calendaritem-pagination {
+    gap: 12px;
+    margin: 20px 0 30px;
+  }
+  .calendaritem-pagination button {
+    padding: 8px 13px;
+  }
+}
+/* =========================================================
+   SMALL PHONE
+   360px - 500px
+========================================================= */
+@media (max-width: 500px) {
+  .cal-container {
+    padding: 0 15px;
+  }
+  .cal-show-calendaritems {
+    gap: 15px;
+  }
+  .cal-calenderitem {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .cal-calenderitem h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+  }
+  .cal-calenderitem p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .cal-calendaritem-image {
+    height: 160px;
+    margin: 12px 0;
+    border-radius: 8px;
+  }
+  .cal-calendaritem-category {
+    margin-top: 8px;
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .cal-calanderitem-options {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cal-calendaritem-type {
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .cal-edit-btn {
+    width: 100%;
+    padding: 9px;
+    font-size: 13px;
+  }
+  .calendaritem-pagination {
+    gap: 8px;
+  }
+  .calendaritem-pagination button {
+    padding: 8px 11px;
+    font-size: 13px;
+  }
+}
+/* =========================================================
+   EXTRA SMALL PHONE
+   359px and below
+========================================================= */
+@media (max-width: 359px) {
+  .cal-container {
+    padding: 0 10px;
+  }
+  .cal-show-calendaritems {
+    gap: 12px;
+  }
+  .cal-calenderitem {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  .cal-calenderitem h3 {
+    font-size: 16px;
+  }
+  .cal-calenderitem p {
+    font-size: 12px;
+  }
+  .cal-calendaritem-image {
+    height: 130px;
+  }
+  .cal-calendaritem-category {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+  .cal-calendaritem-type {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+  .cal-edit-btn {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .calendaritem-pagination button {
+    padding: 7px 9px;
+    font-size: 12px;
   }
 }
 /* =========================================================
@@ -2154,7 +2597,8 @@ footer {
    MONTH VIEW
 ========================================================= */
 .month-view {
-  width: 1000px;
+  width: 100%;
+  max-width: 1400px;
   min-height: 650px;
   display: flex;
   flex-direction: column;
@@ -2162,6 +2606,9 @@ footer {
   box-sizing: border-box;
 }
 
+/* =========================================================
+   WEEKDAY HEADER
+========================================================= */
 .month-weekdays {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -2176,6 +2623,9 @@ footer {
   font-weight: 600;
 }
 
+/* =========================================================
+   MONTH GRID
+========================================================= */
 .month-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -2185,6 +2635,9 @@ footer {
   border-top: 1px solid #ddd;
 }
 
+/* =========================================================
+   MONTH DAY
+========================================================= */
 .month-day {
   min-height: 125px;
   padding: 12px;
@@ -2198,12 +2651,18 @@ footer {
   background: #f8fafc;
 }
 
+/* =========================================================
+   DAY NUMBER
+========================================================= */
 .month-day-number {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
+/* =========================================================
+   OTHER MONTH DAYS
+========================================================= */
 .other-month {
   background: #f5f5f5;
 }
@@ -2211,6 +2670,9 @@ footer {
   color: #aaa;
 }
 
+/* =========================================================
+   TODAY
+========================================================= */
 .today .month-day-number {
   display: inline-flex;
   align-items: center;
@@ -2222,12 +2684,18 @@ footer {
   color: white;
 }
 
+/* =========================================================
+   DAY ITEMS
+========================================================= */
 .month-day-items {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
+/* =========================================================
+   CALENDAR ITEMS
+========================================================= */
 .month-calendar-item {
   display: flex;
   flex-direction: column;
@@ -2258,21 +2726,158 @@ footer {
   opacity: 0.8;
 }
 
+/* =========================================================
+   EVENT
+========================================================= */
 .month-calendar-item.event {
   background: #dbeafe;
   border-left-color: #3b82f6;
 }
 
+/* =========================================================
+   TASK
+========================================================= */
 .month-calendar-item.task {
   background: #dcfce7;
   border-left-color: #22c55e;
 }
 
+/* =========================================================
+   APPOINTMENT
+========================================================= */
 .month-calendar-item.appointment {
   background: #f3e8ff;
   border-left-color: #a855f7;
 }
 
+/* =========================================================
+   RESPONSIVE STYLING
+========================================================= */
+/* =========================================================
+   TABLET
+   601px - 1199px
+========================================================= */
+@media (max-width: 1199px) {
+  /* Month View */
+  .month-view {
+    width: 100%;
+    min-height: 600px;
+    padding: 12px;
+  }
+  /* Weekday Header */
+  .month-weekday {
+    padding: 12px 6px;
+    font-size: 14px;
+  }
+  /* Month Day */
+  .month-day {
+    min-height: 110px;
+    padding: 9px;
+  }
+  /* Day Number */
+  .month-day-number {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  /* Today */
+  .today .month-day-number {
+    width: 26px;
+    height: 26px;
+  }
+  /* Calendar Items */
+  .month-calendar-item {
+    padding: 5px 6px;
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+  .month-calendar-item strong {
+    font-size: 11px;
+  }
+  .month-calendar-item span {
+    font-size: 9px;
+  }
+}
+/* =========================================================
+   MOBILE
+   600px and below
+========================================================= */
+@media (max-width: 600px) {
+  /* Month View */
+  .month-view {
+    width: 100%;
+    min-height: auto;
+    padding: 5px;
+  }
+  /* Weekday Header */
+  .month-weekday {
+    padding: 8px 2px;
+    font-size: 11px;
+  }
+  /* Month Day */
+  .month-day {
+    min-height: 75px;
+    padding: 5px;
+  }
+  /* Day Number */
+  .month-day-number {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  /* Today */
+  .today .month-day-number {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+  /* Day Items */
+  .month-day-items {
+    gap: 2px;
+  }
+  /* Calendar Items */
+  .month-calendar-item {
+    padding: 3px 4px;
+    margin-bottom: 2px;
+    border-left-width: 2px;
+    border-radius: 4px;
+    font-size: 8px;
+    line-height: 1.2;
+  }
+  .month-calendar-item strong {
+    font-size: 9px;
+  }
+  .month-calendar-item span {
+    display: none;
+  }
+  .month-calendar-item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+/* =========================================================
+   LARGE DESKTOP
+   1200px+
+========================================================= */
+@media (min-width: 1200px) {
+  .month-view {
+    width: 100%;
+    min-height: 650px;
+    padding: 15px;
+  }
+  .month-day {
+    min-height: 125px;
+    padding: 12px;
+  }
+  .month-calendar-item {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+  .month-calendar-item strong {
+    font-size: 12px;
+  }
+  .month-calendar-item span {
+    font-size: 10px;
+  }
+}
 /* =========================================================
    MINI CALENDAR
 ========================================================= */
@@ -2374,12 +2979,18 @@ footer {
   background-color: #087ea4;
 }
 
+/* =========================================================
+   FOOTER
+========================================================= */
 .cal-footer {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
   gap: 40px;
+  padding: 50px 40px;
+  box-sizing: border-box;
 }
 .cal-footer .footer-left,
 .cal-footer .footer-center,
@@ -2387,18 +2998,37 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  box-sizing: border-box;
+}
+.cal-footer {
+  /* =======================================================
+     LEFT
+  ======================================================= */
 }
 .cal-footer .footer-left p {
+  margin: 0;
   font-size: 16px;
+  line-height: 1.5;
 }
 .cal-footer .footer-left a {
   font-size: 15px;
   margin-top: 10px;
   color: #e6f2ff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.cal-footer .footer-left a:hover {
+  opacity: 0.75;
+}
+.cal-footer {
+  /* =======================================================
+     CENTER
+  ======================================================= */
 }
 .cal-footer .footer-center {
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .cal-footer .footer-center b {
   font-size: 24px;
@@ -2408,6 +3038,16 @@ footer {
   font-size: 15px;
   margin-top: 10px;
   color: white;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.cal-footer .footer-center a:hover {
+  opacity: 0.75;
+}
+.cal-footer {
+  /* =======================================================
+     RIGHT
+  ======================================================= */
 }
 .cal-footer .footer-right {
   justify-content: flex-start;
@@ -2418,9 +3058,176 @@ footer {
   font-weight: 700;
 }
 .cal-footer .footer-right p {
+  margin: 0;
   font-size: 15px;
+  line-height: 1.5;
 }
 
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+@media (min-width: 1400px) {
+  .cal-footer {
+    gap: 60px;
+    padding: 60px 70px;
+  }
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    max-width: 400px;
+  }
+}
+/* =========================================================
+   DESKTOP / LAPTOP
+========================================================= */
+@media (max-width: 1199px) {
+  .cal-footer {
+    gap: 30px;
+    padding: 45px 30px;
+  }
+  .footer-left b,
+  .footer-center b,
+  .footer-right b {
+    font-size: 22px;
+  }
+  .footer-left p,
+  .footer-left a,
+  .footer-center p,
+  .footer-center a,
+  .footer-right p,
+  .footer-right a {
+    font-size: 14px;
+  }
+}
+/* =========================================================
+   TABLET
+========================================================= */
+@media (max-width: 1100px) {
+  .cal-footer {
+    justify-content: space-between;
+    gap: 25px;
+    padding: 40px 25px;
+  }
+}
+/* =========================================================
+   SMALL TABLET / LARGE PHONE
+========================================================= */
+@media (max-width: 768px) {
+  .cal-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+  }
+  .footer-left p {
+    font-size: 15px;
+  }
+  .footer-left a {
+    font-size: 14px;
+  }
+  .footer-center b {
+    font-size: 21px;
+  }
+  .footer-center a {
+    font-size: 14px;
+  }
+  .footer-right b {
+    font-size: 21px;
+  }
+  .footer-right p {
+    font-size: 14px;
+    max-width: 500px;
+  }
+}
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width: 600px) {
+  .cal-footer {
+    gap: 30px;
+    padding: 35px 15px;
+  }
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    gap: 10px;
+  }
+  .footer-center b,
+  .footer-right b {
+    font-size: 20px;
+  }
+  .footer-left p {
+    font-size: 14px;
+  }
+  .footer-left a,
+  .footer-center a,
+  .footer-right p {
+    font-size: 13px;
+  }
+}
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+@media (max-width: 500px) {
+  .cal-footer {
+    gap: 25px;
+    padding: 30px 12px;
+  }
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    width: 100%;
+    gap: 8px;
+  }
+  .footer-center b,
+  .footer-right b {
+    font-size: 18px;
+  }
+  .footer-left p {
+    font-size: 13px;
+  }
+  .footer-left a,
+  .footer-center a,
+  .footer-right p {
+    font-size: 12px;
+  }
+}
+/* =========================================================
+   EXTRA SMALL PHONES
+========================================================= */
+@media (max-width: 360px) {
+  .cal-footer {
+    gap: 20px;
+    padding: 25px 8px;
+  }
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    gap: 7px;
+  }
+  .footer-center b,
+  .footer-right b {
+    font-size: 17px;
+  }
+  .footer-left p {
+    font-size: 12px;
+  }
+  .footer-left a,
+  .footer-center a,
+  .footer-right p {
+    font-size: 11px;
+  }
+}
 /* =========================================================
    PAGE
 ========================================================= */
@@ -2431,9 +3238,14 @@ footer {
   padding: 0;
   background-color: #fae6c3;
   color: #17324d;
+  box-sizing: border-box;
 }
 
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
 .cal-main {
+  width: 100%;
   min-height: calc(100vh - 70px);
   box-sizing: border-box;
   padding: 100px 40px 60px;
@@ -2448,6 +3260,7 @@ footer {
 ========================================================= */
 .cal-section-header {
   width: 100%;
+  max-width: 1400px;
   margin: 30px 0 18px;
   padding: 16px 20px;
   background: rgba(255, 255, 255, 0.65);
@@ -2458,12 +3271,16 @@ footer {
   backdrop-filter: blur(10px);
 }
 
+/* =========================================================
+   SECTION TITLE
+========================================================= */
 .cal-section-title {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 .cal-section-title .material-symbols-outlined {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2503,9 +3320,12 @@ footer {
   grid-template-columns: minmax(0, 1fr) 300px;
   gap: 30px;
   align-items: start;
-  margin: 100px auto 0;
+  margin: 60px auto 0;
 }
 
+/* =========================================================
+   CALENDAR SCHEDULE
+========================================================= */
 .cal-schedule {
   width: 100%;
   min-width: 0;
@@ -2514,25 +3334,207 @@ footer {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 25px rgba(36, 86, 106, 0.1);
+  box-sizing: border-box;
 }
 
 /* =========================================================
-   RESPONSIVE
+   LARGE DESKTOP
+========================================================= */
+@media (min-width: 1400px) {
+  .cal-main {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .cal-calendar-layout {
+    gap: 35px;
+  }
+}
+/* =========================================================
+   DESKTOP / LAPTOP
+========================================================= */
+@media (max-width: 1199px) {
+  .cal-main {
+    padding: 95px 30px 50px;
+    gap: 25px;
+  }
+  .cal-section-header {
+    margin-top: 25px;
+  }
+  .cal-calendar-layout {
+    grid-template-columns: minmax(0, 1fr) 270px;
+    gap: 20px;
+    margin-top: 50px;
+  }
+}
+/* =========================================================
+   TABLET
 ========================================================= */
 @media (max-width: 1100px) {
+  .cal-main {
+    padding: 90px 25px 50px;
+  }
+  /*
+    Move the mini calendar underneath
+    the main calendar on smaller screens.
+  */
   .cal-calendar-layout {
     grid-template-columns: 1fr;
+    width: min(100%, 900px);
+    gap: 25px;
+    margin-top: 40px;
+  }
+  .cal-schedule {
+    width: 100%;
+  }
+  .cal-section-header {
+    width: 100%;
   }
 }
+/* =========================================================
+   SMALL TABLET / LARGE PHONE
+========================================================= */
 @media (max-width: 768px) {
   .cal-main {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    padding: 85px 18px 40px;
+    gap: 20px;
+  }
+  /* Section header */
+  .cal-section-header {
+    margin: 20px 0 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+  /* Section title */
+  .cal-section-title {
+    gap: 10px;
+  }
+  .cal-section-title .material-symbols-outlined {
+    width: 38px;
+    height: 38px;
+    font-size: 21px;
+  }
+  .cal-section-title h1 {
+    font-size: 24px;
+  }
+  .cal-section-title h2 {
+    font-size: 20px;
+  }
+  .cal-section-title p {
+    font-size: 13px;
+  }
+  /* Calendar */
+  .cal-calendar-layout {
+    width: 100%;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .cal-schedule {
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(36, 86, 106, 0.08);
   }
 }
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width: 600px) {
+  .cal-main {
+    padding: 80px 14px 35px;
+    gap: 18px;
+  }
+  .cal-section-header {
+    padding: 13px 14px;
+    margin: 15px 0 10px;
+  }
+  .cal-section-title .material-symbols-outlined {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+  .cal-section-title h1 {
+    font-size: 22px;
+  }
+  .cal-section-title h2 {
+    font-size: 18px;
+  }
+  .cal-section-title p {
+    font-size: 12px;
+  }
+  .cal-calendar-layout {
+    gap: 18px;
+    margin-top: 25px;
+  }
+  .cal-schedule {
+    border-radius: 12px;
+  }
+}
+/* =========================================================
+   SMALL PHONES
+========================================================= */
 @media (max-width: 500px) {
   .cal-main {
     padding: 75px 10px 30px;
+  }
+  .cal-section-header {
+    padding: 12px;
+    border-radius: 10px;
+  }
+  .cal-section-title {
+    gap: 8px;
+  }
+  .cal-section-title .material-symbols-outlined {
+    width: 34px;
+    height: 34px;
+    font-size: 19px;
+  }
+  .cal-section-title h1 {
+    font-size: 20px;
+  }
+  .cal-section-title h2 {
+    font-size: 17px;
+  }
+  .cal-section-title p {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .cal-calendar-layout {
+    margin-top: 20px;
+    gap: 15px;
+  }
+  .cal-schedule {
+    border-radius: 10px;
+  }
+}
+/* =========================================================
+   EXTRA SMALL PHONES
+========================================================= */
+@media (max-width: 360px) {
+  .cal-main {
+    padding: 72px 8px 25px;
+    gap: 15px;
+  }
+  .cal-section-header {
+    padding: 10px;
+  }
+  .cal-section-title .material-symbols-outlined {
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+  .cal-section-title h1 {
+    font-size: 18px;
+  }
+  .cal-section-title h2 {
+    font-size: 16px;
+  }
+  .cal-section-title p {
+    font-size: 11px;
+  }
+  .cal-calendar-layout {
+    gap: 12px;
+    margin-top: 15px;
+  }
+  .cal-schedule {
+    border-radius: 8px;
   }
 }/*# sourceMappingURL=Calendarstyle.css.map */

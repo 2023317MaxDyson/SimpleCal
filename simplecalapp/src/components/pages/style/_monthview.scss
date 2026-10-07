@@ -5,16 +5,20 @@
 ========================================================= */
 
 .month-view {
-  width: 1000px;
+  width: 100%;
+  max-width: 1400px;
   min-height: 650px;
 
   display: flex;
   flex-direction: column;
 
   padding: 15px;
-
   box-sizing: border-box;
 }
+
+/* =========================================================
+   WEEKDAY HEADER
+========================================================= */
 
 .month-weekdays {
   display: grid;
@@ -34,6 +38,10 @@
   font-weight: 600;
 }
 
+/* =========================================================
+   MONTH GRID
+========================================================= */
+
 .month-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -44,6 +52,10 @@
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
+
+/* =========================================================
+   MONTH DAY
+========================================================= */
 
 .month-day {
   min-height: 125px;
@@ -64,12 +76,20 @@
   }
 }
 
+/* =========================================================
+   DAY NUMBER
+========================================================= */
+
 .month-day-number {
   font-size: 14px;
   font-weight: 600;
 
   margin-bottom: 8px;
 }
+
+/* =========================================================
+   OTHER MONTH DAYS
+========================================================= */
 
 .other-month {
   background: #f5f5f5;
@@ -78,6 +98,10 @@
     color: #aaa;
   }
 }
+
+/* =========================================================
+   TODAY
+========================================================= */
 
 .today {
   .month-day-number {
@@ -96,12 +120,20 @@
   }
 }
 
+/* =========================================================
+   DAY ITEMS
+========================================================= */
+
 .month-day-items {
   display: flex;
   flex-direction: column;
 
   gap: 4px;
 }
+
+/* =========================================================
+   CALENDAR ITEMS
+========================================================= */
 
 .month-calendar-item {
   display: flex;
@@ -149,17 +181,199 @@
   }
 }
 
+/* =========================================================
+   EVENT
+========================================================= */
+
 .month-calendar-item.event {
   background: #dbeafe;
   border-left-color: #3b82f6;
 }
+
+/* =========================================================
+   TASK
+========================================================= */
 
 .month-calendar-item.task {
   background: #dcfce7;
   border-left-color: #22c55e;
 }
 
+/* =========================================================
+   APPOINTMENT
+========================================================= */
+
 .month-calendar-item.appointment {
   background: #f3e8ff;
   border-left-color: #a855f7;
+}
+
+
+/* =========================================================
+   RESPONSIVE STYLING
+========================================================= */
+
+
+/* =========================================================
+   TABLET
+   601px - 1199px
+========================================================= */
+
+@media (max-width: 1199px) {
+
+  /* Month View */
+  .month-view {
+    width: 100%;
+    min-height: 600px;
+    padding: 12px;
+  }
+
+  /* Weekday Header */
+  .month-weekday {
+    padding: 12px 6px;
+    font-size: 14px;
+  }
+
+  /* Month Day */
+  .month-day {
+    min-height: 110px;
+    padding: 9px;
+  }
+
+  /* Day Number */
+  .month-day-number {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* Today */
+  .today {
+    .month-day-number {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  /* Calendar Items */
+  .month-calendar-item {
+    padding: 5px 6px;
+    margin-bottom: 4px;
+
+    font-size: 10px;
+
+    strong {
+      font-size: 11px;
+    }
+
+    span {
+      font-size: 9px;
+    }
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   600px and below
+========================================================= */
+
+@media (max-width: 600px) {
+
+  /* Month View */
+  .month-view {
+    width: 100%;
+    min-height: auto;
+    padding: 5px;
+  }
+
+  /* Weekday Header */
+  .month-weekday {
+    padding: 8px 2px;
+    font-size: 11px;
+  }
+
+  /* Month Day */
+  .month-day {
+    min-height: 75px;
+    padding: 5px;
+  }
+
+  /* Day Number */
+  .month-day-number {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  /* Today */
+  .today {
+    .month-day-number {
+      width: 22px;
+      height: 22px;
+
+      font-size: 10px;
+    }
+  }
+
+  /* Day Items */
+  .month-day-items {
+    gap: 2px;
+  }
+
+  /* Calendar Items */
+  .month-calendar-item {
+    padding: 3px 4px;
+    margin-bottom: 2px;
+
+    border-left-width: 2px;
+    border-radius: 4px;
+
+    font-size: 8px;
+    line-height: 1.2;
+
+    strong {
+      font-size: 9px;
+    }
+
+    span {
+      display: none;
+    }
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   1200px+
+========================================================= */
+
+@media (min-width: 1200px) {
+
+  .month-view {
+    width: 100%;
+    min-height: 650px;
+    padding: 15px;
+  }
+
+  .month-day {
+    min-height: 125px;
+    padding: 12px;
+  }
+
+  .month-calendar-item {
+    padding: 6px 8px;
+    font-size: 11px;
+
+    strong {
+      font-size: 12px;
+    }
+
+    span {
+      font-size: 10px;
+    }
+  }
 }

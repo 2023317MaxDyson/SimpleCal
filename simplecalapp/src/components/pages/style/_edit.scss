@@ -1,3 +1,4 @@
+
 @use 'config';
 
 
@@ -21,11 +22,9 @@
 }
 
 
-
 // ========================================
-// EDIT PAGE HEADER 
+// EDIT PAGE HEADER
 // ========================================
-
 
 .edit-page-header {
   width: 100%;
@@ -102,7 +101,6 @@
 
   margin-bottom: 25px;
 
-
   #title-label,
   #date-label {
     margin: 0;
@@ -112,7 +110,6 @@
     font-size: 14px;
     font-weight: 600;
   }
-
 
   #title,
   #date {
@@ -138,7 +135,6 @@
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
-
 
     &:focus {
       outline: none;
@@ -167,7 +163,6 @@
 
   margin: 0;
 
-
   label {
     margin-top: 12px;
 
@@ -176,7 +171,6 @@
     font-size: 14px;
     font-weight: 600;
   }
-
 
   input[type="text"],
   input[type="time"],
@@ -205,7 +199,6 @@
       border-color 0.2s ease,
       box-shadow 0.2s ease;
 
-
     &:focus {
       outline: none;
 
@@ -216,13 +209,11 @@
     }
   }
 
-
   textarea {
     min-height: 120px;
 
     resize: vertical;
   }
-
 
   button {
     width: 100%;
@@ -250,14 +241,12 @@
       box-shadow 0.2s ease,
       background-color 0.2s ease;
 
-
     &:hover {
       transform: translateY(-2px);
 
       box-shadow:
         0 5px 12px rgba(36, 86, 106, 0.15);
     }
-
 
     &:active {
       transform: translateY(0);
@@ -276,7 +265,6 @@
 
     color: white;
 
-
     &:hover {
       background: config.$bold-color;
     }
@@ -291,7 +279,6 @@
     background: #dc6b6b;
 
     color: white;
-
 
     &:hover {
       background: #c94f4f;
@@ -309,7 +296,6 @@
     color: config.$bold-color;
 
     border: 1px solid config.$border-color;
-
 
     &:hover {
       background: config.$secondary-color;
@@ -350,12 +336,222 @@
     color 0.2s ease,
     border-color 0.2s ease;
 
-
   &:hover {
     background: config.$secondary-color;
 
     border-color: config.$secondary-color;
 
     color: white;
+  }
+}
+
+
+
+// ========================================================
+// RESPONSIVE STYLING
+// ========================================================
+
+
+// ========================================
+// LARGE SCREENS
+// ========================================
+
+@media (min-width: 1200px) {
+
+  .edit-form {
+    max-width: 850px;
+  }
+
+  .edit-page-header,
+  .edit-deleteorupdate {
+    max-width: 850px;
+  }
+}
+
+
+// ========================================
+// TABLET
+// ========================================
+
+@media (max-width: 900px) {
+
+  .edit-main {
+    padding: 40px 25px 60px;
+  }
+
+
+  .edit-form {
+    padding: 35px 35px;
+  }
+
+
+  .edit-page-header {
+
+    h1 {
+      font-size: 28px;
+    }
+  }
+}
+
+
+// ========================================
+// MOBILE
+// ========================================
+
+@media (max-width: 600px) {
+
+  .edit-main {
+    min-height: calc(100vh - 70px);
+
+    margin-top: 70px;
+
+    padding: 30px 15px 50px;
+  }
+
+
+  // ======================================
+  // HEADER
+  // ======================================
+
+  .edit-page-header {
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 25px;
+    }
+
+    p {
+      font-size: 14px;
+
+      line-height: 1.5;
+    }
+  }
+
+
+  // ======================================
+  // UPDATE / DELETE
+  // ======================================
+
+  .edit-deleteorupdate {
+    justify-content: stretch;
+
+    margin-bottom: 15px;
+  }
+
+
+  // ======================================
+  // FORM
+  // ======================================
+
+  .edit-form {
+    padding: 25px 20px;
+
+    border-radius: 15px;
+
+    box-shadow:
+      0 6px 20px rgba(36, 86, 106, 0.08);
+  }
+
+
+  // ======================================
+  // TITLE + DATE
+  // ======================================
+
+  .edit-form-group1 {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+    margin-bottom: 20px;
+  }
+
+
+  // ======================================
+  // FORM BUTTONS
+  // ======================================
+
+  .edit-form-group2 {
+
+    button {
+      min-height: 46px;
+
+      padding: 11px 16px;
+
+      font-size: 14px;
+    }
+  }
+
+
+  // ======================================
+  // BACK TO CALENDAR
+  // ======================================
+
+  .edit-calendar-btn {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px 14px;
+
+    text-align: center;
+
+    font-size: 14px;
+  }
+}
+
+
+// ========================================
+// SMALL MOBILE
+// ========================================
+
+@media (max-width: 400px) {
+
+  .edit-main {
+    padding: 25px 10px 40px;
+  }
+
+
+  .edit-form {
+    padding: 22px 15px;
+
+    border-radius: 12px;
+  }
+
+
+  .edit-page-header {
+
+    h1 {
+      font-size: 23px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+
+  .edit-form-group2 {
+
+    label {
+      font-size: 13px;
+    }
+
+
+    input[type="text"],
+    input[type="time"],
+    select,
+    textarea {
+      font-size: 14px;
+    }
+
+
+    textarea {
+      min-height: 100px;
+    }
+  }
+
+
+  .edit-calendar-btn {
+    font-size: 13px;
   }
 }

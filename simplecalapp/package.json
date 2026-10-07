@@ -39,6 +39,9 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^15.13.1"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "cypress": "^15.13.1",
+    "typescript": "^7.0.2"
   }
 }

@@ -1,4 +1,4 @@
-import { formatTime } from "./calendarUtils.js";
+import { formatTime } from "./calendarUtils.ts";
 
 function DayView({ calendarItems }) {
 
