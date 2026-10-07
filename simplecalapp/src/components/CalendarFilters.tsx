@@ -1,9 +1,18 @@
+interface CalendarFiltersProps 
+{ categoryFilter: string; 
+  setCategoryFilter: React.Dispatch< React.SetStateAction<string>>; 
+  typeFilter: string; 
+  setTypeFilter: React.Dispatch< React.SetStateAction<string>>; 
+}
+
 function CalendarFilters({
   categoryFilter,
   setCategoryFilter,
   typeFilter,
   setTypeFilter,
-}) {
+}: CalendarFiltersProps) {
+
+
   return (
     <div className="cal-filter-category">
 

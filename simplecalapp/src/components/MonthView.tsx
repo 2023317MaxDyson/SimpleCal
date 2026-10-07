@@ -1,7 +1,7 @@
 import {
   getCalendarDays,
   formatTime,
-} from "./calendarUtils.ts";
+} from "./calendarUtils";
 
 function MonthView({
   month,

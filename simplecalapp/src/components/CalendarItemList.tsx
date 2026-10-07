@@ -1,25 +1,37 @@
-import { formatTime } from "./calendarUtils.js";
+import { formatTime } from "./calendarUtils";
+import type { NavigateFunction } from "react-router-dom";
+
+type CalendarItemType = "Event" | "Task" | "Appointment";
+
+interface CalendarItem {
+  _id: string;
+  title: string;
+  date: string;
+  time?: string;
+  notes?: string;
+  category?: string;
+  type: CalendarItemType;
+  image?: string;
+}
+
+interface CalendarItemListProps {
+  calendarItems: CalendarItem[];
+  navigate: NavigateFunction;
+}
 
 function CalendarItemList({
   calendarItems,
   navigate,
-}) {
+}: CalendarItemListProps) {
   return (
     <div className="cal-container">
-
       <div className="cal-show-calendaritems">
-
         {calendarItems.length > 0 ? (
-
           calendarItems.map((calendarItem) => (
-
             <div
               key={calendarItem._id}
               className={`cal-calenderitem ${
-                (
-                  calendarItem.type ||
-                  "other"
-                ).toLowerCase()
+                (calendarItem.type || "other").toLowerCase()
               }`}
               onClick={() =>
                 navigate("/edit", {
@@ -30,7 +42,6 @@ function CalendarItemList({
                 })
               }
             >
-
               <h3 className="cal-calendaritem-title">
                 {calendarItem.title}
               </h3>
@@ -58,7 +69,6 @@ function CalendarItemList({
               </p>
 
               <div className="cal-calanderitem-options">
-
                 <p className="cal-calendaritem-type">
                   {calendarItem.type}
                 </p>
@@ -66,7 +76,6 @@ function CalendarItemList({
                 <p className="cal-calendaritem-category">
                   {calendarItem.category}
                 </p>
-
               </div>
 
               <br />
@@ -74,7 +83,6 @@ function CalendarItemList({
               <button
                 className="cal-edit-btn"
                 onClick={(e) => {
-
                   e.stopPropagation();
 
                   navigate("/edit", {
@@ -83,27 +91,19 @@ function CalendarItemList({
                       type: calendarItem.type,
                     },
                   });
-
                 }}
               >
                 Edit
               </button>
-
             </div>
-
           ))
-
         ) : (
-
-          <p>
-            No calendar items found
-          </p>
-
+          <p>No calendar items found</p>
         )}
-
       </div>
     </div>
   );
 }
 
 export default CalendarItemList;
+

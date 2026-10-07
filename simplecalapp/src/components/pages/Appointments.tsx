@@ -1,32 +1,49 @@
+
 import { useState } from "react";
+import type { ChangeEvent, SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Calendarstyle.css";
-import Footer from "../Footer.js";
+import Footer from "../Footer";
+
+interface AppointmentFormData {
+  title: string;
+  date: string;
+  time: string;
+  notes: string;
+  category: string;
+}
 
 function Appointments() {
-
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AppointmentFormData>({
     title: "",
     date: "",
     time: "",
     notes: "",
-    category: ""
+    category: "",
   });
 
-  function handleChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  function handleChange(
+    e: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ): void {
+    const { name, value } = e.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(
+    e: SubmitEvent<HTMLFormElement>
+  ): Promise<void> {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-    
+
     try {
       const response = await fetch(
         "https://simplecal-nf6h.onrender.com/appointments",
@@ -34,9 +51,9 @@ function Appointments() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         }
       );
 
@@ -45,9 +62,11 @@ function Appointments() {
       }
 
       navigate("/calendar");
-
-    } catch (error) {
-      console.error("Error creating appointment:", error);
+    } catch (error: unknown) {
+      console.error(
+        "Error creating appointment:",
+        error
+      );
     }
   }
 
@@ -69,11 +88,10 @@ function Appointments() {
           className="appointments-calendar-btn"
           onClick={() => navigate("/calendar")}
         >
-         Back to the Calendar 
+          Back to the Calendar
         </button>
 
       </div>
-
 
       {/* Appointment PAGE */}
       <main className="appointment-main">
@@ -81,15 +99,14 @@ function Appointments() {
         <div className="appointment-page-header">
 
           <div>
-            <h1>Create a Apppointment</h1>
+            <h1>Create an Appointment</h1>
 
             <p>
-              Add a appointment to your SimpleCal schedule.
+              Add an appointment to your SimpleCal schedule.
             </p>
           </div>
 
         </div>
-
 
         {/* Appointment FORM */}
         <form
@@ -118,7 +135,6 @@ function Appointments() {
 
             </div>
 
-
             <div className="appointment-field">
 
               <label htmlFor="date">
@@ -137,7 +153,6 @@ function Appointments() {
             </div>
 
           </div>
-
 
           {/* TIME */}
           <div className="appointment-form-group2">
@@ -159,7 +174,6 @@ function Appointments() {
 
             </div>
 
-
             {/* NOTES */}
             <div className="appointment-field">
 
@@ -177,7 +191,6 @@ function Appointments() {
               />
 
             </div>
-
 
             {/* CATEGORY */}
             <div className="appointment-field">
@@ -218,7 +231,6 @@ function Appointments() {
 
             </div>
 
-
             {/* BUTTON */}
             <button
               type="submit"
@@ -232,8 +244,8 @@ function Appointments() {
         </form>
 
       </main>
-      
-     <Footer/>
+
+      <Footer />
 
     </div>
   );

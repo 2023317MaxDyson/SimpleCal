@@ -1,8 +1,24 @@
-import { formatTime } from "./calendarUtils.ts";
+import { formatTime } from "./calendarUtils";
 
-function DayView({ calendarItems }) {
+type CalendarItemType = "Event" | "Task" | "Appointment";
 
-  const calendarHours = Array.from(
+interface CalendarItem {
+  _id: string;
+  title: string;
+  date: string;
+  time?: string;
+  notes?: string;
+  category?: string;
+  type: CalendarItemType;
+  image?: string;
+}
+
+interface DayViewProps {
+  calendarItems: CalendarItem[];
+}
+
+function DayView({ calendarItems }: DayViewProps) {
+  const calendarHours: number[] = Array.from(
     { length: 24 },
     (_, index) => index
   );
@@ -14,12 +30,9 @@ function DayView({ calendarItems }) {
       <div className="cal-time-column">
 
         {calendarHours.map((hour) => {
+          const displayHour = hour % 12 || 12;
 
-          const displayHour =
-            hour % 12 || 12;
-
-          const period =
-            hour >= 12 ? "PM" : "AM";
+          const period = hour >= 12 ? "PM" : "AM";
 
           return (
             <div key={hour}>
@@ -34,8 +47,7 @@ function DayView({ calendarItems }) {
       <div className="cal-schedule-column">
 
         {calendarHours.map((hour) => {
-
-          const itemsForThisHour =
+          const itemsForThisHour: CalendarItem[] =
             calendarItems.filter((item) => {
 
               if (!item.time) {
@@ -56,44 +68,34 @@ function DayView({ calendarItems }) {
               key={hour}
             >
 
-              {itemsForThisHour.map(
-                (calendarItem) => (
-                  <div
-                    key={calendarItem._id}
-                    className={`cal-calendar-calendaritem ${
-                      (
-                        calendarItem.category ||
-                        "other"
-                      ).toLowerCase()
-                    } ${
-                      (
-                        calendarItem.type ||
-                        "other"
-                      ).toLowerCase()
-                    }`}
-                  >
+              {itemsForThisHour.map((calendarItem) => (
+                <div
+                  key={calendarItem._id}
+                  className={`cal-calendar-calendaritem ${
+                    (calendarItem.category || "other").toLowerCase()
+                  } ${
+                    (calendarItem.type || "other").toLowerCase()
+                  }`}
+                >
 
-                    <strong>
-                      {calendarItem.title}
-                    </strong>
+                  <strong>
+                    {calendarItem.title}
+                  </strong>
 
-                    <span>
-                      {formatTime(
-                        calendarItem.time
-                      )}
-                    </span>
+                  <span>
+                    {formatTime(calendarItem.time)}
+                  </span>
 
-                    <span>
-                      {calendarItem.type}
-                    </span>
+                  <span>
+                    {calendarItem.type}
+                  </span>
 
-                    <span className="cal-calendaritem-category-small">
-                      {calendarItem.category}
-                    </span>
+                  <span className="cal-calendaritem-category-small">
+                    {calendarItem.category}
+                  </span>
 
-                  </div>
-                )
-              )}
+                </div>
+              ))}
 
             </div>
           );
@@ -105,3 +107,4 @@ function DayView({ calendarItems }) {
 }
 
 export default DayView;
+

@@ -1,19 +1,45 @@
+
 import "./style/Calendarstyle.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Footer from "../Footer.js";
-import CalendarHeader from "../CalendarHeader.js";
-import MonthView from "../MonthView.js";
-import DayView from "../DayView.js";
-import MiniCalendar from "../MiniCalendar.js";
-import CalendarFilters from "../CalendarFilters.js";
-import CalendarItemList from "../CalendarItemList.js";
+import Footer from "../Footer";
+import CalendarHeader from "../CalendarHeader";
+import MonthView from "../MonthView";
+import DayView from "../DayView";
+import MiniCalendar from "../MiniCalendar";
+import CalendarFilters from "../CalendarFilters";
+import CalendarItemList from "../CalendarItemList";
 
 import {
   getCalendarItemsForDay,
   getCalendarDaysWithItems,
-} from "../calendarUtils.js";
+} from "../calendarUtils";
+
+// ----------------------------------
+// Types
+// ----------------------------------
+
+type CalendarItemType = "Event" | "Task" | "Appointment";
+
+interface CalendarItem {
+  _id: string;
+  title: string;
+  date: string;
+  time?: string;
+  notes?: string;
+  category?: string;
+  type: CalendarItemType;
+  image?: string;
+}
+
+interface CalendarDay {
+  date: string;
+}
+
+// ----------------------------------
+// Calendar component
+// ----------------------------------
 
 function Calendar() {
   const navigate = useNavigate();
@@ -24,41 +50,58 @@ function Calendar() {
   // Calendar state
   // -------------------------
 
-  const [month, setMonth] = useState(todayDate.getMonth());
-  const [year, setYear] = useState(todayDate.getFullYear());
+  const [month, setMonth] = useState<number>(
+    todayDate.getMonth()
+  );
 
-  const [selectedDay, setSelectedDay] = useState(todayDate.getDate());
-  const [selectedDate, setSelectedDate] = useState(todayDate);
+  const [year, setYear] = useState<number>(
+    todayDate.getFullYear()
+  );
 
-  const [view, setView] = useState("month");
+  const [selectedDay, setSelectedDay] = useState<number>(
+    todayDate.getDate()
+  );
+
+  const [selectedDate, setSelectedDate] = useState<Date>(
+    todayDate
+  );
+
+  const [view, setView] = useState<"month" | "day">("month");
 
   // -------------------------
   // Calendar items
   // -------------------------
 
-  const [calendarItems, setCalendarItems] = useState([]);
+  const [calendarItems, setCalendarItems] = useState<
+    CalendarItem[]
+  >([]);
 
   // -------------------------
   // Search / filters
   // -------------------------
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const [categoryFilter, setCategoryFilter] =
+    useState<string>("");
+
+  const [typeFilter, setTypeFilter] =
+    useState<string>("");
 
   // -------------------------
   // Pagination
   // -------------------------
 
-  const [calendarItemPage, setCalendarItemPage] = useState(0);
+  const [calendarItemPage, setCalendarItemPage] =
+    useState<number>(0);
 
-  const calendarItemsPerPage = 6;
+  const calendarItemsPerPage: number = 6;
 
   // -------------------------
   // Fetch calendar items
   // -------------------------
 
-  async function fetchCalendarItems() {
+  async function fetchCalendarItems(): Promise<void> {
     const token = localStorage.getItem("token");
 
     try {
@@ -67,52 +110,81 @@ function Calendar() {
         tasksResponse,
         appointmentsResponse,
       ] = await Promise.all([
-        fetch("https://simplecal-nf6h.onrender.com/events", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+        fetch(
+          "https://simplecal-nf6h.onrender.com/events",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ),
 
-        fetch("https://simplecal-nf6h.onrender.com/tasks", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+        fetch(
+          "https://simplecal-nf6h.onrender.com/tasks",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ),
 
-        fetch("https://simplecal-nf6h.onrender.com/appointments", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+        fetch(
+          "https://simplecal-nf6h.onrender.com/appointments",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ),
       ]);
 
-      const eventsData = await eventsResponse.json();
-      const tasksData = await tasksResponse.json();
-      const appointmentsData = await appointmentsResponse.json();
+      const eventsData: unknown =
+        await eventsResponse.json();
 
-      const allItems = [
-        ...(Array.isArray(eventsData) ? eventsData : []).map((item) => ({
-          ...item,
-          type: "Event",
-        })),
+      const tasksData: unknown =
+        await tasksResponse.json();
 
-        ...(Array.isArray(tasksData) ? tasksData : []).map((item) => ({
-          ...item,
-          type: "Task",
-        })),
+      const appointmentsData: unknown =
+        await appointmentsResponse.json();
+
+      const allItems: CalendarItem[] = [
+        ...(Array.isArray(eventsData)
+          ? eventsData
+          : []
+        ).map(
+          (item): CalendarItem => ({
+            ...item,
+            type: "Event",
+          })
+        ),
+
+        ...(Array.isArray(tasksData)
+          ? tasksData
+          : []
+        ).map(
+          (item): CalendarItem => ({
+            ...item,
+            type: "Task",
+          })
+        ),
 
         ...(Array.isArray(appointmentsData)
           ? appointmentsData
           : []
-        ).map((item) => ({
-          ...item,
-          type: "Appointment",
-        })),
+        ).map(
+          (item): CalendarItem => ({
+            ...item,
+            type: "Appointment",
+          })
+        ),
       ];
 
       setCalendarItems(allItems);
-    } catch (error) {
-      console.error("Error fetching calendar items:", error);
+    } catch (error: unknown) {
+      console.error(
+        "Error fetching calendar items:",
+        error
+      );
     }
   }
 
@@ -124,7 +196,7 @@ function Calendar() {
   // Month navigation
   // -------------------------
 
-  function handlePrevMonth() {
+  function handlePrevMonth(): void {
     if (month === 0) {
       setMonth(11);
       setYear(year - 1);
@@ -133,7 +205,7 @@ function Calendar() {
     }
   }
 
-  function handleNextMonth() {
+  function handleNextMonth(): void {
     if (month === 11) {
       setMonth(0);
       setYear(year + 1);
@@ -146,13 +218,17 @@ function Calendar() {
   // Day navigation
   // -------------------------
 
-  function handlePrevDay() {
+  function handlePrevDay(): void {
     const newDate = new Date(selectedDate);
 
     if (view === "month") {
-      newDate.setMonth(newDate.getMonth() - 1);
+      newDate.setMonth(
+        newDate.getMonth() - 1
+      );
     } else {
-      newDate.setDate(newDate.getDate() - 1);
+      newDate.setDate(
+        newDate.getDate() - 1
+      );
     }
 
     setSelectedDate(newDate);
@@ -161,13 +237,17 @@ function Calendar() {
     setYear(newDate.getFullYear());
   }
 
-  function handleNextDay() {
+  function handleNextDay(): void {
     const newDate = new Date(selectedDate);
 
     if (view === "month") {
-      newDate.setMonth(newDate.getMonth() + 1);
+      newDate.setMonth(
+        newDate.getMonth() + 1
+      );
     } else {
-      newDate.setDate(newDate.getDate() + 1);
+      newDate.setDate(
+        newDate.getDate() + 1
+      );
     }
 
     setSelectedDate(newDate);
@@ -180,7 +260,7 @@ function Calendar() {
   // Today button
   // -------------------------
 
-  function handleToday() {
+  function handleToday(): void {
     const today = new Date();
 
     setSelectedDate(today);
@@ -193,8 +273,12 @@ function Calendar() {
   // Select a day
   // -------------------------
 
-  function handleSelectDay(day) {
-    const newDate = new Date(`${day.date}T00:00:00`);
+  function handleSelectDay(
+    day: CalendarDay
+  ): void {
+    const newDate = new Date(
+      `${day.date}T00:00:00`
+    );
 
     setSelectedDate(newDate);
     setSelectedDay(newDate.getDate());
@@ -205,71 +289,97 @@ function Calendar() {
   }
 
   // -------------------------
-  // Search/filter
+  // Search / filter
   // -------------------------
 
-  const filteredCalendarItems = calendarItems.filter((item) => {
-    const q = searchQuery.toLowerCase();
+  const filteredCalendarItems: CalendarItem[] =
+    calendarItems.filter(
+      (item: CalendarItem): boolean => {
+        const q = searchQuery.toLowerCase();
 
-    const matchesSearch =
-      (item.title ?? "").toLowerCase().includes(q) ||
-      (item.notes ?? "").toLowerCase().includes(q) ||
-      (item.category ?? "").toLowerCase().includes(q);
+        const matchesSearch =
+          (item.title ?? "")
+            .toLowerCase()
+            .includes(q) ||
+          (item.notes ?? "")
+            .toLowerCase()
+            .includes(q) ||
+          (item.category ?? "")
+            .toLowerCase()
+            .includes(q);
 
-    const matchesCategory =
-      categoryFilter === "" ||
-      (item.category ?? "").trim() === categoryFilter;
+        const matchesCategory =
+          categoryFilter === "" ||
+          (item.category ?? "").trim() ===
+            categoryFilter;
 
-    const matchesType =
-      typeFilter === "" ||
-      (item.type ?? "").trim() === typeFilter;
+        const matchesType =
+          typeFilter === "" ||
+          (item.type ?? "").trim() ===
+            typeFilter;
 
-    return matchesSearch && matchesCategory && matchesType;
-  });
+        return (
+          matchesSearch &&
+          matchesCategory &&
+          matchesType
+        );
+      }
+    );
 
   // -------------------------
   // Pagination
   // -------------------------
 
-  const totalPages = Math.ceil(
-    filteredCalendarItems.length / calendarItemsPerPage
+  const totalPages: number = Math.ceil(
+    filteredCalendarItems.length /
+      calendarItemsPerPage
   );
 
-  const displayedCalendarItems = filteredCalendarItems.slice(
-    calendarItemPage * calendarItemsPerPage,
-    (calendarItemPage + 1) * calendarItemsPerPage
-  );
+  const displayedCalendarItems: CalendarItem[] =
+    filteredCalendarItems.slice(
+      calendarItemPage *
+        calendarItemsPerPage,
+
+      (calendarItemPage + 1) *
+        calendarItemsPerPage
+    );
 
   useEffect(() => {
     setCalendarItemPage(0);
-  }, [searchQuery, categoryFilter, typeFilter]);
+  }, [
+    searchQuery,
+    categoryFilter,
+    typeFilter,
+  ]);
 
   // -------------------------
   // Items for selected day
   // -------------------------
 
-  const selectedDayItems = getCalendarItemsForDay(
-    calendarItems,
-    selectedDay,
-    month,
-    year
-  );
+  const selectedDayItems: CalendarItem[] =
+    getCalendarItemsForDay(
+      calendarItems,
+      selectedDay,
+      month,
+      year
+    );
 
   // -------------------------
   // Days that contain items
   // -------------------------
 
-  const calendarDaysWithItems = getCalendarDaysWithItems(
-    calendarItems,
-    month,
-    year
-  );
+  const calendarDaysWithItems =
+    getCalendarDaysWithItems(
+      calendarItems,
+      month,
+      year
+    );
 
   // -------------------------
   // Sign out
   // -------------------------
 
-  function handleSignOut() {
+  function handleSignOut(): void {
     localStorage.removeItem("token");
     navigate("/");
   }
@@ -284,9 +394,15 @@ function Calendar() {
       <CalendarHeader
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        onCreateEvent={() => navigate("/event")}
-        onCreateTask={() => navigate("/task")}
-        onCreateAppointment={() => navigate("/appointment")}
+        onCreateEvent={() =>
+          navigate("/event")
+        }
+        onCreateTask={() =>
+          navigate("/task")
+        }
+        onCreateAppointment={() =>
+          navigate("/appointment")
+        }
         onSignOut={handleSignOut}
       />
 
@@ -295,17 +411,20 @@ function Calendar() {
         {/* Page heading */}
         <div className="cal-section-header">
           <div className="cal-section-title">
+
             <span className="material-symbols-outlined">
               calendar_month
             </span>
 
             <div>
               <h1>Calendar</h1>
+
               <p>
-                View your schedule and upcoming events, tasks,
-                and appointments
+                View your schedule and upcoming
+                events, tasks, and appointments
               </p>
             </div>
+
           </div>
         </div>
 
@@ -317,6 +436,7 @@ function Calendar() {
             <div className="cal-calendar-header">
 
               <div className="cal-date-navigation">
+
                 <button
                   className="cal-nav-button"
                   onClick={handlePrevDay}
@@ -329,11 +449,14 @@ function Calendar() {
                     year,
                     month,
                     selectedDay
-                  ).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
+                  ).toLocaleDateString(
+                    "en-US",
+                    {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    }
+                  )}
                 </h2>
 
                 <button
@@ -342,6 +465,7 @@ function Calendar() {
                 >
                   &gt;
                 </button>
+
               </div>
 
               <div className="cal-view-buttons">
@@ -355,18 +479,26 @@ function Calendar() {
 
                 <button
                   className={`cal-view-button ${
-                    view === "month" ? "active" : ""
+                    view === "month"
+                      ? "active"
+                      : ""
                   }`}
-                  onClick={() => setView("month")}
+                  onClick={() =>
+                    setView("month")
+                  }
                 >
                   Month
                 </button>
 
                 <button
                   className={`cal-view-button ${
-                    view === "day" ? "active" : ""
+                    view === "day"
+                      ? "active"
+                      : ""
                   }`}
-                  onClick={() => setView("day")}
+                  onClick={() =>
+                    setView("day")
+                  }
                 >
                   Day
                 </button>
@@ -380,14 +512,20 @@ function Calendar() {
                 <MonthView
                   month={month}
                   year={year}
-                  calendarItems={displayedCalendarItems}
-                  onSelectDay={handleSelectDay}
+                  calendarItems={
+                    displayedCalendarItems
+                  }
+                  onSelectDay={
+                    handleSelectDay
+                  }
                 />
               )}
 
               {view === "day" && (
                 <DayView
-                  calendarItems={selectedDayItems}
+                  calendarItems={
+                    selectedDayItems
+                  }
                 />
               )}
 
@@ -399,16 +537,25 @@ function Calendar() {
             month={month}
             year={year}
             selectedDay={selectedDay}
-            calendarDaysWithItems={calendarDaysWithItems}
-            onPrevMonth={handlePrevMonth}
-            onNextMonth={handleNextMonth}
-            onSelectDay={(day) => setSelectedDay(day)}
+            calendarDaysWithItems={
+              calendarDaysWithItems
+            }
+            onPrevMonth={
+              handlePrevMonth
+            }
+            onNextMonth={
+              handleNextMonth
+            }
+            onSelectDay={(day: number) =>
+              setSelectedDay(day)
+            }
           />
 
         </div>
 
         {/* Items section */}
         <div className="cal-section-header">
+
           <div className="cal-section-title">
 
             <span className="material-symbols-outlined">
@@ -416,12 +563,16 @@ function Calendar() {
             </span>
 
             <div>
-              <h2>Events, Tasks and Appointments</h2>
+
+              <h2>
+                Events, Tasks and Appointments
+              </h2>
 
               <p>
-                View, filter, search, edit and manage your
-                scheduled items
+                View, filter, search, edit and
+                manage your scheduled items
               </p>
+
             </div>
 
           </div>
@@ -429,15 +580,23 @@ function Calendar() {
 
         {/* Filters */}
         <CalendarFilters
-          categoryFilter={categoryFilter}
-          setCategoryFilter={setCategoryFilter}
+          categoryFilter={
+            categoryFilter
+          }
+          setCategoryFilter={
+            setCategoryFilter
+          }
           typeFilter={typeFilter}
-          setTypeFilter={setTypeFilter}
+          setTypeFilter={
+            setTypeFilter
+          }
         />
 
         {/* Item cards */}
         <CalendarItemList
-          calendarItems={displayedCalendarItems}
+          calendarItems={
+            displayedCalendarItems
+          }
           navigate={navigate}
         />
 
@@ -446,23 +605,31 @@ function Calendar() {
 
           <button
             onClick={() =>
-              setCalendarItemPage(calendarItemPage - 1)
+              setCalendarItemPage(
+                calendarItemPage - 1
+              )
             }
-            disabled={calendarItemPage === 0}
+            disabled={
+              calendarItemPage === 0
+            }
           >
             Previous
           </button>
 
           <span>
-            Page {calendarItemPage + 1} of {totalPages || 1}
+            Page {calendarItemPage + 1} of{" "}
+            {totalPages || 1}
           </span>
 
           <button
             onClick={() =>
-              setCalendarItemPage(calendarItemPage + 1)
+              setCalendarItemPage(
+                calendarItemPage + 1
+              )
             }
             disabled={
-              calendarItemPage >= totalPages - 1
+              calendarItemPage >=
+              totalPages - 1
             }
           >
             Next
@@ -479,3 +646,4 @@ function Calendar() {
 }
 
 export default Calendar;
+

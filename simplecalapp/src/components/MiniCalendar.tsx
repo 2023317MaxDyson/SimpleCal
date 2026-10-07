@@ -1,4 +1,4 @@
-const months = [
+const months: string[] = [
   "Jan",
   "Feb",
   "Mar",
@@ -13,7 +13,7 @@ const months = [
   "Dec",
 ];
 
-const daysOfWeek = [
+const daysOfWeek: string[] = [
   "Sun",
   "Mon",
   "Tue",
@@ -23,6 +23,17 @@ const daysOfWeek = [
   "Sat",
 ];
 
+interface MiniCalendarProps { 
+    month: number; 
+    year: number; 
+    selectedDay: number; 
+    calendarDaysWithItems: number[]; 
+    onPrevMonth: () => void; 
+    onNextMonth: () => void; 
+    onSelectDay: (day: number) => void; 
+  }
+
+
 function MiniCalendar({
   month,
   year,
@@ -31,23 +42,23 @@ function MiniCalendar({
   onPrevMonth,
   onNextMonth,
   onSelectDay,
-}) {
+}: MiniCalendarProps) {
 
-  const today = new Date();
+  const today: Date = new Date();
 
-  const firstDay = new Date(
+  const firstDay: number= new Date(
     year,
     month,
     1
   ).getDay();
 
-  const daysInMonth = new Date(
+  const daysInMonth: number = new Date(
     year,
     month + 1,
     0
   ).getDate();
 
-  const days = [];
+  const days: (number | null)[] = [];
 
   // Empty spaces before first day
   for (
@@ -120,15 +131,13 @@ function MiniCalendar({
           return (
             <div
               key={index}
-              className={`cal-days ${
-                isToday
-                  ? "cal-today"
-                  : ""
-              } ${
-                isSelected
+              className={`cal-days ${isToday
+                ? "cal-today"
+                : ""
+                } ${isSelected
                   ? "selected"
                   : ""
-              }`}
+                }`}
               onClick={() => {
 
                 if (day !== null) {

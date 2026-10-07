@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Calendarstyle.css";
-import Footer from "../Footer.tsx";
+import Footer from "../Footer";
 
 function Events() {
 
