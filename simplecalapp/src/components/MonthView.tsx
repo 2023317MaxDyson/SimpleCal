@@ -1,15 +1,38 @@
+import { type MouseEvent } from "react";
 import {
   getCalendarDays,
   formatTime,
 } from "./calendarUtils";
+
+interface CalendarItem {
+  _id: string;
+  title: string;
+  date?: string;
+  time?: string;
+  type?: string;
+}
+
+interface CalendarDay {
+  date: string;
+  day: number;
+  isCurrentMonth: boolean;
+  isToday: boolean;
+}
+
+interface MonthViewProps {
+  month: number;
+  year: number;
+  calendarItems: CalendarItem[];
+  onSelectDay: (day: CalendarDay) => void;
+}
 
 function MonthView({
   month,
   year,
   calendarItems,
   onSelectDay,
-}) {
-  const days = getCalendarDays(year, month);
+}: MonthViewProps) {
+  const days: CalendarDay[] = getCalendarDays(year, month);
 
   return (
     <div className="month-view">
@@ -32,7 +55,6 @@ function MonthView({
             {day}
           </div>
         ))}
-
       </div>
 
       {/* Calendar grid */}
@@ -91,7 +113,7 @@ function MonthView({
                         "event"
                       ).toLowerCase()
                     }`}
-                    onClick={(e) =>
+                    onClick={(e: MouseEvent<HTMLDivElement>) =>
                       e.stopPropagation()
                     }
                   >
@@ -121,3 +143,4 @@ function MonthView({
 }
 
 export default MonthView;
+

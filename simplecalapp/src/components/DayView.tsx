@@ -1,17 +1,7 @@
-import { formatTime } from "./calendarUtils";
+import { formatTime,
+      type CalendarItem, 
+ } from "./calendarUtils";
 
-type CalendarItemType = "Event" | "Task" | "Appointment";
-
-interface CalendarItem {
-  _id: string;
-  title: string;
-  date: string;
-  time?: string;
-  notes?: string;
-  category?: string;
-  type: CalendarItemType;
-  image?: string;
-}
 
 interface DayViewProps {
   calendarItems: CalendarItem[];

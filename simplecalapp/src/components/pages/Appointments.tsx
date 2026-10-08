@@ -1,6 +1,5 @@
 
-import { useState } from "react";
-import type { ChangeEvent, SubmitEvent } from "react";
+import { useState, type ChangeEvent, type SubmitEvent}  from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Calendarstyle.css";
 import Footer from "../Footer";

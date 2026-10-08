@@ -1,30 +1,43 @@
-import { useState } from "react";
+import { useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Calendarstyle.css";
 import Footer from "../Footer";
 
-function Tasks() {
+interface TaskFormData {
+  title: string;
+  date: string;
+  time: string;
+  notes: string;
+  category: string;
+}
 
+function Tasks() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<TaskFormData>({
     title: "",
     date: "",
     time: "",
     notes: "",
-    category: ""
+    category: "",
   });
 
-  function handleChange(e) {
+  function handleChange(
+    e: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(
+    e: SubmitEvent<HTMLFormElement>
+  ) {
     e.preventDefault();
-    
+
     const token = localStorage.getItem("token");
 
     try {
@@ -34,9 +47,9 @@ function Tasks() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-             Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         }
       );
 
@@ -45,8 +58,7 @@ function Tasks() {
       }
 
       navigate("/calendar");
-
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error creating task:", error);
     }
   }
@@ -69,11 +81,10 @@ function Tasks() {
           className="tasks-calendar-btn"
           onClick={() => navigate("/calendar")}
         >
-        Back to the Calendar
+          Back to the Calendar
         </button>
 
       </div>
-
 
       {/* TASK PAGE */}
       <main className="task-main">
@@ -89,7 +100,6 @@ function Tasks() {
           </div>
 
         </div>
-
 
         {/* TASK FORM */}
         <form
@@ -118,7 +128,6 @@ function Tasks() {
 
             </div>
 
-
             <div className="task-field">
 
               <label htmlFor="date">
@@ -137,7 +146,6 @@ function Tasks() {
             </div>
 
           </div>
-
 
           {/* TIME */}
           <div className="task-form-group2">
@@ -159,7 +167,6 @@ function Tasks() {
 
             </div>
 
-
             {/* NOTES */}
             <div className="task-field">
 
@@ -178,7 +185,6 @@ function Tasks() {
 
             </div>
 
-
             {/* CATEGORY */}
             <div className="task-field">
 
@@ -193,7 +199,6 @@ function Tasks() {
                 onChange={handleChange}
                 required
               >
-
                 <option value="">
                   Select category
                 </option>
@@ -213,11 +218,9 @@ function Tasks() {
                 <option value="other">
                   Other
                 </option>
-
               </select>
 
             </div>
-
 
             {/* BUTTON */}
             <button
@@ -233,10 +236,9 @@ function Tasks() {
 
       </main>
 
-     <Footer/>
+      <Footer />
 
     </div>
-
   );
 }
 

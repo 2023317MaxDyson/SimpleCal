@@ -1,18 +1,9 @@
-import { formatTime } from "./calendarUtils";
+import { formatTime,
+   type CalendarItem
+
+ } from "./calendarUtils";
 import type { NavigateFunction } from "react-router-dom";
 
-type CalendarItemType = "Event" | "Task" | "Appointment";
-
-interface CalendarItem {
-  _id: string;
-  title: string;
-  date: string;
-  time?: string;
-  notes?: string;
-  category?: string;
-  type: CalendarItemType;
-  image?: string;
-}
 
 interface CalendarItemListProps {
   calendarItems: CalendarItem[];

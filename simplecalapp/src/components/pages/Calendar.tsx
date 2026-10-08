@@ -14,28 +14,20 @@ import CalendarItemList from "../CalendarItemList";
 import {
   getCalendarItemsForDay,
   getCalendarDaysWithItems,
+  type CalendarItem,
+  type CalendarDay,
 } from "../calendarUtils";
 
-// ----------------------------------
-// Types
-// ----------------------------------
 
-type CalendarItemType = "Event" | "Task" | "Appointment";
-
-interface CalendarItem {
+interface ApiCalendarItem {
   _id: string;
   title: string;
-  date: string;
+  date?: string;
   time?: string;
   notes?: string;
   category?: string;
-  type: CalendarItemType;
-  image?: string;
 }
 
-interface CalendarDay {
-  date: string;
-}
 
 // ----------------------------------
 // Calendar component
@@ -137,47 +129,40 @@ function Calendar() {
           }
         ),
       ]);
+      
+      
+const eventsData: unknown =
+  await eventsResponse.json();
 
-      const eventsData: unknown =
-        await eventsResponse.json();
+const tasksData: unknown =
+  await tasksResponse.json();
 
-      const tasksData: unknown =
-        await tasksResponse.json();
+const appointmentsData: unknown =
+  await appointmentsResponse.json();
 
-      const appointmentsData: unknown =
-        await appointmentsResponse.json();
 
       const allItems: CalendarItem[] = [
-        ...(Array.isArray(eventsData)
-          ? eventsData
-          : []
-        ).map(
-          (item): CalendarItem => ({
-            ...item,
-            type: "Event",
-          })
-        ),
+  ...(Array.isArray(eventsData) ? eventsData : []).map(
+    (item: ApiCalendarItem): CalendarItem => ({
+      ...item,
+      type: "Event",
+    })
+  ),
 
-        ...(Array.isArray(tasksData)
-          ? tasksData
-          : []
-        ).map(
-          (item): CalendarItem => ({
-            ...item,
-            type: "Task",
-          })
-        ),
+  ...(Array.isArray(tasksData) ? tasksData : []).map(
+    (item: ApiCalendarItem): CalendarItem => ({
+      ...item,
+      type: "Task",
+    })
+  ),
 
-        ...(Array.isArray(appointmentsData)
-          ? appointmentsData
-          : []
-        ).map(
-          (item): CalendarItem => ({
-            ...item,
-            type: "Appointment",
-          })
-        ),
-      ];
+  ...(Array.isArray(appointmentsData) ? appointmentsData:[]).map(
+    (item: ApiCalendarItem): CalendarItem => ({
+      ...item,
+      type: "Appointment",
+    })
+  ),
+];
 
       setCalendarItems(allItems);
     } catch (error: unknown) {

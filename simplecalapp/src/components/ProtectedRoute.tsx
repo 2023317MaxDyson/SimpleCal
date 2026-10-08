@@ -1,6 +1,7 @@
+import { PropsWithChildren } from "react";
 import { Navigate } from "react-router-dom";
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children }: PropsWithChildren) {
     const token = localStorage.getItem("token");
 
     if (!token) {

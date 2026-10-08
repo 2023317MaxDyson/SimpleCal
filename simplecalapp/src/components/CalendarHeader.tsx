@@ -1,3 +1,14 @@
+import { type ChangeEvent } from "react";
+
+interface CalendarHeaderProps {
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
+  onCreateEvent: () => void;
+  onCreateTask: () => void;
+  onCreateAppointment: () => void;
+  onSignOut: () => void;
+}
+
 function CalendarHeader({
   searchQuery,
   setSearchQuery,
@@ -5,7 +16,11 @@ function CalendarHeader({
   onCreateTask,
   onCreateAppointment,
   onSignOut,
-}) {
+}: CalendarHeaderProps) {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className="cal-header">
 
@@ -22,9 +37,7 @@ function CalendarHeader({
         type="search"
         placeholder="Search events, tasks or appointments..."
         value={searchQuery}
-        onChange={(e) =>
-          setSearchQuery(e.target.value)
-        }
+        onChange={handleSearchChange}
       />
 
       <button
@@ -60,3 +73,4 @@ function CalendarHeader({
 }
 
 export default CalendarHeader;
+

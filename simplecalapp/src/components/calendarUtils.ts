@@ -1,4 +1,27 @@
-export function formatDate(date) {
+export interface CalendarDay {
+  day: number;
+  date: string;
+  isCurrentMonth: boolean;
+  isToday: boolean;
+}
+
+export interface CalendarItem {
+  _id: string;
+  title: string;
+  date?: string;
+  time?: string;
+  notes?: string;
+  category?: string;
+  type?: "Event" | "Task" | "Appointment";
+  image?: string;
+}
+
+
+// -------------------------
+// Format date
+// -------------------------
+
+export function formatDate(date: Date): string {
   const y = date.getFullYear();
 
   const m = String(
@@ -17,7 +40,7 @@ export function formatDate(date) {
 // Check if date is today
 // -------------------------
 
-export function isToday(date) {
+export function isToday(date: Date): boolean {
   const today = new Date();
 
   return (
@@ -36,9 +59,9 @@ export function isToday(date) {
 // -------------------------
 
 export function getCalendarDays(
-  year,
-  month
-) {
+  year: number,
+  month: number
+): CalendarDay[] {
   const firstDay = new Date(
     year,
     month,
@@ -57,7 +80,7 @@ export function getCalendarDays(
   const startingDay =
     firstDay.getDay();
 
-  const days = [];
+  const days: CalendarDay[] = [];
 
   // Previous month
   const previousMonthLastDay =
@@ -135,11 +158,11 @@ export function getCalendarDays(
 // -------------------------
 
 export function getCalendarItemsForDay(
-  calendarItems,
-  day,
-  month,
-  year
-) {
+  calendarItems: CalendarItem[],
+  day: number,
+  month: number,
+  year: number
+): CalendarItem[] {
   return calendarItems.filter(
     (calendarItem) => {
 
@@ -173,10 +196,10 @@ export function getCalendarItemsForDay(
 // -------------------------
 
 export function getCalendarDaysWithItems(
-  calendarItems,
-  month,
-  year
-) {
+  calendarItems: CalendarItem[],
+  month: number,
+  year: number
+): number[] {
   return calendarItems
     .filter((item) => {
 
@@ -199,11 +222,14 @@ export function getCalendarDaysWithItems(
     })
     .map((item) => {
 
-      const [, , day] =
-        item.date
-          .split("T")[0]
-          .split("-")
-          .map(Number);
+      const [
+        ,
+        ,
+        day,
+      ] = item.date!
+        .split("T")[0]
+        .split("-")
+        .map(Number);
 
       return day;
     });
@@ -214,7 +240,9 @@ export function getCalendarDaysWithItems(
 // Format time
 // -------------------------
 
-export function formatTime(time) {
+export function formatTime(
+  time?: string
+): string {
   if (!time) {
     return "";
   }
@@ -232,3 +260,4 @@ export function formatTime(time) {
 
   return `${displayHour}:${minutes} ${period}`;
 }
+

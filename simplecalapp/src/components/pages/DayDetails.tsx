@@ -17,7 +17,7 @@ export default function DayDetails(){
         <button className="events-calendar-btn" onClick={() => navigate("/")}>Calendar</button>
       </div>
       <div className="cal-main">
-         <h2> Events for {new Date(date).toDateString()}</h2>
+         <h2> Events for {new Date(date as string).toDateString()}</h2>
          </div>
       <footer className="cal-footer">
         <p> SimpleCal copyright@ 2026 </p>
