@@ -39,7 +39,7 @@ function AISchedule() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/ai/schedule",
+        "https://simplecal-nf6h.onrender.com/api/ai/schedule",
         {
           method: "POST",
           headers: {
