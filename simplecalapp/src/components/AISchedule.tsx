@@ -5,6 +5,7 @@ interface AIResponse {
   message?: string;
 }
 
+
 function AISchedule() {
   // Store the user's prompt
   const [prompt, setPrompt] = useState<string>("");
@@ -25,7 +26,11 @@ function AISchedule() {
     setPrompt(e.target.value);
   };
 
+
+
   const handleGenerate = async (): Promise<void> => {
+
+   // This checks whether the input is empty or contains only whitespace.
     if (!prompt.trim()) return;
 
     setLoading(true);
