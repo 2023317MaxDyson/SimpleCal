@@ -1,4 +1,3 @@
-
 import "./style/Calendarstyle.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import DayView from "../DayView";
 import MiniCalendar from "../MiniCalendar";
 import CalendarFilters from "../CalendarFilters";
 import CalendarItemList from "../CalendarItemList";
+import AISchedule from "../AISchedule";
 
 import {
   getCalendarItemsForDay,
@@ -26,6 +26,7 @@ interface ApiCalendarItem {
   time?: string;
   notes?: string;
   category?: string;
+  image?: string;
 }
 
 
@@ -621,11 +622,9 @@ const appointmentsData: unknown =
           </button>
 
         </div>
-
       </div>
-
+      <AISchedule/>
       <Footer />
-
     </div>
   );
 }

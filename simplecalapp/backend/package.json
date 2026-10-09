@@ -12,6 +12,7 @@
   "author": "Max Dyson",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^2.28.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.1",

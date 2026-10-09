@@ -8,6 +8,7 @@ const eventRoutes = require("./routes/eventRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const authRoutes = require("./routes/authRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use("/events", eventRoutes);
 app.use("/appointments",appointmentRoutes);
 app.use("/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/ai", aiRoutes);
 
 
 // Use PORT from .env
